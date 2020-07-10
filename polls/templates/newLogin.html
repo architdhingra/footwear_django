@@ -1,0 +1,19 @@
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Login</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {% for message in messages %}
+            {{ message }}
+        {%  endfor %}
+        {{ form|crispy }}
+        <input type="submit">
+    </form>
+</body>
+</html>
