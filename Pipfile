@@ -10,6 +10,8 @@ django = "*"
 djongo = "*"
 mongoengine = "*"
 django-crispy-forms = "*"
+djangotoolbox = "*"
+importlib = "*"
 
 [requires]
 python_version = "3.8"

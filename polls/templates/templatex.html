@@ -1,13 +1,12 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
-    <title>Bootie Ecommerce Bootstrap Responsive Web Template | Home :: W3layouts</title>
+    <title>DreamWalk E-Commerce</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
-    <meta name="keywords" content="Bootie Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script>
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -20,7 +19,7 @@
     <!-- //Meta tag Keywords -->
 
     <!-- Custom-Files -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <!-- Bootstrap-Core-CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
     <!-- Style-CSS -->
@@ -44,27 +43,35 @@
                 <!-- nav -->
                 <nav class="py-4">
                     <div id="logo">
-                        <h1> <a href="{% url 'polls' %}"><span class="fa fa-bold" aria-hidden="true"></span>ootie</a></h1>
+                        <h1> <a href="{% url 'index' %}"><span class="fa fa-bold" aria-hidden="true"></span>ream<span class="fa fa-w" aria-hidden="true"></span>alk</a></h1>
                     </div>
 
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu mt-2">
-                        <li class="active"><a href="{% url 'polls' %}">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="blog.html">Blog</a></li>
+
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'signup' %}">Welcome {{ user.get_username }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                        {% endif %}
+
+
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'blog' %}">Blog</a></li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
                             <a href="#">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="shop.html">Shop Now</a></li>
-                                <li><a href="shopsingle.html">Single Page</a></li>
+                                <li><a href="{% url 'blog' %}">Blog</a></li>
+                                <li><a href="{% url 'shopsingle' %}">Shop Now</a></li>
+                                <li><a href="{% url 'shop' 'heels' %}">Single Page</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -76,41 +83,23 @@
             <p>Trending of the week</p>
             <h3 class="mb-4"> Casual {{ aa }} Shoes for Men</h3>
             <div class="ban-buttons">
-                <a href="shopsingle.html" class="btn">Shop Now</a>
-                <a href="single.html" class="btn active">Read More</a>
+                <a href="{% url 'shopsingle' %}" class="btn">Shop Now</a>
+                <a href="{% url 'single' %}" class="btn active">Read More</a>
             </div>
         </div>
         <!--// banner-inner -->
 
     </div>
-    <!--//main-content-->
-    <!--/ab -->
-    <section class="about py-md-5 py-5">
+{% block content %}
+{% endblock %}
 
-        <form action="{% url 'signup' %}" method="post">
-            {% csrf_token %}
-            <table align="center">
-                {{ aa }} : {{bb}}
-                <tr><td>Email: </td><td><input type="text" name="email"></td></tr><br>
-                <tr><td>Password: </td><td><input type="password" name="password"></td></tr><br>
-                <tr><td>Password2: </td><td><input type="password" name="password2"></td></tr><br>
-                <tr><td colspan="2" align="center"> <input type="submit"></td></tr>
-            </table>
-        </form>
-
-
-        {#    {% for message in messages %}#}
-{#    <p style="color:red;"><b> {{message}}</b> </p>#}
-{#    {% endfor %}#}
-    </section>
-    <!-- brands -->
-    <!-- footer -->
+<!-- footer -->
     <footer>
         <div class="container">
             <div class="row footer-top">
                 <div class="col-lg-4 footer-grid_section_w3layouts">
                     <h2 class="logo-2 mb-lg-4 mb-3">
-                        <a href="index.html"><span class="fa fa-bold" aria-hidden="true"></span>ootie</a>
+                        <a href="{% url 'index' %}"><span class="fa" aria-hidden="true"></span>DreamWalk</a>
                     </h2>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     <h4 class="sub-con-fo ad-info my-4">Catch on Social</h4>
@@ -156,10 +145,10 @@
                                     <a href="{% url 'signup' %}">Sign Up</a>
                                 </li>
                                 <li  class="mt-3">
-                                    <a href="index.html">Home</a>
+                                    <a href="{% url 'index' %}">Home</a>
                                 </li>
                                 <li class="mt-3">
-                                    <a href="about.html">About Us</a>
+                                    <a href="{% url 'about' %}">About Us</a>
                                 </li>
                                 <li class="mt-3">
                                     <a href="#">Gallery</a>
@@ -168,7 +157,7 @@
                                     <a href="#">Services</a>
                                 </li>
                                 <li class="mt-3">
-                                    <a href="contact.html">Contact Us</a>
+                                    <a href="{% url 'contact' %}">Contact Us</a>
                                 </li>
                             </ul>
                         </div>
@@ -185,7 +174,7 @@
                                         <a href="#">Delivery & Returns</a>
                                     </li>
                                     <li class="mt-3">
-                                        <a href="#">Waranty</a>
+                                        <a href="#">Warranty</a>
                                     </li>
                                     <li class="mt-3">
                                         <a href="#">Terms & Condition</a>
@@ -218,8 +207,7 @@
 
                     </div>
                     <div class="cpy-right text-left row">
-                        <p class="col-md-10">© 2019 Bootie. All rights reserved | Design by
-                            <a href="http://w3layouts.com"> W3layouts.</a>
+                        <p class="col-md-10">© 2020 DreamWalk. All rights reserved
                         </p>
                         <!-- move top icon -->
                         <a href="#home" class="move-top text-right col-md-2"><span class="fa fa-long-arrow-up" aria-hidden="true"></span></a>
@@ -229,7 +217,7 @@
             </div>
         </div>
     </footer>
-    <!-- //footer -->
+<!-- //footer -->
 
 </body>
 

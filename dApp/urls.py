@@ -17,13 +17,23 @@ from django.contrib import admin
 from django.urls import path
 from django.views import View
 import polls
-from polls.views import poll, index, signup, loginx, newLogin
+from polls.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', index, name="index"),
     path('signup/', signup, name="signup"),
+    path('about/', about, name="about"),
+    path(r'shop/<type>', shop, name="shop"),
+    path('shopsingle/<id>', shopsingle, name="shopsingle"),
+    path('shopsingle/', shopsingle1, name="shopsingle"),
+    path('single/', single, name="single"),
+    path('blog/', blog, name="blog"),
+    path('contact/', contact, name="contact"),
     path('login/', loginx, name="login"),
+    path('test/', test, name="test"),
+    path('checkout/', checkout, name="checkout"),
+    path('product/', product, name="product"),
     path('newlogin/', newLogin.as_view(), name="newLogin"),
     path('polls/', poll.as_view(), name="polls"),
 ]

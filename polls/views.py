@@ -11,12 +11,12 @@ from django.template import context
 from django.views import View
 
 from polls.forms import CreateUserForm
+from polls.models import NewLogin, Product
 
 
 def index(request):
-    today = datetime.now().date()
-    contexts = {"aa": 11, "bb": 22}
-    return render(request, "index.html", contexts)
+    ing = NewLogin.index(request)
+    return render(request, "index.html", ing)
 
 
 def signup(request):
@@ -73,3 +73,45 @@ class newLogin(View):
             form.save()
             return redirect('polls')
         return render(self.request, "newLogin.html", {'form': form})
+
+
+def about(request):
+    return render(request, "about.html", {})
+
+
+def shop(request, type):
+    prod = Product.getProducts(request, type)
+    return render(request, "shop.html", {'prod': prod})
+
+
+def shopsingle(request, id):
+    prod = Product.getSingle(request, id)
+    return render(request, "shopsingle.html", {'prod': prod})
+
+def shopsingle1(request):
+    return render(request, "shopsingle.html", {})
+
+def single(request):
+    return render(request, "single.html", {})
+
+
+def blog(request):
+    return render(request, "blog.html", {})
+
+
+def contact(request):
+    return render(request, "contact.html", {})
+
+
+def test(request):
+    prod = Product.getSingle(request, 2)
+    print(prod.pics)
+    return render(request, "test.html", {'prod': prod})
+
+
+def product(request):
+    return render(request, "product.html", {})
+
+
+def checkout(request):
+    return render(request, "checkout.html", {})

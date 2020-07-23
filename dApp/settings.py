@@ -76,15 +76,27 @@ WSGI_APPLICATION = 'dApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'admin',
-        'CLIENT': {
-            'host': '34.72.139.18',
-            'port': 27017,
-            'username': 'archit',
-            'password': 'archit123',
-            'authSource': 'admin',
-        }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'vqpuyraj',
+
+        'USER': 'vqpuyraj',
+
+        'PASSWORD': 'k8D1jQP2rtm9fF3aIXOsytmYHXx6BNJL',
+
+        'HOST': 'ruby.db.elephantsql.com',
+
+        'PORT': '5432',
+
+        # 'ENGINE': 'djongo',
+        # 'NAME': 'admin',
+        # 'CLIENT': {
+        #     'host': '34.72.139.18',
+        #     'port': 27017,
+        #     'username': 'archit',
+        #     'password': 'archit123',
+        #     'authSource': 'admin',
+
     },
 }
 

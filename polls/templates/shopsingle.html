@@ -38,10 +38,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
     <!-- //Fonts -->
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    </style>
 </head>
 
 <body>
-
+{#    {% for p in prod %}#}
+{#    {{ p.pics }}#}
     <!-- mian-content -->
     <div class="main-banner inner" id="home">
         <!-- header -->
@@ -67,7 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <ul>
                                 <li><a href="blog.html">Blog</a></li>
                                 <li><a href="shop.html">Shop Now</a></li>
-                                <li><a href="shop-single.html">Single Page</a></li>
+                                <li><a href="shopsingle.html">Single Page</a></li>
                             </ul>
                         </li>
                         <li><a href="contact.html">Contact</a></li>
@@ -223,7 +230,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="img-deal1 col-md-4">
                                 <h3>Shuberry Heels</h3>
-                                <a href="shop-single.html">$180.00</a>
+                                <a href="shopsingle.html">$180.00</a>
                             </div>
 
                         </div>
@@ -233,7 +240,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="img-deal1 col-md-8">
                                 <h3>Chikku Loafers</h3>
-                                <a href="shop-single.html">$99.00</a>
+                                <a href="shopsingle.html">$99.00</a>
                             </div>
 
                         </div>
@@ -243,7 +250,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="img-deal1 col-md-8">
                                 <h3>Bella Toes</h3>
-                                <a href="shop-single.html">$165.00</a>
+                                <a href="shopsingle.html">$165.00</a>
                             </div>
 
                         </div>
@@ -253,7 +260,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="img-deal1 col-md-8">
                                 <h3>Red Bellies</h3>
-                                <a href="shop-single.html">$225.00</a>
+                                <a href="shopsingle.html">$225.00</a>
                             </div>
 
                         </div>
@@ -263,7 +270,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="img-deal1 col-md-8">
                                 <h3>(SRV) Sneakers</h3>
-                                <a href="shop-single.html">$169.00</a>
+                                <a href="shopsingle.html">$169.00</a>
                             </div>
 
                         </div>
@@ -275,12 +282,53 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!-- product right -->
                 <div class="left-ads-display col-lg-8">
                     <div class="row">
-                        <div class="desc1-left col-md-6">
-                            <img src="../static/images/d1.jpg" class="img-fluid" alt="">
-                        </div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<!-- Indicators -->
+<ol class="carousel-indicators">
+    {% for p in prod.pics %}
+    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+    {% endfor %}
+{#    <li data-target="#myCarousel" data-slide-to="1"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="2"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="3"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="4"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="5"></li>#}
+</ol>
+
+<!-- Wrapper for slides -->
+<div class="carousel-inner" role="listbox">
+    {% for p in prod.pics %}
+    {% if forloop.counter == 1 %}
+    <div class="item active">
+    {% else %}
+    <div class="item">
+    {% endif %}
+{#        <div class="desc1-left col-md-6">#}
+                            <img src="{{ p }}" class="img-fluid" alt="">
+{#                        </div>#}
+
+  <div class="carousel-caption">
+    <h3>{{ prod.name }}</h3>
+  </div>
+    </div>
+    {% endfor %}
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+</div>
+
                         <div class="desc1-right col-md-6 pl-lg-4">
-                            <h3>Lorem ipsum dolor sit amet laoret.</h3>
-                            <h5>Rs. 499 <span>599</span> <a href="#">click for offer</a></h5>
+                            <h3>{{ prod.name }}</h3>
+                            <h5>Rs. {{ prod.price }} <span>{{ prod.origPrice }}</span></h5>
                             <div class="available mt-3">
                                 <form action="#" method="post" class="w3layouts-newsletter">
                                     <input type="email" name="Email" placeholder="Enter your email..." required="">
@@ -288,7 +336,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                                 </form>
                                 <span><a href="#">login to save in wishlist </a></span>
-                                <p>Lorem Ipsum has been the industry's standard since the 1500s. Praesent ullamcorper dui turpis.. </p>
+                                <p>DreamWalk has been the industry's standard since the 1500s... </p>
                             </div>
                             <div class="share-desc">
                                 <div class="share">
@@ -338,7 +386,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="item-info-product">
                                     <h4>
-                                        <a href="shop-single.html">Suitable Lace Up </a>
+                                        <a href="shopsingle.html">Suitable Lace Up </a>
                                     </h4>
 
                                     <div class="product_price">
@@ -364,7 +412,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="item-info-product">
                                     <h4>
-                                        <a href="shop-single.html">Black Flats</a>
+                                        <a href="shopsingle.html">Black Flats</a>
                                     </h4>
 
                                     <div class="product_price">
@@ -390,7 +438,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="item-info-product">
                                     <h4>
-                                        <a href="shop-single.html">Elevator Shoes </a>
+                                        <a href="shopsingle.html">Elevator Shoes </a>
                                     </h4>
 
                                     <div class="product_price">
@@ -537,6 +585,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </footer>
     <!-- //footer -->
+
+{#    {% endfor %}#}
 </body>
 
 </html>
