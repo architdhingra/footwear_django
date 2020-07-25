@@ -1090,6 +1090,16 @@ a.w3pvt_google {
     background: #F44336;
 }
 
+.fix-img{
+    position: relative;
+    min-width: 100%;
+    height: 100% !important;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    min-height: 100%;
+}
+
 /* //social-icons */
 
 /* contact address */

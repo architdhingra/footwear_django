@@ -82,44 +82,238 @@
 <style type="text/css">
 </style>
 </head>
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-<!-- Indicators -->
-<ol class="carousel-indicators">
-    {% for p in prod.pics %}
-    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-    {% endfor %}
+{#<div id="myCarousel" class="carousel slide" data-ride="carousel">#}
+{#<!-- Indicators -->#}
+{#<ol class="carousel-indicators">#}
+{#    {% for p in prod.pics %}#}
+{#    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>#}
+{#    {% endfor %}#}
 {#    <li data-target="#myCarousel" data-slide-to="1"></li>#}
 {#    <li data-target="#myCarousel" data-slide-to="2"></li>#}
 {#    <li data-target="#myCarousel" data-slide-to="3"></li>#}
 {#    <li data-target="#myCarousel" data-slide-to="4"></li>#}
 {#    <li data-target="#myCarousel" data-slide-to="5"></li>#}
-</ol>
+{#</ol>#}
+{##}
+{#<!-- Wrapper for slides -->#}
+{#<div class="carousel-inner" role="listbox">#}
+{#    {% for p in prod.pics %}#}
+{#    {% if forloop.counter == 1 %}#}
+{#    <div class="item active">#}
+{#    {% else %}#}
+{#    <div class="item">#}
+{#    {% endif %}#}
+{#        <img src="{{ p }}" alt="Image">#}
+{#  <div class="carousel-caption">#}
+{#    <h3>{{ prod.name }}</h3>#}
+{#  </div>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#    </div>#}
+{##}
+{#    <!-- Left and right controls -->#}
+{#    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">#}
+{#        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>#}
+{#        <span class="sr-only">Previous</span>#}
+{#    </a>#}
+{#    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">#}
+{#        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>#}
+{#        <span class="sr-only">Next</span>#}
+{#    </a>#}
+{#</div>#}
+{#</div>#}
 
-<!-- Wrapper for slides -->
-<div class="carousel-inner" role="listbox">
-    {% for p in prod.pics %}
-    {% if forloop.counter == 1 %}
-    <div class="item active">
-    {% else %}
-    <div class="item">
-    {% endif %}
-        <img src="{{ p }}" alt="Image">
-  <div class="carousel-caption">
-    <h3>{{ prod.name }}</h3>
-  </div>
-    </div>
-    {% endfor %}
-    </div>
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+      <title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
+      <!--meta tags -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+         Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+      <script>
+         addEventListener("load", function () {
+         	setTimeout(hideURLbar, 0);
+         }, false);
+
+         function hideURLbar() {
+         	window.scrollTo(0, 1);
+         }
+      </script>
+      <!--//meta tags ends here-->
+      <!--booststrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+      <!--//booststrap end-->
+      <!-- font-awesome icons -->
+      <link href="../static/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+      <!-- //font-awesome icons -->
+      <!--Shoping cart-->
+      <link rel="stylesheet" href="../static/css/shop.css" type="text/css" />
+      <!--//Shoping cart-->
+      <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui1.css">
+      <link href="../static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
+      <link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
+      <!--stylesheets-->
+      <link href="../static/css/style.css" rel='stylesheet' type='text/css' media="all">
+      <!--//stylesheets-->
+      <link href="//fonts.googleapis.com/css?family=Sunflower:500,700" rel="stylesheet">
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+   </head>
+<div class="col-lg-4 single-right-left ">
+ <div class="grid images_3_of_2">
+    <div class="flexslider1">
+       <ul class="slides">
+          <li data-thumb="images/f2.jpg">
+             <div class="thumb-image"> <img src="../static/images/s1.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+          </li>
+          <li data-thumb="images/f1.jpg">
+             <div class="thumb-image"> <img src="../static/images/s2.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+          </li>
+          <li data-thumb="images/f3.jpg">
+             <div class="thumb-image"> <img src="../static/images/s3.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+          </li>
+       </ul>
+       <div class="clearfix"></div>
+    </div>
+ </div>
 </div>
-</div>
+
+
+
+
+      <!--jQuery-->
+      <script src="../static/js/jquery-2.2.3.min.js"></script>
+      <!-- newsletter modal -->
+      <!-- cart-js -->
+      <script src="../static/js/minicart.js"></script>
+      <script>
+         toys.render();
+
+         toys.cart.on('toys_checkout', function (evt) {
+         	var items, len, i;
+
+         	if (this.subtotal() > 0) {
+         		items = this.items();
+
+         		for (i = 0, len = items.length; i < len; i++) {}
+         	}
+         });
+      </script>
+      <!-- //cart-js -->
+      <!-- price range (top products) -->
+      <script src="../static/js/jquery-ui.js"></script>
+      <script>
+         //<![CDATA[
+         $(window).load(function () {
+         	$("#slider-range").slider({
+         		range: true,
+         		min: 0,
+         		max: 9000,
+         		values: [50, 6000],
+         		slide: function (event, ui) {
+         			$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+         		}
+         	});
+         	$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+         }); //]]>
+      </script>
+      <!-- //price range (top products) -->
+      <!-- single -->
+      <script src="../static/js/imagezoom.js"></script>
+      <!-- single -->
+      <!-- script for responsive tabs -->
+      <script src="../static/js/easy-responsive-tabs.js"></script>
+      <script>
+         $(document).ready(function () {
+         	$('#horizontalTab').easyResponsiveTabs({
+         		type: 'default', //Types: default, vertical, accordion
+         		width: 'auto', //auto or any width like 600px
+         		fit: true, // 100% fit in a container
+         		closed: 'accordion', // Start closed if in accordion view
+         		activate: function (event) { // Callback function if tab is switched
+         			var $tab = $(this);
+         			var $info = $('#tabInfo');
+         			var $name = $('span', $info);
+         			$name.text($tab.text());
+         			$info.show();
+         		}
+         	});
+         	$('#verticalTab').easyResponsiveTabs({
+         		type: 'vertical',
+         		width: 'auto',
+         		fit: true
+         	});
+         });
+      </script>
+      <!-- FlexSlider -->
+      <script src="../static/js/jquery.flexslider.js"></script>
+      <script>
+         // Can also be used with $(document).ready()
+         $(window).load(function () {
+         	$('.flexslider1').flexslider({
+         		animation: "slide",
+         		controlNav: "thumbnails"
+         	});
+         });
+      </script>
+      <!-- //FlexSlider-->
+      <!-- start-smoth-scrolling -->
+      <script src="../static/js/move-top.js"></script>
+      <script src="../static/js/easing.js"></script>
+      <script>
+         jQuery(document).ready(function ($) {
+         	$(".scroll").click(function (event) {
+         		event.preventDefault();
+         		$('html,body').animate({
+         			scrollTop: $(this.hash).offset().top
+         		}, 900);
+         	});
+         });
+      </script>
+      <!-- start-smoth-scrolling -->
+      <!-- here stars scrolling icon -->
+      <script>
+         $(document).ready(function () {
+
+         	var defaults = {
+         		containerID: 'toTop', // fading element id
+         		containerHoverID: 'toTopHover', // fading element hover id
+         		scrollSpeed: 1200,
+         		easingType: 'linear'
+         	};
+
+
+         	$().UItoTop({
+         		easingType: 'easeOutQuart'
+         	});
+
+         });
+      </script>
+      <!-- //here ends scrolling icon -->
+      <!-- //smooth-scrolling-of-move-up -->
+      <!--bootstrap working-->
+      <script src="../static/js/bootstrap.min.js"></script>
+      <!-- //bootstrap working-->
+
+
+
+
+
+
+
 </html>
