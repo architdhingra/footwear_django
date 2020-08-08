@@ -68,7 +68,7 @@
                             <input type="checkbox" id="drop-2" />
                             <ul>
                                 <li><a href="{% url 'blog' %}">Blog</a></li>
-                                <li><a href="{% url 'shopsingle' %}">Shop Now</a></li>
+                                <li><a href="{% url 'shopsingle' 'footwear1' %}">Shop Now</a></li>
                                 <li><a href="{% url 'shop' 'heels' %}">Single Page</a></li>
                             </ul>
                         </li>
@@ -84,7 +84,7 @@
             <p>Trending of the week</p>
             <h3 class="mb-4"> Casual {{ aa }} Shoes for Men</h3>
             <div class="ban-buttons">
-                <a href="{% url 'shopsingle' %}" class="btn">Shop Now</a>
+                <a href="{% url 'shopsingle' 'footwear1' %}" class="btn">Shop Now</a>
                 <a href="{% url 'single' %}" class="btn active">Read More</a>
             </div>
         </div>

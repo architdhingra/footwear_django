@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
    <head>
-      <title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
+      <title>DreamWalk Shop</title>
       <!--meta tags -->
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,9 +22,44 @@
          	window.scrollTo(0, 1);
          }
       </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../static/js/jquery-2.2.3.min.js">\x3C/script>')</script>
+
+  <!-- FlexSlider -->
+  <script defer src="../static/js/jquery.flexslider.js"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 210,
+        itemMargin: 5,
+        asNavFor: '#slider'
+      });
+
+      $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
+         <script src="../static/css/modernizr.js"></script>
       <!--//meta tags ends here-->
       <!--booststrap-->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+       	<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
       <!--//booststrap end-->
       <!-- font-awesome icons -->
       <link href="../static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
@@ -34,7 +69,7 @@
       <!--//Shoping cart-->
       <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui1.css">
       <link href="../static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
-      <link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
+
       <!--stylesheets-->
       <link href="../static/css/style.css" rel='stylesheet' type='text/css' media="all">
       <!--//stylesheets-->
@@ -49,8 +84,8 @@
                <div class="row">
                   <div class="col-lg-4 single-right-left ">
                      <div class="grid images_3_of_2">
-                        <div id="flexsliderx" class="flexslider1">
-                           <ul class="slides">
+                        <div id="flexsliderx" class="flexslider">
+                           <ul class="slides" id="horizontalTab">
                               <li data-thumb="../static/images/s2.jpg">
                                  <div class="thumb-image"> <img src="../static/images/s2.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
                               </li>s
@@ -66,6 +101,7 @@
                            </ul>
                            <div class="clearfix"></div>
                         </div>
+                         <div id="slider" class="flexslider">
                      </div>
                   </div>
                   <div class="col-lg-8 single-right-left simpleCart_shelfItem">
@@ -241,6 +277,7 @@
                </div>
             </div>
          </div>
+         </div>
       </section>
       <!--jQuery-->
       <script src="../static/js/jquery-2.2.3.min.js"></script>
@@ -312,7 +349,7 @@
       <script>
          // Can also be used with $(document).ready()
          $(window).load(function () {
-         	$('.flexslider1').flexslider({
+         	$('.flexslider').flexslider({
          		animation: "slide",
                 controlNav: "thumbnails"
          	});
@@ -355,6 +392,28 @@
       <!-- //smooth-scrolling-of-move-up -->
       <!--bootstrap working-->
       <script src="../static/js/bootstrap.min.js"></script>
+      <script>
+$(window).load(function() {
+  // The slider being synced must be initialized first
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 210,
+    itemMargin: 5,
+    asNavFor: '#slider'
+  });
+
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    sync: "#carousel"
+  });
+});
+</script>
       <!-- //bootstrap working--> 
    </body>
 </html>

@@ -971,10 +971,13 @@ form.w3layouts-newsletter {
     background: #efeeee;
 }
 
-.w3layouts-newsletter button.btn1 {
+button.btn1 {
     color: #ff4c4c;
     font-size: 17px;
+    content: '';
     letter-spacing: 1px;
+    width: 230px;
+    margin-top: 18px;
     padding: 14px 0;
     border: transparent;
     text-transform: uppercase;

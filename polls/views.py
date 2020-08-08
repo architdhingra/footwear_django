@@ -2,16 +2,20 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.db.models import F
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.template import context
 from django.views import View
+from django.views.generic import DetailView
 
 from polls.forms import CreateUserForm
-from polls.models import NewLogin, Product
+from polls.models import NewLogin, Product, Cart
 
 
 def index(request):
@@ -78,7 +82,7 @@ class newLogin(View):
 def about(request):
     return render(request, "about.html", {})
 
-
+@login_required()
 def shop(request, type):
     prod = Product.getProducts(request, type)
     return render(request, "shop.html", {'prod': prod})
@@ -86,10 +90,19 @@ def shop(request, type):
 
 def shopsingle(request, id):
     prod = Product.getSingle(request, id)
-    return render(request, "shopsingle.html", {'prod': prod})
+    return render(request, "check.html", {'prod': prod})
 
-def shopsingle1(request):
-    return render(request, "shopsingle.html", {})
+
+class ShopSingle(DetailView):
+    model = Product
+    template_name = 'shopsingle.html'
+    Product.objects.all().update(discount=F('origPrice') - F('price'))
+
+#
+# class Checkout(V):
+#     model = Cart
+#     template_name = 'checkout.html'
+
 
 def single(request):
     return render(request, "single.html", {})
@@ -106,6 +119,7 @@ def contact(request):
 def test(request):
     prod = Product.getSingle(request, 2)
     print(prod.pics)
+
     return render(request, "test.html", {'prod': prod})
 
 
@@ -113,5 +127,24 @@ def product(request):
     return render(request, "product.html", {})
 
 
-def checkout(request):
+def checkout1(request):
     return render(request, "checkout.html", {})
+
+
+def checkout(request, id):
+    cd = Cart.objects.filter(user=request.user, product=Product.getSingle(request, id=id))
+    print(cd)
+    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=id))
+    c.save()
+    items = Cart.getItems(request, request.user)
+    return render(request, "checkout.html", {'items': items})
+
+
+def check(request):
+    return render(request, "check.html", {})
+
+
+def delete(request, pid):
+    Cart.objects.filter(product=pid, user=1).delete()
+    print("deleted")
+    return HttpResponse(200)

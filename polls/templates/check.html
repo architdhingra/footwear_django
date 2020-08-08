@@ -1,0 +1,199 @@
+{% extends 'template.html' %}
+{% block content %}
+    {% load static %}
+    <!---->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Shop Footwear</li>
+    </ol>
+    <!---->
+<br><br><br><br>
+    <!-- banner -->
+    <section class="ab-info-main py-md-5 py-4">
+        <div class="container py-md-3">
+            <!-- top products -->
+            <div class="row">
+                <!-- product right -->
+                <div class="left-ads-display col-lg-8">
+                    <div class="row">
+                            <div class="desc1-left col-md-6">
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<!-- Indicators -->
+<ol class="carousel-indicators">
+    {% for p in prod.pics %}
+    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+    {% endfor %}
+{#    <li data-target="#myCarousel" data-slide-to="1"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="2"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="3"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="4"></li>#}
+{#    <li data-target="#myCarousel" data-slide-to="5"></li>#}
+</ol>
+
+<!-- Wrapper for slides -->
+<div class="carousel-inner" role="listbox" style="width:100%; height: 300px !important;">
+    {% for p in prod.pics %}
+    {% if forloop.counter == 1 %}
+    <div class="item active">
+    {% else %}
+    <div class="item">
+    {% endif %}
+        <img src="{{ p }}" style="max-height:150%; max-width: 150%"class="img-fluid" alt="">
+  <div class="carousel-caption">
+  </div>
+    </div>
+    {% endfor %}
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+</div>
+</div>
+                        <div class="desc1-right col-md-6 pl-lg-4">
+                            <h3>{{ prod.name }}</h3>
+                            <h5>Rs. {{ prod.price }} <span>{{ prod.origPrice }}</span></h5>
+                            <div class="available mt-3">
+                                <form action="{% url 'checkout1' %}" method="post" class="w3layouts-newsletter">
+                                    {% csrf_token %}
+{#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
+                                    <button class="btn1">Add To Cart</button>
+
+                                </form>
+{#                                <span><a href="#">login to save in wishlist </a></span>#}
+{#                                <p>DreamWalk, the industry's standard since the 1500s... </p>#}
+                            </div>
+                            <div class="share-desc">
+                                <div class="share">
+                                    <h4>Share product :</h4>
+                                    <ul class="w3layouts_social_list list-unstyled">
+                                        <li>
+                                            <a href="#" class="w3pvt_facebook">
+                                                <span class="fa fa-facebook-f"></span>
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#" class="w3pvt_twitter">
+                                                <span class="fa fa-twitter"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="w3pvt_dribble">
+                                                <span class="fa fa-dribbble"></span>
+                                            </a>
+                                        </li>
+                                        <li class="ml-2">
+                                            <a href="#" class="w3pvt_google">
+                                                <span class="fa fa-google-plus"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row sub-para-w3layouts mt-5">
+
+                        <h3 class="shop-sing">{{ prod.name }}</h3>
+                        <p>{{ prod.details }}</p>
+                        <p class="mt-3 italic-blue">{{ prod.material }}</p>
+                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore magna aliqua.</p>
+                    </div>
+
+                    <h3 class="shop-sing">Featured products</h3>
+                    <div class="row m-0">
+                        <div class="col-md-4 product-men">
+                            <div class="product-shoe-info shoe text-center">
+                                <div class="men-thumb-item">
+                                    <img src="../static/images/s10.jpg" class="img-fluid" alt="">
+                                    <span class="product-new-top">New</span>
+                                </div>
+                                <div class="item-info-product">
+                                    <h4>
+                                        <a href="check.html">Suitable Lace Up </a>
+                                    </h4>
+
+                                    <div class="product_price">
+                                        <div class="grid-price">
+                                            <span class="money">$675.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-o" aria-hidden="true"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 product-men">
+                            <div class="product-shoe-info shoe text-center">
+                                <div class="men-thumb-item">
+                                    <img src="../static/images/s11.jpg" class="img-fluid" alt="">
+                                    <span class="product-new-top">New</span>
+                                </div>
+                                <div class="item-info-product">
+                                    <h4>
+                                        <a href="check.html">Black Flats</a>
+                                    </h4>
+
+                                    <div class="product_price">
+                                        <div class="grid-price">
+                                            <span class="money">$475.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-o" aria-hidden="true"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 product-men">
+                            <div class="product-shoe-info shoe text-center">
+                                <div class="men-thumb-item">
+                                    <img src="../static/images/s12.jpg" class="img-fluid" alt="">
+                                    <span class="product-new-top">New</span>
+                                </div>
+                                <div class="item-info-product">
+                                    <h4>
+                                        <a href="check.html">Elevator Shoes </a>
+                                    </h4>
+
+                                    <div class="product_price">
+                                        <div class="grid-price">
+                                            <span class="money">$575.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                        <li><a href="#"><span class="fa fa-star-o" aria-hidden="true"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- //contact -->
+{% endblock %}
