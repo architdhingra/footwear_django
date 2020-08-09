@@ -13,6 +13,7 @@ from djongo import models
 class NewLogin(models.Model):
     def get(self, *args, **kwargs):
         form = UserCreationForm()
+        abc
         return form
 
     def index(self):

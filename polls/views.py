@@ -117,10 +117,7 @@ def contact(request):
 
 
 def test(request):
-    prod = Product.getSingle(request, 2)
-    print(prod.pics)
-
-    return render(request, "test.html", {'prod': prod})
+    return render(request, "test.html", {})
 
 
 def product(request):
