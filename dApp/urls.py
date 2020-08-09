@@ -27,6 +27,7 @@ urlpatterns = [
     path(r'shop/<type>', shop, name="shop"),
     path('shopsingle/<slug>', ShopSingle.as_view(), name="shopsingle"),
     path('single/', single, name="single"),
+    path('returns/', returns, name="returns"),
     path('blog/', blog, name="blog"),
     path('contact/', contact, name="contact"),
     path('login/', loginx, name="login"),

@@ -50,10 +50,12 @@ def loginx(request):
         uname = request.POST["email"]
         password = request.POST["password"]
         user = authenticate(username=uname, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('polls')
         else:
+
             return render(request, "login.html")
 
 
@@ -92,6 +94,8 @@ def shopsingle(request, id):
     prod = Product.getSingle(request, id)
     return render(request, "check.html", {'prod': prod})
 
+def returns(request):
+    return render(request, "returns.html", {})
 
 class ShopSingle(DetailView):
     model = Product
