@@ -973,11 +973,11 @@ form.w3layouts-newsletter {
 
 button.btn1 {
     color: #ff4c4c;
-    font-size: 17px;
+    font-size: 13px;
     content: '';
     letter-spacing: 1px;
-    width: 230px;
-    margin-top: 18px;
+    width: 160px;
+    margin-top: 12px;
     padding: 14px 0;
     border: transparent;
     text-transform: uppercase;
@@ -1467,3 +1467,36 @@ a.move-top span {
 }
 
 /*--//responsive--*/
+
+
+
+
+
+
+.a-text-right {
+    text-align: right!important;
+}
+
+.a-color-secondary {
+    color: #555!important;
+}
+
+.a-size-base {
+    font-size: 14px!important;
+    line-height: 20px!important;
+}
+
+table.a-lineitem td, table.a-lineitem th {
+    padding: 0 3px;
+}
+.a-text-strike {
+    text-decoration: line-through!important;
+}
+
+.a-color-price {
+    color: #B12704!important;
+}
+
+.a-size-medium {
+    text-rendering: optimizeLegibility;
+}
