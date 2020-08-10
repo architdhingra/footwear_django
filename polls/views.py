@@ -28,7 +28,6 @@ def signup(request):
         uname = request.POST["email"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
-        messages.info(request, "Registered Successfully!")
         contexts = {"aa": uname, "bb": password}
         if password2 == password:
             if User.objects.filter(username=uname).exists():
@@ -37,6 +36,8 @@ def signup(request):
             else:
                 user = User.objects.create_user(username=uname, password=password)
                 user.save()
+                messages.info(request, "Registered Successfully!")
+                return redirect('polls')
         return render(request, 'signup.html', contexts)
 
     else:
@@ -55,9 +56,7 @@ def loginx(request):
             login(request, user)
             return redirect('polls')
         else:
-
             return render(request, "login.html")
-
 
     else:
         return render(request, "login.html")

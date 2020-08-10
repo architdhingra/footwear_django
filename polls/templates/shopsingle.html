@@ -126,7 +126,7 @@
             margin-top: 5px;
         }
 
-        .color-choose button{
+        .color-choose button {
             border: 2px solid #E1E8EE;
             border-radius: 6px;
             padding: 13px 20px;
@@ -138,7 +138,7 @@
             margin-bottom: 5px;
         }
 
-        .size-choose button{
+        .size-choose button {
             border: 2px solid #E1E8EE;
             border-radius: 6px;
             padding: 13px 20px;
@@ -152,14 +152,14 @@
 
         .color-choose button:hover,
         .color-choose button:active,
-        .color-choose button:focus{
+        .color-choose button:focus {
             border: 2px solid #86939E;
             outline: none;
         }
 
         .size-choose button:hover,
         .size-choose button:active,
-        .size-choose button:focus{
+        .size-choose button:focus {
             border: 2px solid #86939E;
             outline: none;
         }
@@ -172,6 +172,7 @@
         }
 
     </style>
+
 {% endblock %}
 
 {% block content %}
@@ -236,21 +237,9 @@
                         <span>Choose Color</span>
 
                         <div class="color-choose">
-                            <button>Red</button>
-                            <button>Blue</button>
-                            <button>Green</button>
-                        </div>
-
-                    </div>
-                    <div class="size-config">
-                        <span>Choose Size</span>
-
-                        <div class="size-choose">
-                            <button>7</button>
-                            <button>8</button>
-                            <button>9</button>
-                            <button>10</button>
-                            <button>11</button>
+                            <button class="xx">Red</button>
+                            <button class="xx">Blue</button>
+                            <button class="xx">Green</button>
                         </div>
 
                     </div>
@@ -282,8 +271,8 @@
                                     almost everything! From sweats to a breezy summer dress, the complete piece to your
                                     outfit!</p>
                                 <p><span
-                                        data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
-                                        data-sheets-userformat="{&quot;2&quot;:14784,&quot;9&quot;:0,&quot;10&quot;:1,&quot;11&quot;:4,&quot;14&quot;:[null,2,0],&quot;15&quot;:&quot;Calibri&quot;,&quot;16&quot;:12}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
+                                        data-sheets-value="{Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
+                                        data-sheets-userformat="{}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
                                 </p>
                                 <h6><span style="text-decoration: underline;"><strong>Product Details:</strong></span>
                                 </h6>
@@ -509,7 +498,7 @@
             </div>
             <div class="col-md-2 ">
 
-                <table class="a-lineitem border border-dark">
+                <table class="a-lineitem border border-dark" style="width: 136%">
                     <tbody>
                     <tr>
                         <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
@@ -561,7 +550,22 @@
                         {% csrf_token %}
                         {#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
 
+                        <tr>
+                            <td class="a-color-secondary a-size-base text-center a-nowrap">
+                                Select Size:
+                            </td>
+                            <td>
+                                <select id="size">
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
 
+                                </select>
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="2">
                                 <button class="btn1">Add To Cart</button>
@@ -655,6 +659,27 @@
             const index = $(this).attr("data-slick-index");
             {#console.log(index);#}
             $gl2.slick("slickGoTo", index);
+        });
+        $('.color-choose button').click(function () {
+            console.log('work');
+            if ($(this).hasClass('active')) {
+                console.log('workx');
+                $(this).removeClass('active')
+            } else {
+                $(this).addClass('active')
+            }
+        });
+        $('.size-choose button').click(function () {
+            console.log('work');
+            if ($(this).hasClass('active')) {
+                console.log('workx');
+                $(this).removeClass('active')
+            } else {
+                $(this).addClass('active')
+            }
+        });
+        $('#showx').click(function () {
+            console.log();
         });
     </script>
 {% endblock %}
