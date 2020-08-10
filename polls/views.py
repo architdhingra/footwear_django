@@ -13,7 +13,6 @@ from django.contrib.auth import views as auth_views
 from django.template import context
 from django.views import View
 from django.views.generic import DetailView
-
 from polls.forms import CreateUserForm
 from polls.models import NewLogin, Product, Cart
 
@@ -68,6 +67,21 @@ def logout_view(request):
 class poll(View):
     def get(self, *args, **kwargs):
         return render(self.request, "index.html", {})
+
+def profile(request):
+    return render(request, "profile.html")
+    # if request.method == "POST":
+    #     uname = request.POST["email"]
+    #     password = request.POST["password"]
+    #     user = authenticate(username=uname, password=password)
+    #
+    #     if user is not None:
+    #         login(request, user)
+    #         return redirect('polls')
+    #     else:
+    #         return render(request, "login.html")
+    #
+    # else:
 
 
 class newLogin(View):

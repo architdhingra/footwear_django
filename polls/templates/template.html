@@ -48,43 +48,69 @@
 <div class="main-banner inner" id="home">
         <!-- header -->
         <header class="header">
-            <div class="container-fluid px-lg-5">
-                <!-- nav -->
-                <nav class="py-4">
-                    <div id="logo">
-                        <h1> <a href="{% url 'index' %}"><span class="fa" aria-hidden="true"></span>DreamWalk</a></h1>
-                    </div>
+        <div class="container-fluid px-lg-5">
+            <!-- nav -->
+            <nav class="py-4">
+                <div id="logo">
+                    <h1> <a href="{% url 'index' %}"><span class="fa fa-bold" aria-hidden="true"></span>ream<span class="fa fa-w" aria-hidden="true"></span>alk</a></h1>
+                </div>
 
-                    <label for="drop" class="toggle">Menu</label>
-                    <input type="checkbox" id="drop" />
-                    <ul class="menu mt-2">
+                <label for="drop" class="toggle">Menu</label>
+                <input type="checkbox" id="drop" />
+                <ul class="menu mt-2">
+                <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li>
+                        <!-- First Tier Drop Down -->
+                        <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                        <a href="#">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                        <input type="checkbox" id="drop-2" />
+                        <ul>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'shopsingle' 'footwear1' %}">Shop Now</a></li>
+                            <li><a href="{% url 'shop' 'heels' %}">Single Page</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li>
+                        <!-- First Tier Drop Down -->
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'signup' %}">Welcome {{ user.get_username }}</a></li>
-                        {% else %}
-                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        {% endif %}
-
-
-                        <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'blog' %}">Blog</a></li>
-                        <li>
-                            <!-- First Tier Drop Down -->
-                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <label for="drop-2" class="toggle">{{ user.get_username }} <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#"> {{ user.get_username }}<span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="{% url 'blog' %}">Blog</a></li>
-                                <li><a href="{% url 'shopsingle' 2 %}">Shop Now</a></li>
-                                <li><a href="{% url 'shop' 'heels' %}">Single Page</a></li>
+
+                            <li><a href="{% url 'profile' %}">Profile </a></li>
+                                <li><a href="{% url 'index' %}">Your Orders </a></li>
+                            <li><a href="{% url 'logout_view' %}" >Logout</a></li>
                             </ul>
-                        </li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
-                    </ul>
-                </nav>
-                <!-- //nav -->
-            </div>
-        </header>
+                        {% else %}
+                            <label for="drop-2" class="toggle">Drop Down1 <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#">SignUp/SignIn <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <input type="checkbox" id="drop-2" />
+                            <ul>
+                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a href="{% url 'login' %}">Sign In</a></li>
+                            </ul>
+                        {% endif %}
+
+                    </li>
+                    {#                        {% if user.is_authenticated %}#}
+                    {#                            <li><a href="{% url 'index' %}">Welcome {{ user.get_username }}</a></li>#}
+                    {#                            <li><a href="{% url 'logout_view' %}" >Logout</a></li>#}
+                    {#                        {% else %}#}
+                    {#                            <li><a href="{% url 'signup' %}">Sign Up</a></li>#}
+                    {#                            <li><a href="{% url 'login' %}">Sign In</a></li>#}
+                    {#                        {% endif %}#}
+
+
+
+                </ul>
+            </nav>
+            <!-- //nav -->
+        </div>
+    </header>
         <!-- //header -->
 
     </div>

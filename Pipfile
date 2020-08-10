@@ -12,6 +12,7 @@ mongoengine = "*"
 django-crispy-forms = "*"
 djangotoolbox = "*"
 importlib = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"
