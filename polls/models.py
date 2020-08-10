@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from djongo import models
+from django.contrib.auth.models import User,auth
 
 
 # class User(models.Model):
@@ -47,6 +48,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def logout_model(self):
+        auth.logout(self)
 
 
 class Cart(models.Model):
