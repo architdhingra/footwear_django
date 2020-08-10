@@ -39,11 +39,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <style type="text/css">
     </style>
+<script>
+
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                }
+            });
+        });
+</script>
     {% block extrahead %}
     {% endblock %}
 </head>
 
 <body>
+
     <!-- main-content -->
 <div class="main-banner inner" id="home">
         <!-- header -->

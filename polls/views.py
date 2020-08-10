@@ -60,9 +60,11 @@ def loginx(request):
     else:
         return render(request, "login.html")
 
+
 def logout_view(request):
     Product.logout_model(request)
     return render(request, "login.html")
+
 
 class poll(View):
     def get(self, *args, **kwargs):
@@ -96,14 +98,19 @@ class newLogin(View):
             return redirect('polls')
         return render(self.request, "newLogin.html", {'form': form})
 
+
 def password_reset(request):
     return render(request, 'password_reset.html')
+
 
 def password_reset_done(request):
     return render(request, 'password_reset_done.html')
 
+
 def password_reset_confirm(request):
     return render(request, 'password_reset_confirm.html')
+
+
 def about(request):
     return render(request, "about.html", {})
 
@@ -117,8 +124,10 @@ def shopsingle(request, id):
     prod = Product.getSingle(request, id)
     return render(request, "check.html", {'prod': prod})
 
+
 def returns(request):
     return render(request, "returns.html", {})
+
 
 class ShopSingle(DetailView):
     model = Product
@@ -157,10 +166,8 @@ def checkout1(request):
 
 def checkout(request, id):
     cd = Cart.objects.filter(user=request.user, product=Product.getSingle(request, id=id))
-    print(cd)
-    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=id))
-    c.save()
     items = Cart.getItems(request, request.user)
+    print(items)
     return render(request, "checkout.html", {'items': items})
 
 
@@ -171,4 +178,19 @@ def check(request):
 def delete(request, pid):
     Cart.objects.filter(product=pid, user=1).delete()
     print("deleted")
+    return HttpResponse(200)
+
+
+def addToCart(request):
+    # print(pid, size, color)
+    # Cart.objects.filter(product=pid, user=1).delete()
+    pid = (request.POST['pid'])
+    size = (request.POST['size'])
+    color = (request.POST['color'])
+    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=pid), quantity=1, color=color, size=size)
+    d = c.save()
+    if(d):
+        print('a')
+    else:
+        print('b')
     return HttpResponse(200)

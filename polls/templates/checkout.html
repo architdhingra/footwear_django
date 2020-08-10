@@ -9,25 +9,29 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
+
     </script>
     <script>
 
-         $(document).ready(function () {
-         	$('.close1').on('click', function () {
-         	    {#console.log('clicked');#}
+        $(document).ready(function () {
+            $('.close1').on('click', function () {
+                {#console.log('clicked');#}
                 var id = $(this).closest("tr").attr('id');
-                                 console.log(id  );
+                console.log(id);
                 $(this).closest("tr").remove();
                 var inde = $(this).closest("tr").attr('tabid');
-                 {#console.log(inde);#}
-                 $("#costname li").eq(inde).remove();
-         	    $.ajax({url: "http://127.0.0.1:8000/delete/"+id, async: true, success: function(result){
-                  console.log(result)
-                }});
-         	});
+                {#console.log(inde);#}
+                $("#costname li").eq(inde).remove();
+                $.ajax({
+                    url: "http://127.0.0.1:8000/delete/" + id, async: true, success: function (result) {
+                        console.log(result)
+                    }
+                });
+            });
 
-         });
-      </script>
+        });
+    </script>
     <link rel="stylesheet" href="{% static 'css/shop.css' %}" type="text/css"/>
     <!--//Shopping cart-->
     <!--checkout-->
@@ -35,7 +39,6 @@
 {% endblock %}
 
 {% block content %}
-
     <!-- top Products -->
     <section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
         <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
@@ -73,7 +76,7 @@
                                         </div>
                                     </td>
                                     <td class="invert">{{ item.product.name }}</td>
-                                    <td class="invert">{{ item.product.size }}</td>
+                                    <td class="invert">{{ item.size }}</td>
                                     <td class="invert">{{ item.product.price }}</td>
 
                                     <td class="invert">
@@ -91,7 +94,7 @@
                             <h4>Continue to basket</h4>
                             <ul id="costname">
                                 {% for item in items %}
-                                <li>{{ item.product.name }} <i>-</i> <span>{{ item.product.price }} </span></li>
+                                    <li>{{ item.product.name }} <i>-</i> <span>{{ item.product.price }} </span></li>
                                 {% endfor %}
                                 <li>Total Service Charges <i>-</i> <span>{{ item.product.price }}</span></li>
                                 <li>Total <i>-</i> <span></span></li>
