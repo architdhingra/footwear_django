@@ -14,9 +14,13 @@
 
          $(document).ready(function () {
          	$('.close1').on('click', function () {
-         	    console.log('clicked');
+         	    {#console.log('clicked');#}
                 var id = $(this).closest("tr").attr('id');
+                                 console.log(id  );
                 $(this).closest("tr").remove();
+                var inde = $(this).closest("tr").attr('tabid');
+                 {#console.log(inde);#}
+                 $("#costname li").eq(inde).remove();
          	    $.ajax({url: "http://127.0.0.1:8000/delete/"+id, async: true, success: function(result){
                   console.log(result)
                 }});
@@ -47,13 +51,14 @@
                                 <th>Product</th>
                                 <th>Quantity</th>
                                 <th>Product Name</th>
+                                <th>Product Size</th>
                                 <th>Price</th>
                                 <th>Remove</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for item in items %}
-                                <tr class="rem1" id="{{ item.product.id }}">
+                                <tr class="rem1" id="{{ item.product.id }}" tabid="{{ forloop.counter0 }}">
                                     <td class="invert">{{ forloop.counter }}</td>
                                     <td class="invert-image"><a href="single.html"><img src="{{ item.product.pics.0 }}"
                                                                                         alt=" " class="img-responsive"></a>
@@ -68,7 +73,9 @@
                                         </div>
                                     </td>
                                     <td class="invert">{{ item.product.name }}</td>
+                                    <td class="invert">{{ item.product.size }}</td>
                                     <td class="invert">{{ item.product.price }}</td>
+
                                     <td class="invert">
                                         <div class="rem">
                                             <div class="close1"></div>
@@ -82,16 +89,18 @@
                     <div class="checkout-left">
                         <div class="col-md-4 checkout-left-basket">
                             <h4>Continue to basket</h4>
-                            <ul>
-                                <li>Product1 <i>-</i> <span>$675.00 </span></li>
-                                <li>Product2 <i>-</i> <span>$325.00 </span></li>
-                                <li>Product3 <i>-</i> <span>$405.00 </span></li>
-                                <li>Total Service Charges <i>-</i> <span>$55.00</span></li>
-                                <li>Total <i>-</i> <span>$1405.00</span></li>
+                            <ul id="costname">
+                                {% for item in items %}
+                                <li>{{ item.product.name }} <i>-</i> <span>{{ item.product.price }} </span></li>
+                                {% endfor %}
+                                <li>Total Service Charges <i>-</i> <span>{{ item.product.price }}</span></li>
+                                <li>Total <i>-</i> <span></span></li>
+
                             </ul>
+
                         </div>
                         <div class="col-md-8 address_form">
-                            <h4>Add a new Details</h4>
+                            <h4>Add Details</h4>
                             <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
                                 <section class="creditly-wrapper wrapper">
                                     <div class="information-wrapper">
@@ -107,6 +116,12 @@
                                                         <label class="control-label">Mobile number:</label>
                                                         <input class="form-control" type="text"
                                                                placeholder="Mobile number">
+                                                    </div>
+                                                </div>
+                                                <div class="card_number_grid_right">
+                                                    <div class="controls">
+                                                        <label class="control-label">Address: </label>
+                                                        <input class="form-control" type="text" placeholder="Address">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">

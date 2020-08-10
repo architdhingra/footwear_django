@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.db.models import F
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import views as auth_views
 # Create your views here.
 from django.template import context
 from django.views import View
@@ -61,6 +61,9 @@ def loginx(request):
     else:
         return render(request, "login.html")
 
+def logout_view(request):
+    Product.logout_model(request)
+    return render(request, "login.html")
 
 class poll(View):
     def get(self, *args, **kwargs):
@@ -79,7 +82,14 @@ class newLogin(View):
             return redirect('polls')
         return render(self.request, "newLogin.html", {'form': form})
 
+def password_reset(request):
+    return render(request, 'password_reset.html')
 
+def password_reset_done(request):
+    return render(request, 'password_reset_done.html')
+
+def password_reset_confirm(request):
+    return render(request, 'password_reset_confirm.html')
 def about(request):
     return render(request, "about.html", {})
 
