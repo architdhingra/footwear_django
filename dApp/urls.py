@@ -45,4 +45,5 @@ urlpatterns = [
     path('polls/', poll.as_view(), name="polls"),
     path('check/<id>', shopsingle, name="check"),
     path('delete/<pid>', delete, name="delete"),
+    path('addToCart/', addToCart, name="addToCart"),
 ]

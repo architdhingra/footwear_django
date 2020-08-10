@@ -172,7 +172,38 @@
         }
 
     </style>
+    <script>
 
+        $(document).ready(function () {
+            $('#addToCart').on('click', function () {
+                console.log('clicked');
+                {#var id = $(this).closest("tr").attr('id');#}
+                {#console.log(id);#}
+                {#$(this).closest("tr").remove();#}
+                {#var inde = $(this).closest("tr").attr('tabid');#}
+                {#console.log(inde);#}
+                {#$("#costname li").eq(inde).remove();#}
+                {#$.ajax({#}
+                {#    url: "http://127.0.0.1:8000/delete/" + id, async: true, success: function (result) {#}
+                {#        console.log(result)#}
+                {#    }});#}
+                {##}
+                var id = document.getElementById('size');
+                var idx = document.getElementById('color');
+                var size = id.options[id.selectedIndex].text;
+                var color = idx.options[idx.selectedIndex].text;
+                {#console.log(z);#}
+                $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
+                    function (returnedData) {
+                        console.log(returnedData);
+                        $("#addToCart").text("Added");
+                        $("#addToCart").prop("disabled",true);
+
+                    });
+            });
+
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -498,7 +529,7 @@
             </div>
             <div class="col-md-2 ">
 
-                <table class="a-lineitem border border-dark" style="width: 136%">
+                <table class="a-lineitem border border-dark" style="width: 155%">
                     <tbody>
                     <tr>
                         <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
@@ -580,13 +611,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <button class="btn1">Add To Cart</button>
+                            <td colspan="2" class="text-center">
+                                <button type="button" class="btn1" id="addToCart">Add To Cart</button>
                             </td>
                         </tr>
 
                         <tr>
-                            <td colspan="2">
+                            <td colspan="2" class="text-center">
                                 <button class="btn1">Buy Now</button>
                             </td>
                         </tr>

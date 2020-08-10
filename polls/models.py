@@ -14,7 +14,6 @@ from django.contrib.auth.models import User,auth
 class NewLogin(models.Model):
     def get(self, *args, **kwargs):
         form = UserCreationForm()
-        abc
         return form
 
     def index(self):
@@ -57,7 +56,9 @@ class Cart(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
-    quantity = models.BigIntegerField(default=1)
+    quantity = models.IntegerField(default=1)
+    color = models.CharField(default="", max_length=100)
+    size = models.IntegerField(default=0)
 
     def getItems(self, userId):
         cart = Cart.objects.filter(user=userId)
