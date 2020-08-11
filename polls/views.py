@@ -14,7 +14,7 @@ from django.template import context
 from django.views import View
 from django.views.generic import DetailView
 from polls.forms import CreateUserForm
-from polls.models import NewLogin, Product, Cart
+from polls.models import NewLogin, Product, Cart, ProductColorImage
 
 
 def index(request):
@@ -70,6 +70,7 @@ class poll(View):
     def get(self, *args, **kwargs):
         return render(self.request, "index.html", {})
 
+
 def profile(request):
     return render(request, "profile.html")
     # if request.method == "POST":
@@ -114,6 +115,7 @@ def password_reset_confirm(request):
 def about(request):
     return render(request, "about.html", {})
 
+
 @login_required()
 def shop(request, type):
     prod = Product.getProducts(request, type)
@@ -134,10 +136,44 @@ class ShopSingle(DetailView):
     template_name = 'shopsingle.html'
     Product.objects.all().update(discount=F('origPrice') - F('price'))
 
-#
-# class Checkout(V):
-#     model = Cart
-#     template_name = 'checkout.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShopSingle, self).get_context_data(**kwargs)
+        print(self.kwargs['slug'])
+        p = Product.objects.filter(slug=self.kwargs['slug'])
+        print(p[0].id)
+        context["images"] = ProductColorImage.objects.filter(pid=p[0].id)
+        print(context["images"])
+        return context
+
+
+class Checkout(View):
+    def post(self, *args, **kwargs):
+        pid = (self.request.POST['pid'])
+        size = (self.request.POST['size'])
+        color = (self.request.POST['color'])
+        c = Cart.objects.create(user=self.request.user, product=Product.getSingle(self.request, id=pid), quantity=1,
+                                color=color,
+                                size=size)
+        try:
+            c.save()
+        except:
+            return HttpResponse(400)
+
+        items = Cart.getItems(self.request, self.request.user)
+        totalPrice = 0
+        for item in items:
+            totalPrice += item.product.price
+        print(totalPrice)
+        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice})
+
+    def get(self, *args, **kwargs):
+        items = Cart.getItems(self.request, self.request.user)
+        print(items)
+        totalPrice = 0
+        for item in items:
+            totalPrice += item.product.price
+        print(totalPrice)
+        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice})
 
 
 def single(request):
@@ -175,22 +211,20 @@ def check(request):
     return render(request, "check.html", {})
 
 
-def delete(request, pid):
-    Cart.objects.filter(product=pid, user=1).delete()
+def delete(request, id):
+    Cart.objects.filter(id=id).delete()
     print("deleted")
     return HttpResponse(200)
 
 
 def addToCart(request):
-    # print(pid, size, color)
-    # Cart.objects.filter(product=pid, user=1).delete()
     pid = (request.POST['pid'])
     size = (request.POST['size'])
     color = (request.POST['color'])
-    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=pid), quantity=1, color=color, size=size)
-    d = c.save()
-    if(d):
-        print('a')
-    else:
-        print('b')
-    return HttpResponse(200)
+    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=pid), quantity=1, color=color,
+                            size=size)
+    try:
+        c.save()
+        return HttpResponse(200)
+    except:
+        return HttpResponse(400)

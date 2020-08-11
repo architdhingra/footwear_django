@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from djongo import models
-from django.contrib.auth.models import User,auth
+from django.contrib.auth.models import User, auth
 
 
 # class User(models.Model):
@@ -32,7 +32,6 @@ class Product(models.Model):
     color = models.CharField(max_length=100, default="")
     slug = models.SlugField(max_length=40, default="", unique=True)
     discount = models.BigIntegerField(default=0)
-
 
     class Meta:
         db_table = "Product"
@@ -64,6 +63,9 @@ class Cart(models.Model):
         cart = Cart.objects.filter(user=userId)
         return cart
 
+    def __str__(self):
+        return self.product.name
+
 
 class ProductSizeStock(models.Model):
     id = models.AutoField(primary_key=True)
@@ -76,7 +78,7 @@ class ProductSizeStock(models.Model):
         return self.pid.name
 
 
-class ProductColorImages(models.Model):
+class ProductColorImage(models.Model):
     id = models.AutoField(primary_key=True)
     pid = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
     color = models.CharField(default="", max_length=500)

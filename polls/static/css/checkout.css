@@ -192,9 +192,9 @@ td.invert-image a img {
 	float: right;
 }
 
-.checkout-left-basket ul li:nth-child(5) {
-	font-size: 1em;
-	color: #212121;
+.totalClass {
+	font-size: 1em !important;
+	color: #212121 !important;
 	font-weight: 600;
 	padding: 1em 0;
 	border-top: 1px solid #DDD;
@@ -202,7 +202,7 @@ td.invert-image a img {
 	margin: 2em 0 0;
 }
 
-.checkout-right-basket a {
+.checkout-right-basket button {
 	padding: 10px 20px;
 	color: #fff;
 	font-size: 1em;
@@ -210,11 +210,11 @@ td.invert-image a img {
 	text-decoration: none;
 }
 
-.checkout-right-basket a:hover {
+.checkout-right-basket button:hover {
 	background:#26bb48;
 }
 
-.checkout-right-basket a span {
+.checkout-right-basket button span {
 	left: -.5em;
 	top: 0.1em;
 }
