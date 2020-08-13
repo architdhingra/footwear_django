@@ -1,709 +1,522 @@
 {% extends 'template.html' %}
 {% load static %}
-{% block extrahead %}
-    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
-    <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
-    <style>
-        .border-dark {
-            border-color: #343a40 !important;
-        }
+{% with indo=images.1.pics %}
 
-        .border {
-            border: 1px solid #dee2e6 !important;
-            border-collapse: separate;
-            border-spacing: 1em;
-        }
+    {% block extrahead %}
 
-        .synch-carousels {
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
 
-        .synch-carousels > * {
-            width: 100%;
-        }
 
-        .synch-carousels .right {
-            order: -1;
-        }
-
-        .synch-carousels .left {
-            overflow: hidden;
-        }
-
-        .synch-carousels .gallery {
-            display: none;
-        }
-
-        .synch-carousels .gallery .slick-list {
-            height: auto !important;
-            margin: 0 -20px;
-        }
-
-        .synch-carousels .gallery .slick-slide {
-            margin: 0 20px;
-        }
-
-        @media screen and (min-width: 480px) {
-            .synch-carousels .right {
-                margin-bottom: 20px;
+        <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+        <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+        <style>
+            .border-dark {
+                border-color: #343a40 !important;
             }
 
-            .synch-carousels .gallery {
-                display: block;
+            .border {
+                border: 1px solid #dee2e6 !important;
+                border-collapse: separate;
+                border-spacing: 1em;
             }
-        }
 
-        @media screen and (min-width: 1024px) {
-            .synch-carousels .right {
+            .synch-carousels {
                 position: relative;
-                width: calc(100% - 230px);
-                margin-bottom: 0;
-                order: 2;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .synch-carousels > * {
+                width: 100%;
+            }
+
+            .synch-carousels .right {
+                order: -1;
             }
 
             .synch-carousels .left {
-                width: 210px;
+                overflow: hidden;
             }
 
-            .synch-carousels .gallery .slick-slide {
-                margin: 0 0 20px 0;
+            .synch-carousels .gallery {
+                display: none;
             }
 
             .synch-carousels .gallery .slick-list {
-                margin: 0;
+                height: auto !important;
+                margin: 0 -20px;
             }
-        }
 
-        .image-slider.child .item img {
-            max-width: 100%;
-        }
+            .synch-carousels .gallery .slick-slide {
+                margin: 0 20px;
+            }
 
-        .main-slider-image.child .item, .image-slider.child .item img {
-            border: 1px solid #e1e1e1;
-        }
+            @media screen and (min-width: 480px) {
+                .synch-carousels .right {
+                    margin-bottom: 20px;
+                }
 
-        .main-slider-image.child .item img {
-            margin: 0 auto;
-        }
+                .synch-carousels .gallery {
+                    display: block;
+                }
+            }
 
-        .image-slider.child .slick-slide {
-            margin: 0 5px;
-        }
+            @media screen and (min-width: 1024px) {
+                .synch-carousels .right {
+                    position: relative;
+                    width: calc(100% - 230px);
+                    margin-bottom: 0;
+                    order: 2;
+                }
 
-        .main-slider-image.child {
-            position: relative;
-        }
+                .synch-carousels .left {
+                    width: 210px;
+                }
 
-        .nav-arrows {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-        }
+                .synch-carousels .gallery .slick-slide {
+                    margin: 0 0 20px 0;
+                }
 
-        button.arrow-right.slick-arrow {
-            float: right;
-        }
+                .synch-carousels .gallery .slick-list {
+                    margin: 0;
+                }
+            }
 
-        .nav-arrows button {
-            border: none;
-        }
+            .image-slider.child .item img {
+                max-width: 100%;
+            }
 
-        .image-slider.child {
-            margin-top: 3%;
-        }
+            .main-slider-image.child .item, .image-slider.child .item img {
+                border: 1px solid #e1e1e1;
+            }
 
-        .main-content {
-            margin-top: 3%;
-        }
-    </style>
-    <style type="text/css">
-        .size-choose, .color-choose {
-            margin-bottom: 10px;
-            margin-top: 5px;
-        }
+            .main-slider-image.child .item img {
+                margin: 0 auto;
+            }
 
-        .color-choose button {
-            border: 2px solid #E1E8EE;
-            border-radius: 6px;
-            padding: 13px 20px;
-            font-size: 14px;
-            color: #5E6977;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all .5s;
-            margin-bottom: 5px;
-        }
+            .image-slider.child .slick-slide {
+                margin: 0 5px;
+            }
 
-        .size-choose button {
-            border: 2px solid #E1E8EE;
-            border-radius: 6px;
-            padding: 13px 20px;
-            font-size: 14px;
-            color: #5E6977;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all .5s;
-            margin-bottom: 5px;
-        }
+            .main-slider-image.child {
+                position: relative;
+            }
 
-        .color-choose button:hover,
-        .color-choose button:active,
-        .color-choose button:focus {
-            border: 2px solid #86939E;
-            outline: none;
-        }
+            .nav-arrows {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+            }
 
-        .size-choose button:hover,
-        .size-choose button:active,
-        .size-choose button:focus {
-            border: 2px solid #86939E;
-            outline: none;
-        }
+            button.arrow-right.slick-arrow {
+                float: right;
+            }
 
-        .color-config, .size-config {
-            border-bottom: 1px solid #E1E8EE;
-            border-top: 1px solid #E1E8EE;
-            margin-top: 10px;
-            padding: 10px;
-        }
+            .nav-arrows button {
+                border: none;
+            }
 
-    </style>
-    <script>
+            .image-slider.child {
+                margin-top: 3%;
+            }
 
-        $(document).ready(function () {
-            $('#addToCart').on('click', function () {
-                console.log('clicked');
-                var id = document.getElementById('size');
-                var idx = document.getElementById('color');
-                var size = id.options[id.selectedIndex].text;
-                var color = idx.options[idx.selectedIndex].text;
-                {#console.log(z);#}
-                $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
-                    function (returnedData) {
-                        console.log(returnedData);
-                        $("#addToCart").text("Added");
-                        $("#addToCart").prop("disabled", true);
+            .main-content {
+                margin-top: 3%;
+            }
+        </style>
+        <style type="text/css">
+            .size-choose, .color-choose {
+                margin-bottom: 10px;
+                margin-top: 5px;
+            }
 
-                    });
+            .color-choose button {
+                border: 2px solid #E1E8EE;
+                border-radius: 6px;
+                padding: 13px 20px;
+                font-size: 14px;
+                color: #5E6977;
+                background-color: #fff;
+                cursor: pointer;
+                transition: all .5s;
+                margin-bottom: 5px;
+            }
+
+            .size-choose button {
+                border: 2px solid #E1E8EE;
+                border-radius: 6px;
+                padding: 13px 20px;
+                font-size: 14px;
+                color: #5E6977;
+                background-color: #fff;
+                cursor: pointer;
+                transition: all .5s;
+                margin-bottom: 5px;
+            }
+
+            .color-choose button:hover,
+            .color-choose button:active,
+            .color-choose button:focus {
+                border: 2px solid #86939E;
+                outline: none;
+            }
+
+            .size-choose button:hover,
+            .size-choose button:active,
+            .size-choose button:focus {
+                border: 2px solid #86939E;
+                outline: none;
+            }
+
+            .color-config, .size-config {
+                border-bottom: 1px solid #E1E8EE;
+                border-top: 1px solid #E1E8EE;
+                margin-top: 10px;
+                padding: 10px;
+            }
+
+        </style>
+        <script>
+
+            $(document).ready(function () {
+                $('#addToCart').on('click', function () {
+                    console.log('clicked');
+                    var id = document.getElementById('size');
+                    var idx = document.getElementById('color');
+                    var size = id.options[id.selectedIndex].text;
+                    var color = idx.options[idx.selectedIndex].text;
+                    {#console.log(z);#}
+                    $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
+                        function (returnedData) {
+                            console.log(returnedData);
+                            $("#addToCart").text("Added");
+                            $("#addToCart").prop("disabled", true);
+
+                        });
+                });
+
             });
+        </script>
+        <script>
+            function changeImage(color) {
+                console.log(color);
+            }
+        </script>
+    {% endblock extrahead %}
+    {% block content %}
+        {{ indo.1 }}
+        <div class="main-content container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="synch-carousels">
 
-        });
-    </script>
-    <script>
-        function changeImage(color) {
+                        <div class="main-slider-image child">
+                            <div class="gallery2">
+                                {% for i in images %}
+                                    <div class="item">
+                                        <img src="{{ i.image.url }}" alt="a" class="img-fluid">
+                                    </div>
+                                {% endfor %}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s3.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s4.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s5.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                            </div>
+                            <div class="nav-arrows">
+                                <button class="arrow-left">
+                                    <i class="fa fa-2x fa-angle-left" aria-hidden="true"></i>
+                                </button>
+                                <button class="arrow-right">
+                                    <i class="fa fa-2x fa-angle-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="photos-counter">
+                                <span></span><span></span>
+                            </div>
+                        </div><!--/right-->
 
-        }
-    </script>
-{% endblock %}
+                        <div class="image-slider child">
+                            <div class="gallery">
+                                {% for i in images %}
 
-{% block content %}
+                                    <div class="item">
+                                        <img src="{{ i.image.url }}" alt="b">
+                                    </div>
+                                {% endfor %}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s1.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s3.jpg' %}" alt="">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s4.jpg' %}" alt="">#}
+                                {#                            </div>#}
+                                {#                            <div class="item">#}
+                                {#                                <img src="{% static 'images/s5.jpg' %}" alt="">#}
+                                {#                            </div>#}
 
-    <div class="main-content container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="synch-carousels">
+                            </div>
+                        </div><!--/left-->
+                        <div class="color-config">
+                            <span>Choose Color</span>
 
-                    <div class="main-slider-image child">
-                        <div class="gallery2">
-                            {% for i in images.1.pics %}
-                                <div class="item">
-                                    <img src="{{ i }}" alt="" class="img-fluid">
-                                </div>
-                            {% endfor %}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s3.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s4.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s5.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
+                            <div class="color-choose">
+                                {% for i in color %}
+                                    <button class="xx" onclick="changeImage('{{ i.color }}')">{{ i.color }}</button>
+                                {% endfor %}
+                            </div>
+
                         </div>
-                        <div class="nav-arrows">
-                            <button class="arrow-left">
-                                <i class="fa fa-2x fa-angle-left" aria-hidden="true"></i>
-                            </button>
-                            <button class="arrow-right">
-                                <i class="fa fa-2x fa-angle-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="photos-counter">
-                            <span></span><span></span>
-                        </div>
-                    </div><!--/right-->
-
-                    <div class="image-slider child">
-                        <div class="gallery">
-                            {% for i in images.1.pics %}
-                                <div class="item">
-                                    <img src="{{ i }}" alt="">
-                                </div>
-                            {% endfor %}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s1.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s3.jpg' %}" alt="">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s4.jpg' %}" alt="">#}
-{#                            </div>#}
-{#                            <div class="item">#}
-{#                                <img src="{% static 'images/s5.jpg' %}" alt="">#}
-{#                            </div>#}
-
-                        </div>
-                    </div><!--/left-->
-                    <div class="color-config">
-                        <span>Choose Color</span>
-
-                        <div class="color-choose">
-                            {% for i in images %}
-                                <button class="xx" onclick="changeImage({{ i.color }})">{{ i.color }}</button>
-                            {% endfor %}
-                        </div>
-
                     </div>
-                </div>
 
-            </div>
-            <div class="col-md-6">
-                <div>
-                    <h2>{{ object.name }}</h2>
-                    <div class="wrapper-tab-content">
-                        <div class="tab-title">
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <h2>{{ object.name }}</h2>
+                        <div class="wrapper-tab-content">
+                            <div class="tab-title">
                                 <span>
                                   Description:
                                 </span>
 
-                            </a>
-                        </div>
-
-                        <div class="tab-content" data-tabcontent="" id="collapse-tab1">
-                            <div>
-                                <p><span style="color: #ff2a00;"><b>Size Note:</b><b>-&nbsp;</b><b>This style fits as per the size chart.</b></span>
-                                </p>
-
-                                {{ object.size }}
-                                <h6><span
-                                        style="text-decoration: underline;"><strong>Product Description:</strong></span>
-                                </h6>
-                                <p>&nbsp;Much more than your ordinary slip-on! The Braided Twists pair perfectly with
-                                    almost everything! From sweats to a breezy summer dress, the complete piece to your
-                                    outfit!</p>
-                                <p><span
-                                        data-sheets-value="{Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
-                                        data-sheets-userformat="{}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
-                                </p>
-                                <h6><span style="text-decoration: underline;"><strong>Product Details:</strong></span>
-                                </h6>
-                                <ul>
-                                    <li><span><strong>Material:</strong>&nbsp; {{ object.material }}</span></li>
-                                    <li><span><strong>Type:</strong>&nbsp;{{ object.type }}</span></li>
-                                    <li><span><strong>Closure Type: </strong>Slip-On</span></li>
-                                    <li><span><strong>Colour:</strong>&nbsp;{{ object.color }}&nbsp;</span></li>
-                                    <li>
-                                        <strong>Shoe Type:</strong>&nbsp;{{ object.size }}
-                                        {{ object.sizeCm }}</li>
-                                    <li><span><strong>Heel Type:</strong>&nbsp;Flat</span></li>
-                                    <li><span><strong>Occasion:</strong>&nbsp;Casual</span></li>
-                                    <li><span><strong>Shoe Sole</strong>: Soft</span></li>
-                                </ul>
-                                <p><span>Due to limitations in the photography and natural light settings, actual</span><span> product colours might vary a bit from what it appears in the photographs</span>
-                                </p>
-
+                                </a>
                             </div>
-                        </div>
 
+                            <div class="tab-content" data-tabcontent="" id="collapse-tab1">
+                                <div>
+                                    <p><span style="color: #ff2a00;"><b>Size Note:</b><b>-&nbsp;</b><b>This style fits as per the size chart.</b></span>
+                                    </p>
 
-                        <div class="tab-title">
-                            <a href="#" data-taptop="" data-target="#collapse-tab2" class="tab-links ">
-
-                                <span>
-                                  Customer Reviews
-                                </span>
-
-                                <span class="icon-dropdown">
-                                  <i class="fa fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </div>
-
-                        <div class="tab-content" data-tabcontent="" id="collapse-tab2">
-                            <div id="shopify-product-reviews" data-id="4708488970322">
-                                <style scoped="">.spr-icon {
-                                    color: #e8f71d;
-                                }
-
-                                a.spr-icon:hover {
-                                    color: #5d630c;
-                                }
-
-                                .spr-container {
-                                    padding: 24px;
-                                    border-color: #ececec;
-                                }
-
-                                .spr-review, .spr-form {
-                                    border-color: #ECECEC;
-                                }
-                                </style>
-
-                                <div class="spr-container">
-                                    <div class="spr-header">
-                                        <h2 class="spr-header-title">Customer Reviews</h2>
-                                        <div class="spr-summary">
-                                            <span class="spr-summary-caption">No reviews yet</span><span
-                                                class="spr-summary-actions">
-        <a href="#" class="spr-summary-actions-newreview" onclick="SPR.toggleForm(4708488970322);return false">Write a review</a>
-      </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="spr-content">
-                                        <div class="spr-form" id="form_4708488970322" style="display: none">
-                                            <form method="post"
-                                                  action="//productreviews.shopifycdn.com/api/reviews/create"
-                                                  id="new-review-form_4708488970322" class="new-review-form"
-                                                  onsubmit="SPR.submitForm(this);return false;"><input type="hidden"
-                                                                                                       name="review[rating]"><input
-                                                    type="hidden" name="product_id" value="4708488970322">
-                                                <h3 class="spr-form-title">Write a review</h3>
-                                                <fieldset class="spr-form-contact">
-                                                    <div class="spr-form-contact-name">
-                                                        <label class="spr-form-label" for="review_author_4708488970322">Name</label>
-                                                        <input class="spr-form-input spr-form-input-text "
-                                                               id="review_author_4708488970322" type="text"
-                                                               name="review[author]" value=""
-                                                               placeholder="Enter your name">
-                                                    </div>
-                                                </fieldset>
-
-
-                                                <fieldset class="spr-form-review">
-
-                                                    <div class="spr-form-review-rating">
-                                                        <label class="spr-form-label"
-                                                               for="review[rating]">Rating</label>
-                                                        <div class="spr-form-input spr-starrating ">
-                                                            <a href="#" onclick="SPR.setRating(this);return false;"
-                                                               class="spr-icon spr-icon-star spr-icon-star-empty"
-                                                               data-value="1" aria-label="1 of 5 stars">&nbsp;</a>
-                                                            <a href="#" onclick="SPR.setRating(this);return false;"
-                                                               class="spr-icon spr-icon-star spr-icon-star-empty"
-                                                               data-value="2" aria-label="2 of 5 stars">&nbsp;</a>
-                                                            <a href="#" onclick="SPR.setRating(this);return false;"
-                                                               class="spr-icon spr-icon-star spr-icon-star-empty"
-                                                               data-value="3" aria-label="3 of 5 stars">&nbsp;</a>
-                                                            <a href="#" onclick="SPR.setRating(this);return false;"
-                                                               class="spr-icon spr-icon-star spr-icon-star-empty"
-                                                               data-value="4" aria-label="4 of 5 stars">&nbsp;</a>
-                                                            <a href="#" onclick="SPR.setRating(this);return false;"
-                                                               class="spr-icon spr-icon-star spr-icon-star-empty"
-                                                               data-value="5" aria-label="5 of 5 stars">&nbsp;</a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="spr-form-review-title">
-                                                        <label class="spr-form-label" for="review_title_4708488970322">Review
-                                                            Title</label>
-                                                        <input class="spr-form-input spr-form-input-text "
-                                                               id="review_title_4708488970322" type="text"
-                                                               name="review[title]" value=""
-                                                               placeholder="Give your review a title">
-                                                    </div>
-
-                                                    <div class="spr-form-review-body">
-                                                        <label class="spr-form-label" for="review_body_4708488970322">
-                                                            Body of Review
-                                                            <span role="status" aria-live="polite" aria-atomic="true">
-            <span class="spr-form-review-body-charactersremaining">(1500)</span>
-            <span class="visuallyhidden">characters remaining</span>
-          </span>
-                                                        </label>
-                                                        <div class="spr-form-input">
-                                                            <textarea class="spr-form-input spr-form-input-textarea "
-                                                                      id="review_body_4708488970322"
-                                                                      data-product-id="4708488970322"
-                                                                      name="review[body]" rows="10"
-                                                                      placeholder="Write your comments here"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-
-                                                <fieldset class="spr-form-actions">
-                                                    <input type="submit"
-                                                           class="spr-button spr-button-primary button button-primary btn btn-primary"
-                                                           value="Submit Review">
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                        <div class="spr-reviews" id="reviews_4708488970322" style="display: none"></div>
-                                    </div>
+                                    {{ object.size }}
+                                    <h6><span
+                                            style="text-decoration: underline;"><strong>Product Description:</strong></span>
+                                    </h6>
+                                    <p>&nbsp;Much more than your ordinary slip-on! The Braided Twists pair perfectly
+                                        with
+                                        almost everything! From sweats to a breezy summer dress, the complete piece to
+                                        your
+                                        outfit!</p>
+                                    <p><span
+                                            data-sheets-value="{Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
+                                            data-sheets-userformat="{}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
+                                    </p>
+                                    <h6><span
+                                            style="text-decoration: underline;"><strong>Product Details:</strong></span>
+                                    </h6>
+                                    <ul>
+                                        <li><span><strong>Material:</strong>&nbsp; {{ object.material }}</span></li>
+                                        <li><span><strong>Type:</strong>&nbsp;{{ object.type }}</span></li>
+                                        <li><span><strong>Closure Type: </strong>Slip-On</span></li>
+                                        <li><span><strong>Colour:</strong>&nbsp;{{ object.color }}&nbsp;</span></li>
+                                        <li>
+                                            <strong>Shoe Type:</strong>&nbsp;{{ object.size }}
+                                            {{ object.sizeCm }}</li>
+                                        <li><span><strong>Heel Type:</strong>&nbsp;Flat</span></li>
+                                        <li><span><strong>Occasion:</strong>&nbsp;Casual</span></li>
+                                        <li><span><strong>Shoe Sole</strong>: Soft</span></li>
+                                    </ul>
+                                    <p>
+                                        <span>Due to limitations in the photography and natural light settings, actual</span><span> product colours might vary a bit from what it appears in the photographs</span>
+                                    </p>
 
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="tab-title">
-                            <a href="#" data-taptop="" data-target="#collapse-tab3" class="tab-links ">
-
-<span>
-  Shipping &amp; Returns
-</span>
-
-                                <span class="icon-dropdown">
-          <i class="fa fa-angle-down"></i>
-        </span>
-                            </a>
-                        </div>
-
-                        <div class="tab-content" data-tabcontent="" id="collapse-tab3">
-
-
-                            <div>
-                                <p><u>&nbsp;<img
-                                        src="https://cdn.shopify.com/s/files/1/2118/7677/files/ret1_480x480.jpg?v=1564658161"
-                                        alt="" style="display: block; margin-left: auto; margin-right: auto;"></u></p>
-                                <div style="text-align: center;"><u><strong>EASY RETURNS</strong><br><br></u></div>
-                                <div style="text-align: center;"><u></u></div>
-                                <div style="text-align: center;"><u><img
-                                        src="https://cdn.shopify.com/s/files/1/2118/7677/files/ret2_480x480.jpg?v=1564658209"
-                                        alt=""></u></div>
-                                <p>Incase of a return, you will have to courier the product back to us. This cost will
-                                    not be borne by us. If you require a pickup facility , we will arrange for the same
-                                    provided you pay the courier cost ( it can be paid via paytym , google pay, bank
-                                    transfer) whichever is easier.</p>
-                                <p><strong><b>*Ensure that the following address is securely pasted on the returns
-                                    box*</b></strong><strong><b><br></b></strong><strong><b><br></b></strong>The Cai
-                                    Store<br>56, Ground Floor, Kaliandas Udyog Bhavan,<br>Century Bazaar, Prabhadevi,
-                                    Mumbai-400025<br><br><u>Eligible for Return</u></p>
-                                <ul>
-                                    <li>
-                                        <span></span>Your item must be unused &amp; in the same condition in which you
-                                        received it.
-                                    </li>
-                                    <li>
-                                        <span></span>It should be in its original packaging accompanied by a proof of
-                                        purchase.
-                                    </li>
-                                </ul>
-                                <p>NOTE:</p>
-                                <p>1) Any returned item received by us that do not meet the above mentioned conditions,
-                                    will not be accepted and will be returned back to you at your expense. No amount
-                                    will be reimbursed in this case.</p>
-                                <p>2) &nbsp;If you purchase from a retail store or 3rd party website other than CAI, the
-                                    inquiry must be made directly though that retailer.</p>
-                                <p><u>CREDIT NOTE</u></p>
-                                <ul>
-                                    <li>
-                                        <span></span>We DO NOT provide REFUNDS.
-                                    </li>
-                                    <li>
-                                        <span></span>All items purchased from our website can be returned for a credit
-                                        coupon within 14 days from the date of delivery. The entire amount of the
-                                        returned product (excluding shipping cost) will be credited to the coupon code.
-                                    </li>
-                                </ul>
-                            </div>
-
-
-                        </div>
-
-
                     </div>
-
-
                 </div>
-            </div>
-            <div class="col-md-2 ">
+                <div class="col-md-2 ">
 
-                <table class="a-lineitem border border-dark" style="width: 155%">
-                    <tbody>
-                    <tr>
-                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
-                        <td class="a-span12 a-color-secondary a-size-base">
-                            <span class="priceBlockStrikePriceString a-text-strike">Rs. {{ object.origPrice }}</span>
-
-
-                            <style>
-                                #listPriceLegalMessageText {
-                                    margin-left: 5px !important;
-                                }
-
-                                #listPriceLegalMessage .a-popover-trigger:hover {
-                                    text-decoration: underline !important;
-                                }
-
-                                #listPriceLegalMessage .a-icon-popover {
-                                    display: inline-block !important;
-                                    margin-left: 0px !important;
-                                    margin-top: 6px !important;
-                                }
-                            </style>
-
-                        </td>
-                    </tr>
+                    <table class="a-lineitem border border-dark" style="width: 155%">
+                        <tbody>
+                        <tr>
+                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
+                            <td class="a-span12 a-color-secondary a-size-base">
+                                <span class="priceBlockStrikePriceString a-text-strike">Rs. {{ object.origPrice }}</span>
 
 
-                    <tr>
-                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
-                        <td class="a-size-medium a-color-price ">
+                                <style>
+                                    #listPriceLegalMessageText {
+                                        margin-left: 5px !important;
+                                    }
+
+                                    #listPriceLegalMessage .a-popover-trigger:hover {
+                                        text-decoration: underline !important;
+                                    }
+
+                                    #listPriceLegalMessage .a-icon-popover {
+                                        display: inline-block !important;
+                                        margin-left: 0px !important;
+                                        margin-top: 6px !important;
+                                    }
+                                </style>
+
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
+                            <td class="a-size-medium a-color-price ">
 
 
                             <span id="priceblock_ourprice"
                                   class="a-size-medium a-color-price priceBlockBuyingPriceString"> Rs. {{ object.price }}</span>
 
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
-
-
-                        <td class="a-span12 a-color-price a-size-base priceBlockSavingsString">Rs. {{ object.discount }}
-                            ({% widthratio object.discount object.origPrice 100 %}%)
-                    </tr>
-
-
-                    <form action="{% url 'checkout' %}" method="post" class="w3layouts-newsletter">
-                        {% csrf_token %}
-                        {#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
-                        <input type="hidden" name="pid" value="{{ object.id }}">
-                        <tr>
-                            <td class="a-color-secondary a-size-base text-center a-nowrap">
-                                Select Size:
-                            </td>
-                            <td>
-                                <select id="size" name="size">
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="a-color-secondary a-size-base text-center a-nowrap">
-                                Select Color:
-                            </td>
-                            <td>
-                                <select id="color" name="color">
-                                    <option>Red</option>
-                                    <option>Blue</option>
-                                    <option>Green</option>
-                                    <option>Black</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="text-center">
-                                <button type="button" class="btn1" id="addToCart">Add To Cart</button>
                             </td>
                         </tr>
 
                         <tr>
-                            <td colspan="2" class="text-center">
-                                <button class="btn1">Buy Now</button>
-                            </td>
-                        </tr>
-                    </form>
-                    </tbody>
-                </table>
+                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
 
+
+                            <td class="a-span12 a-color-price a-size-base priceBlockSavingsString">
+                                Rs. {{ object.discount }}
+                                ({% widthratio object.discount object.origPrice 100 %}%)
+                        </tr>
+
+
+                        <form action="{% url 'checkout' %}" method="post" class="w3layouts-newsletter">
+                            {% csrf_token %}
+                            {#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
+                            <input type="hidden" name="pid" value="{{ object.id }}">
+                            <tr>
+                                <td class="a-color-secondary a-size-base text-center a-nowrap">
+                                    Select Size:
+                                </td>
+                                <td>
+                                    <select id="size" name="size">
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="a-color-secondary a-size-base text-center a-nowrap">
+                                    Select Color:
+                                </td>
+                                <td>
+                                    <select id="color" name="color">
+                                        <option>Red</option>
+                                        <option>Blue</option>
+                                        <option>Green</option>
+                                        <option>Black</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <button type="button" class="btn1" id="addToCart">Add To Cart</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <button class="btn1">Buy Now</button>
+                                </td>
+                            </tr>
+                        </form>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
 
+        <script>
+            const $left = $(".left");
+            const $gl = $(".gallery");
+            const $gl2 = $(".gallery2");
+            const $photosCounterFirstSpan = $(".photos-counter span:nth-child(1)");
 
-    <script>
-        const $left = $(".left");
-        const $gl = $(".gallery");
-        const $gl2 = $(".gallery2");
-        const $photosCounterFirstSpan = $(".photos-counter span:nth-child(1)");
 
+            $gl.slick({
+                draggable: true,
+                infinite: true,
 
-        $gl.slick({
-            rows: 0,
-            slidesToShow: 2,
-            arrows: false,
-            draggable: false,
-            useTransform: false,
-            mobileFirst: true,
-            responsive: [
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 3
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: true,
+                mobileFirst: true,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 1023,
+                        settings: {
+                            slidesToShow: 3
+                        }
                     }
-                },
-                {
-                    breakpoint: 1023,
-                    settings: {
-                        slidesToShow: 3
-                    }
+                ]
+            });
+
+            $gl2.slick({
+                rows: 0,
+                useTransform: false,
+                prevArrow: ".arrow-left",
+                nextArrow: ".arrow-right",
+                fade: true,
+                asNavFor: $gl
+            });
+            $(window).on("load", () => {
+                handleCarouselsHeight();
+                setTimeout(() => {
+                    $(".loading").fadeOut();
+                    $("body").addClass("over-visible");
+                }, 300);
+            });
+
+            function handleCarouselsHeight() {
+                if (window.matchMedia("(min-width: 1024px)").matches) {
+                    const gl2H = $(".gallery2").height();
+                    $left.css("height", gl2H);
+                } else {
+                    $left.css("height", "auto");
                 }
-            ]
-        });
-
-        $gl2.slick({
-            rows: 0,
-            useTransform: false,
-            prevArrow: ".arrow-left",
-            nextArrow: ".arrow-right",
-            fade: true,
-            asNavFor: $gl
-        });
-        $(window).on("load", () => {
-            handleCarouselsHeight();
-            setTimeout(() => {
-                $(".loading").fadeOut();
-                $("body").addClass("over-visible");
-            }, 300);
-        });
-
-        function handleCarouselsHeight() {
-            if (window.matchMedia("(min-width: 1024px)").matches) {
-                const gl2H = $(".gallery2").height();
-                $left.css("height", gl2H);
-            } else {
-                $left.css("height", "auto");
             }
-        }
 
-        {#$(window).on(#}
-        {#    "resize",#}
-        {#    _.debounce(() => {#}
-        {#        handleCarouselsHeight();#}
-        {#        /*You might need this code in your projects*/#}
-        {#        //$gl1.slick("resize");#}
-        {#        //$gl2.slick("resize");#}
-        {#    }, 200)#}
-        {#);#}
-        {#$gl2.on("afterChange", (event, slick, currentSlide) => {#}
-        {#    $photosCounterFirstSpan.text(`${slick.currentSlide + 1}/`);}); #}
+            {#$(window).on(#}
+            {#    "resize",#}
+            {#    _.debounce(() => {#}
+            {#        handleCarouselsHeight();#}
+            {#        /*You might need this code in your projects*/#}
+            {#        //$gl1.slick("resize");#}
+            {#        //$gl2.slick("resize");#}
+            {#    }, 200)#}
+            {#);#}
+            {#$gl2.on("afterChange", (event, slick, currentSlide) => {#}
+            {#    $photosCounterFirstSpan.text(`${slick.currentSlide + 1}/`);}); #}
 
-        $(".gallery .item").on("click", function () {
-            const index = $(this).attr("data-slick-index");
-            {#console.log(index);#}
-            $gl2.slick("slickGoTo", index);
-        });
-    </script>
-{% endblock %}
+            $(".gallery .item").on("click", function () {
+                const index = $(this).attr("data-slick-index");
+                {#console.log(index);#}
+                $gl2.slick("slickGoTo", index);
+            });
+        </script>
+    {% endblock content %}
+{% endwith %}

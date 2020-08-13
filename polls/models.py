@@ -82,7 +82,27 @@ class ProductColorImage(models.Model):
     id = models.AutoField(primary_key=True)
     pid = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
     color = models.CharField(default="", max_length=500)
-    pics = ArrayField(models.CharField(max_length=10000), null=True, blank=True)
 
     def __str__(self):
         return self.pid.name
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(ProductColorImage, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='img/', default=None)
+
+    def __str__(self):
+        return self.product.pid.name
+
+
+class Order(models.Model):
+    orderId = models.AutoField(primary_key=True)
+    product = ArrayField(models.IntegerField(default=0))
+    quantity = ArrayField(models.IntegerField(default=1))
+    amount = models.FloatField(default=0.0)
+    size = ArrayField(models.IntegerField(default=0))
+    color = ArrayField(models.CharField(max_length=500, default=""))
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name

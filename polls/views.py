@@ -1,4 +1,5 @@
 from datetime import datetime
+from django import template
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -14,7 +15,7 @@ from django.template import context
 from django.views import View
 from django.views.generic import DetailView
 from polls.forms import CreateUserForm
-from polls.models import NewLogin, Product, Cart, ProductColorImage
+from polls.models import NewLogin, Product, Cart, ProductColorImage, ProductImage
 
 
 def index(request):
@@ -138,11 +139,13 @@ class ShopSingle(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShopSingle, self).get_context_data(**kwargs)
-        print(self.kwargs['slug'])
-        p = Product.objects.filter(slug=self.kwargs['slug'])
-        print(p[0].id)
-        context["images"] = ProductColorImage.objects.filter(pid=p[0].id)
-        print(context["images"])
+        context["color"] = ProductColorImage.objects.filter(pid=self.object)
+        p = ProductColorImage.objects.filter(pid=self.object)
+        print(p[0].color)
+        pi = ProductImage.objects.filter(product=p[0])
+        print(pi[0].image.url)
+        context["images"] = pi
+
         return context
 
 
@@ -177,6 +180,7 @@ class Checkout(View):
 
 
 def single(request):
+    
     return render(request, "single.html", {})
 
 

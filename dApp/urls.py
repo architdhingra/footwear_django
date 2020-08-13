@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.views import View
 import polls
+from dApp import settings
 from polls.views import *
+from django.conf.urls.static import static
+from dApp import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,4 +49,4 @@ urlpatterns = [
     path('check/<id>', shopsingle, name="check"),
     path('delete/<id>', delete, name="delete"),
     path('addToCart/', addToCart, name="addToCart"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
