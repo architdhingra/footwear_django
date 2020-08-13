@@ -104,5 +104,13 @@ class Order(models.Model):
     color = ArrayField(models.CharField(max_length=500, default=""))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
+class Contact(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(default="", max_length=100)
+    email = models.CharField(default="", max_length=100)
+    phone = models.CharField(default="", max_length=100)
+    message = models.CharField(default="", max_length=100000)
+
     def __str__(self):
-        return self.product.name
+        return self.name

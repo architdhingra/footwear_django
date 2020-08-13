@@ -1519,3 +1519,9 @@ table.a-lineitem td, table.a-lineitem th {
     margin-bottom: 39px;
     font-family: Poppins;
 }
+
+.icons {
+    color: green;
+    size: auto;
+    height: 2px;
+}

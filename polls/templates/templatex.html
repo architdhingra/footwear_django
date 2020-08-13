@@ -68,8 +68,8 @@
                     <li>
                         <!-- First Tier Drop Down -->
                         {% if user.is_authenticated %}
-                            <label for="drop-2" class="toggle">{{ user.get_username }} <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#"> {{ user.get_username }}<span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <label for="drop-2" class="toggle">{{ user.first_name }} <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#"> {{ user.first_name }}<span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
 
@@ -87,7 +87,9 @@
                             </ul>
                         {% endif %}
 
+
                     </li>
+                <li><a href="{% url 'checkout' %}"><i class="fa fa-shopping-cart" aria-hidden="true" ></i></li>
                     {#                        {% if user.is_authenticated %}#}
                     {#                            <li><a href="{% url 'index' %}">Welcome {{ user.get_username }}</a></li>#}
                     {#                            <li><a href="{% url 'logout_view' %}" >Logout</a></li>#}
