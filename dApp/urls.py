@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from django.views import View
 import polls
@@ -41,12 +42,10 @@ urlpatterns = [
     path('contact/', contact, name="contact"),
     path('login/', loginx, name="login"),
     path('test/', test, name="test"),
-    # path('checkout/', checkout, name="checkout"),
     path('checkout/', Checkout.as_view(), name="checkout"),
     path('product/', product, name="product"),
     path('newlogin/', newLogin.as_view(), name="newLogin"),
     path('polls/', poll.as_view(), name="polls"),
-    path('check/<id>', shopsingle, name="check"),
     path('delete/<id>', delete, name="delete"),
     path('addToCart/', addToCart, name="addToCart"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

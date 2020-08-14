@@ -1,19 +1,16 @@
 from datetime import datetime
-from django import template
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import F
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import views as auth_views
 # Create your views here.
-from django.template import context
 from django.views import View
 from django.views.generic import DetailView
+
 from polls.forms import CreateUserForm
 from polls.models import NewLogin, Product, Cart, ProductColorImage, ProductImage
 
@@ -74,18 +71,6 @@ class poll(View):
 
 def profile(request):
     return render(request, "profile.html")
-    # if request.method == "POST":
-    #     uname = request.POST["email"]
-    #     password = request.POST["password"]
-    #     user = authenticate(username=uname, password=password)
-    #
-    #     if user is not None:
-    #         login(request, user)
-    #         return redirect('polls')
-    #     else:
-    #         return render(request, "login.html")
-    #
-    # else:
 
 
 class newLogin(View):
@@ -123,11 +108,6 @@ def shop(request, type):
     return render(request, "shop.html", {'prod': prod})
 
 
-def shopsingle(request, id):
-    prod = Product.getSingle(request, id)
-    return render(request, "check.html", {'prod': prod})
-
-
 def returns(request):
     return render(request, "returns.html", {})
 
@@ -141,13 +121,22 @@ class ShopSingle(DetailView):
         context = super(ShopSingle, self).get_context_data(**kwargs)
         context["color"] = ProductColorImage.objects.filter(pid=self.object)
         p = ProductColorImage.objects.filter(pid=self.object)
-        print(p[0].color)
         pi = ProductImage.objects.filter(product=p[0])
-        print(pi[0].image.url)
         context["images"] = pi
-
         return context
 
+    def post(self, request, slug, *args, **kwargs):
+        self.object = self.get_object()
+        context = super(ShopSingle, self).get_context_data(**kwargs)
+        print(self.request.POST['color'])
+        context["color"] = ProductColorImage.objects.filter(pid=self.object)
+        p = ProductColorImage.objects.filter(pid=self.object, color=self.request.POST['color'])
+        print(p)
+        pi = ProductImage.objects.filter(product=p[0])
+        print(pi)
+        context["images"] = pi
+        print(context)
+        return self.render_to_response(context=context)
 
 class Checkout(View):
     def post(self, *args, **kwargs):
@@ -180,7 +169,6 @@ class Checkout(View):
 
 
 def single(request):
-    
     return render(request, "single.html", {})
 
 

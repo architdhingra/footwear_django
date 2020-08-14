@@ -1,522 +1,494 @@
 {% extends 'template.html' %}
 {% load static %}
-{% with indo=images.1.pics %}
-
-    {% block extrahead %}
 
 
+{% block extrahead %}
 
-        <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
-        <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
-        <style>
-            .border-dark {
-                border-color: #343a40 !important;
-            }
 
-            .border {
-                border: 1px solid #dee2e6 !important;
-                border-collapse: separate;
-                border-spacing: 1em;
-            }
 
-            .synch-carousels {
-                position: relative;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+    <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+    <style>
+        .border-dark {
+            border-color: #343a40 !important;
+        }
 
-            .synch-carousels > * {
-                width: 100%;
-            }
+        .border {
+            border: 1px solid #dee2e6 !important;
+            border-collapse: separate;
+            border-spacing: 1em;
+        }
 
+        .synch-carousels {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .synch-carousels > * {
+            width: 100%;
+        }
+
+        .synch-carousels .right {
+            order: -1;
+        }
+
+        .synch-carousels .left {
+            overflow: hidden;
+        }
+
+        .synch-carousels .gallery {
+            display: none;
+        }
+
+        .synch-carousels .gallery .slick-list {
+            height: auto !important;
+            margin: 0 -20px;
+        }
+
+        .synch-carousels .gallery .slick-slide {
+            margin: 0 20px;
+        }
+
+        @media screen and (min-width: 480px) {
             .synch-carousels .right {
-                order: -1;
-            }
-
-            .synch-carousels .left {
-                overflow: hidden;
+                margin-bottom: 20px;
             }
 
             .synch-carousels .gallery {
-                display: none;
+                display: block;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .synch-carousels .right {
+                position: relative;
+                width: calc(100% - 230px);
+                margin-bottom: 0;
+                order: 2;
             }
 
-            .synch-carousels .gallery .slick-list {
-                height: auto !important;
-                margin: 0 -20px;
+            .synch-carousels .left {
+                width: 210px;
             }
 
             .synch-carousels .gallery .slick-slide {
-                margin: 0 20px;
+                margin: 0 0 20px 0;
             }
 
-            @media screen and (min-width: 480px) {
-                .synch-carousels .right {
-                    margin-bottom: 20px;
-                }
-
-                .synch-carousels .gallery {
-                    display: block;
-                }
+            .synch-carousels .gallery .slick-list {
+                margin: 0;
             }
+        }
 
-            @media screen and (min-width: 1024px) {
-                .synch-carousels .right {
-                    position: relative;
-                    width: calc(100% - 230px);
-                    margin-bottom: 0;
-                    order: 2;
-                }
+        .image-slider.child .item img {
+            max-width: 100%;
+        }
 
-                .synch-carousels .left {
-                    width: 210px;
-                }
+        .main-slider-image.child .item, .image-slider.child .item img {
+            border: 1px solid #e1e1e1;
+        }
 
-                .synch-carousels .gallery .slick-slide {
-                    margin: 0 0 20px 0;
-                }
+        .main-slider-image.child .item img {
+            margin: 0 auto;
+        }
 
-                .synch-carousels .gallery .slick-list {
-                    margin: 0;
-                }
-            }
+        .image-slider.child .slick-slide {
+            margin: 0 5px;
+        }
 
-            .image-slider.child .item img {
-                max-width: 100%;
-            }
+        .main-slider-image.child {
+            position: relative;
+        }
 
-            .main-slider-image.child .item, .image-slider.child .item img {
-                border: 1px solid #e1e1e1;
-            }
+        .nav-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+        }
 
-            .main-slider-image.child .item img {
-                margin: 0 auto;
-            }
+        button.arrow-right.slick-arrow {
+            float: right;
+        }
 
-            .image-slider.child .slick-slide {
-                margin: 0 5px;
-            }
+        .nav-arrows button {
+            border: none;
+        }
 
-            .main-slider-image.child {
-                position: relative;
-            }
+        .image-slider.child {
+            margin-top: 3%;
+        }
 
-            .nav-arrows {
-                position: absolute;
-                top: 50%;
-                width: 100%;
-            }
+        .main-content {
+            margin-top: 3%;
+        }
+    </style>
+    <style type="text/css">
+        .size-choose, .color-choose {
+            margin-bottom: 10px;
+            margin-top: 5px;
+        }
 
-            button.arrow-right.slick-arrow {
-                float: right;
-            }
+        .color-choose button {
+            border: 2px solid #E1E8EE;
+            border-radius: 6px;
+            padding: 13px 20px;
+            font-size: 14px;
+            color: #5E6977;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all .5s;
+            margin-bottom: 5px;
+        }
 
-            .nav-arrows button {
-                border: none;
-            }
+        .size-choose button {
+            border: 2px solid #E1E8EE;
+            border-radius: 6px;
+            padding: 13px 20px;
+            font-size: 14px;
+            color: #5E6977;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all .5s;
+            margin-bottom: 5px;
+        }
 
-            .image-slider.child {
-                margin-top: 3%;
-            }
+        .color-choose button:hover,
+        .color-choose button:active,
+        .color-choose button:focus {
+            border: 2px solid #86939E;
+            outline: none;
+        }
 
-            .main-content {
-                margin-top: 3%;
-            }
-        </style>
-        <style type="text/css">
-            .size-choose, .color-choose {
-                margin-bottom: 10px;
-                margin-top: 5px;
-            }
+        .size-choose button:hover,
+        .size-choose button:active,
+        .size-choose button:focus {
+            border: 2px solid #86939E;
+            outline: none;
+        }
 
-            .color-choose button {
-                border: 2px solid #E1E8EE;
-                border-radius: 6px;
-                padding: 13px 20px;
-                font-size: 14px;
-                color: #5E6977;
-                background-color: #fff;
-                cursor: pointer;
-                transition: all .5s;
-                margin-bottom: 5px;
-            }
+        .color-config, .size-config {
+            border-bottom: 1px solid #E1E8EE;
+            border-top: 1px solid #E1E8EE;
+            margin-top: 10px;
+            padding: 10px;
+        }
 
-            .size-choose button {
-                border: 2px solid #E1E8EE;
-                border-radius: 6px;
-                padding: 13px 20px;
-                font-size: 14px;
-                color: #5E6977;
-                background-color: #fff;
-                cursor: pointer;
-                transition: all .5s;
-                margin-bottom: 5px;
-            }
+    </style>
+    <script>
 
-            .color-choose button:hover,
-            .color-choose button:active,
-            .color-choose button:focus {
-                border: 2px solid #86939E;
-                outline: none;
-            }
+        $(document).ready(function () {
+            $('#addToCart').on('click', function () {
+                console.log('clicked');
+                var id = document.getElementById('size');
+                var idx = document.getElementById('color');
+                var size = id.options[id.selectedIndex].text;
+                var color = idx.options[idx.selectedIndex].text;
+                {#console.log(z);#}
+                $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
+                    function (returnedData) {
+                        console.log(returnedData);
+                        $("#addToCart").text("Added");
+                        $("#addToCart").prop("disabled", true);
 
-            .size-choose button:hover,
-            .size-choose button:active,
-            .size-choose button:focus {
-                border: 2px solid #86939E;
-                outline: none;
-            }
-
-            .color-config, .size-config {
-                border-bottom: 1px solid #E1E8EE;
-                border-top: 1px solid #E1E8EE;
-                margin-top: 10px;
-                padding: 10px;
-            }
-
-        </style>
-        <script>
-
-            $(document).ready(function () {
-                $('#addToCart').on('click', function () {
-                    console.log('clicked');
-                    var id = document.getElementById('size');
-                    var idx = document.getElementById('color');
-                    var size = id.options[id.selectedIndex].text;
-                    var color = idx.options[idx.selectedIndex].text;
-                    {#console.log(z);#}
-                    $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
-                        function (returnedData) {
-                            console.log(returnedData);
-                            $("#addToCart").text("Added");
-                            $("#addToCart").prop("disabled", true);
-
-                        });
-                });
-
+                    });
             });
-        </script>
-        <script>
-            function changeImage(color) {
-                console.log(color);
-            }
-        </script>
-    {% endblock extrahead %}
-    {% block content %}
-        {{ indo.1 }}
-        <div class="main-content container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="synch-carousels">
 
-                        <div class="main-slider-image child">
-                            <div class="gallery2">
-                                {% for i in images %}
-                                    <div class="item">
-                                        <img src="{{ i.image.url }}" alt="a" class="img-fluid">
-                                    </div>
-                                {% endfor %}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s3.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s4.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s5.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                            </div>
-                            <div class="nav-arrows">
-                                <button class="arrow-left">
-                                    <i class="fa fa-2x fa-angle-left" aria-hidden="true"></i>
-                                </button>
-                                <button class="arrow-right">
-                                    <i class="fa fa-2x fa-angle-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                            <div class="photos-counter">
-                                <span></span><span></span>
-                            </div>
-                        </div><!--/right-->
+        });
+    </script>
+    <script>
+        function changeImage(color) {
+            console.log(color);
+        }
+    </script>
+{% endblock extrahead %}
+{% block content %}
+    {{ indo.1 }}
+    <div class="main-content container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="synch-carousels">
 
-                        <div class="image-slider child">
-                            <div class="gallery">
-                                {% for i in images %}
+                    <div class="main-slider-image child">
+                        <div class="gallery2">
+                            {% for i in images %}
+                                <div class="item">
+                                    <img src="{{ i.image.url }}" alt="a" class="img-fluid">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="nav-arrows">
+                            <button class="arrow-left">
+                                <i class="fa fa-2x fa-angle-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="arrow-right">
+                                <i class="fa fa-2x fa-angle-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="photos-counter">
+                            <span></span><span></span>
+                        </div>
+                    </div><!--/right-->
 
-                                    <div class="item">
-                                        <img src="{{ i.image.url }}" alt="b">
-                                    </div>
-                                {% endfor %}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s1.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s2.jpg' %}" alt="" class="img-fluid">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s3.jpg' %}" alt="">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s4.jpg' %}" alt="">#}
-                                {#                            </div>#}
-                                {#                            <div class="item">#}
-                                {#                                <img src="{% static 'images/s5.jpg' %}" alt="">#}
-                                {#                            </div>#}
+                    <div class="image-slider child">
+                        <div class="gallery">
+                            {% for i in images %}
 
-                            </div>
-                        </div><!--/left-->
-                        <div class="color-config">
-                            <span>Choose Color</span>
-
+                                <div class="item">
+                                    <img src="{{ i.image.url }}" alt="b">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div><!--/left-->
+                    <div class="color-config">
+                        <span>Choose Color</span>
+                        <form action="{% url 'shopsingle' object.slug %}" method="post">
+                        {% csrf_token %}
                             <div class="color-choose">
                                 {% for i in color %}
-                                    <button class="xx" onclick="changeImage('{{ i.color }}')">{{ i.color }}</button>
+                                    <button class="xx" name="color" value="{{ i.color }}" onclick="changeImage('{{ i.color }}')">{{ i.color }}</button>
                                 {% endfor %}
                             </div>
-
-                        </div>
+                        </form>
                     </div>
-
                 </div>
-                <div class="col-md-6">
-                    <div>
-                        <h2>{{ object.name }}</h2>
-                        <div class="wrapper-tab-content">
-                            <div class="tab-title">
+
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <h2>{{ object.name }}</h2>
+                    <div class="wrapper-tab-content">
+                        <div class="tab-title">
                                 <span>
                                   Description:
                                 </span>
 
-                                </a>
-                            </div>
-
-                            <div class="tab-content" data-tabcontent="" id="collapse-tab1">
-                                <div>
-                                    <p><span style="color: #ff2a00;"><b>Size Note:</b><b>-&nbsp;</b><b>This style fits as per the size chart.</b></span>
-                                    </p>
-
-                                    {{ object.size }}
-                                    <h6><span
-                                            style="text-decoration: underline;"><strong>Product Description:</strong></span>
-                                    </h6>
-                                    <p>&nbsp;Much more than your ordinary slip-on! The Braided Twists pair perfectly
-                                        with
-                                        almost everything! From sweats to a breezy summer dress, the complete piece to
-                                        your
-                                        outfit!</p>
-                                    <p><span
-                                            data-sheets-value="{Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
-                                            data-sheets-userformat="{}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
-                                    </p>
-                                    <h6><span
-                                            style="text-decoration: underline;"><strong>Product Details:</strong></span>
-                                    </h6>
-                                    <ul>
-                                        <li><span><strong>Material:</strong>&nbsp; {{ object.material }}</span></li>
-                                        <li><span><strong>Type:</strong>&nbsp;{{ object.type }}</span></li>
-                                        <li><span><strong>Closure Type: </strong>Slip-On</span></li>
-                                        <li><span><strong>Colour:</strong>&nbsp;{{ object.color }}&nbsp;</span></li>
-                                        <li>
-                                            <strong>Shoe Type:</strong>&nbsp;{{ object.size }}
-                                            {{ object.sizeCm }}</li>
-                                        <li><span><strong>Heel Type:</strong>&nbsp;Flat</span></li>
-                                        <li><span><strong>Occasion:</strong>&nbsp;Casual</span></li>
-                                        <li><span><strong>Shoe Sole</strong>: Soft</span></li>
-                                    </ul>
-                                    <p>
-                                        <span>Due to limitations in the photography and natural light settings, actual</span><span> product colours might vary a bit from what it appears in the photographs</span>
-                                    </p>
-
-                                </div>
-                            </div>
+                            </a>
                         </div>
 
+                        <div class="tab-content" data-tabcontent="" id="collapse-tab1">
+                            <div>
+                                <p><span style="color: #ff2a00;"><b>Size Note:</b><b>-&nbsp;</b><b>This style fits as per the size chart.</b></span>
+                                </p>
 
+                                {{ object.size }}
+                                <h6><span
+                                        style="text-decoration: underline;"><strong>Product Description:</strong></span>
+                                </h6>
+                                <p>&nbsp;Much more than your ordinary slip-on! The Braided Twists pair perfectly
+                                    with
+                                    almost everything! From sweats to a breezy summer dress, the complete piece to
+                                    your
+                                    outfit!</p>
+                                <p><span
+                                        data-sheets-value="{Much more than your ordinary slip ons! The Braided Twists pair perfectly with almost everything! From sweats to a breezy summer dress, the complete piece to your outfit!\n\nThe Braids / straps are crafted with a peach/ nude brown tone and certainly a compliment grabber!  &quot;}"
+                                        data-sheets-userformat="{}"><br>The Braids are crafted with a peach tone and certainly a compliment grabber! </span>
+                                </p>
+                                <h6><span
+                                        style="text-decoration: underline;"><strong>Product Details:</strong></span>
+                                </h6>
+                                <ul>
+                                    <li><span><strong>Material:</strong>&nbsp; {{ object.material }}</span></li>
+                                    <li><span><strong>Type:</strong>&nbsp;{{ object.type }}</span></li>
+                                    <li><span><strong>Closure Type: </strong>Slip-On</span></li>
+                                    <li><span><strong>Colour:</strong>&nbsp;{{ object.color }}&nbsp;</span></li>
+                                    <li>
+                                        <strong>Shoe Type:</strong>&nbsp;{{ object.size }}
+                                        {{ object.sizeCm }}</li>
+                                    <li><span><strong>Heel Type:</strong>&nbsp;Flat</span></li>
+                                    <li><span><strong>Occasion:</strong>&nbsp;Casual</span></li>
+                                    <li><span><strong>Shoe Sole</strong>: Soft</span></li>
+                                </ul>
+                                <p>
+                                    <span>Due to limitations in the photography and natural light settings, actual</span><span> product colours might vary a bit from what it appears in the photographs</span>
+                                </p>
+
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
-                <div class="col-md-2 ">
+            </div>
+            <div class="col-md-2 ">
 
-                    <table class="a-lineitem border border-dark" style="width: 155%">
-                        <tbody>
-                        <tr>
-                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
-                            <td class="a-span12 a-color-secondary a-size-base">
-                                <span class="priceBlockStrikePriceString a-text-strike">Rs. {{ object.origPrice }}</span>
-
-
-                                <style>
-                                    #listPriceLegalMessageText {
-                                        margin-left: 5px !important;
-                                    }
-
-                                    #listPriceLegalMessage .a-popover-trigger:hover {
-                                        text-decoration: underline !important;
-                                    }
-
-                                    #listPriceLegalMessage .a-icon-popover {
-                                        display: inline-block !important;
-                                        margin-left: 0px !important;
-                                        margin-top: 6px !important;
-                                    }
-                                </style>
-
-                            </td>
-                        </tr>
+                <table class="a-lineitem border border-dark" style="width: 155%">
+                    <tbody>
+                    <tr>
+                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">M.R.P.:</td>
+                        <td class="a-span12 a-color-secondary a-size-base">
+                            <span class="priceBlockStrikePriceString a-text-strike">Rs. {{ object.origPrice }}</span>
 
 
-                        <tr>
-                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
-                            <td class="a-size-medium a-color-price ">
+                            <style>
+                                #listPriceLegalMessageText {
+                                    margin-left: 5px !important;
+                                }
+
+                                #listPriceLegalMessage .a-popover-trigger:hover {
+                                    text-decoration: underline !important;
+                                }
+
+                                #listPriceLegalMessage .a-icon-popover {
+                                    display: inline-block !important;
+                                    margin-left: 0px !important;
+                                    margin-top: 6px !important;
+                                }
+                            </style>
+
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
+                        <td class="a-size-medium a-color-price ">
 
 
                             <span id="priceblock_ourprice"
                                   class="a-size-medium a-color-price priceBlockBuyingPriceString"> Rs. {{ object.price }}</span>
 
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
+
+
+                        <td class="a-span12 a-color-price a-size-base priceBlockSavingsString">
+                            Rs. {{ object.discount }}
+                            ({% widthratio object.discount object.origPrice 100 %}%)
+                    </tr>
+
+
+                    <form action="{% url 'checkout' %}" method="post" class="w3layouts-newsletter">
+                        {% csrf_token %}
+                        {#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
+                        <input type="hidden" name="pid" value="{{ object.id }}">
+                        <tr>
+                            <td class="a-color-secondary a-size-base text-center a-nowrap">
+                                Select Size:
+                            </td>
+                            <td>
+                                <select id="size" name="size">
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="a-color-secondary a-size-base text-center a-nowrap">
+                                Select Color:
+                            </td>
+                            <td>
+                                <select id="color" name="color">
+                                    <option>Red</option>
+                                    <option>Blue</option>
+                                    <option>Green</option>
+                                    <option>Black</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button type="button" class="btn1" id="addToCart">Add To Cart</button>
                             </td>
                         </tr>
 
                         <tr>
-                            <td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
-
-
-                            <td class="a-span12 a-color-price a-size-base priceBlockSavingsString">
-                                Rs. {{ object.discount }}
-                                ({% widthratio object.discount object.origPrice 100 %}%)
+                            <td colspan="2" class="text-center">
+                                <button class="btn1">Buy Now</button>
+                            </td>
                         </tr>
+                    </form>
+                    </tbody>
+                </table>
 
-
-                        <form action="{% url 'checkout' %}" method="post" class="w3layouts-newsletter">
-                            {% csrf_token %}
-                            {#                                    <input type="email" name="Email" placeholder="Enter your email..." required="">#}
-                            <input type="hidden" name="pid" value="{{ object.id }}">
-                            <tr>
-                                <td class="a-color-secondary a-size-base text-center a-nowrap">
-                                    Select Size:
-                                </td>
-                                <td>
-                                    <select id="size" name="size">
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="a-color-secondary a-size-base text-center a-nowrap">
-                                    Select Color:
-                                </td>
-                                <td>
-                                    <select id="color" name="color">
-                                        <option>Red</option>
-                                        <option>Blue</option>
-                                        <option>Green</option>
-                                        <option>Black</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center">
-                                    <button type="button" class="btn1" id="addToCart">Add To Cart</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="2" class="text-center">
-                                    <button class="btn1">Buy Now</button>
-                                </td>
-                            </tr>
-                        </form>
-                        </tbody>
-                    </table>
-
-                </div>
             </div>
         </div>
-        </div>
+    </div>
+    </div>
 
 
-        <script>
-            const $left = $(".left");
-            const $gl = $(".gallery");
-            const $gl2 = $(".gallery2");
-            const $photosCounterFirstSpan = $(".photos-counter span:nth-child(1)");
+    <script>
+        const $left = $(".left");
+        const $gl = $(".gallery");
+        const $gl2 = $(".gallery2");
+        const $photosCounterFirstSpan = $(".photos-counter span:nth-child(1)");
 
 
-            $gl.slick({
-                draggable: true,
-                infinite: true,
+        $gl.slick({
+            draggable: true,
+            infinite: true,
 
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                arrows: true,
-                mobileFirst: true,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 1023,
-                        settings: {
-                            slidesToShow: 3
-                        }
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            mobileFirst: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
                     }
-                ]
-            });
-
-            $gl2.slick({
-                rows: 0,
-                useTransform: false,
-                prevArrow: ".arrow-left",
-                nextArrow: ".arrow-right",
-                fade: true,
-                asNavFor: $gl
-            });
-            $(window).on("load", () => {
-                handleCarouselsHeight();
-                setTimeout(() => {
-                    $(".loading").fadeOut();
-                    $("body").addClass("over-visible");
-                }, 300);
-            });
-
-            function handleCarouselsHeight() {
-                if (window.matchMedia("(min-width: 1024px)").matches) {
-                    const gl2H = $(".gallery2").height();
-                    $left.css("height", gl2H);
-                } else {
-                    $left.css("height", "auto");
+                },
+                {
+                    breakpoint: 1023,
+                    settings: {
+                        slidesToShow: 3
+                    }
                 }
+            ]
+        });
+
+        $gl2.slick({
+            rows: 0,
+            useTransform: false,
+            prevArrow: ".arrow-left",
+            nextArrow: ".arrow-right",
+            fade: true,
+            asNavFor: $gl
+        });
+        $(window).on("load", () => {
+            handleCarouselsHeight();
+            setTimeout(() => {
+                $(".loading").fadeOut();
+                $("body").addClass("over-visible");
+            }, 300);
+        });
+
+        function handleCarouselsHeight() {
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const gl2H = $(".gallery2").height();
+                $left.css("height", gl2H);
+            } else {
+                $left.css("height", "auto");
             }
+        }
 
-            {#$(window).on(#}
-            {#    "resize",#}
-            {#    _.debounce(() => {#}
-            {#        handleCarouselsHeight();#}
-            {#        /*You might need this code in your projects*/#}
-            {#        //$gl1.slick("resize");#}
-            {#        //$gl2.slick("resize");#}
-            {#    }, 200)#}
-            {#);#}
-            {#$gl2.on("afterChange", (event, slick, currentSlide) => {#}
-            {#    $photosCounterFirstSpan.text(`${slick.currentSlide + 1}/`);}); #}
+        {#$(window).on(#}
+        {#    "resize",#}
+        {#    _.debounce(() => {#}
+        {#        handleCarouselsHeight();#}
+        {#        /*You might need this code in your projects*/#}
+        {#        //$gl1.slick("resize");#}
+        {#        //$gl2.slick("resize");#}
+        {#    }, 200)#}
+        {#);#}
+        {#$gl2.on("afterChange", (event, slick, currentSlide) => {#}
+        {#    $photosCounterFirstSpan.text(`${slick.currentSlide + 1}/`);}); #}
 
-            $(".gallery .item").on("click", function () {
-                const index = $(this).attr("data-slick-index");
-                {#console.log(index);#}
-                $gl2.slick("slickGoTo", index);
-            });
-        </script>
-    {% endblock content %}
-{% endwith %}
+        $(".gallery .item").on("click", function () {
+            const index = $(this).attr("data-slick-index");
+            {#console.log(index);#}
+            $gl2.slick("slickGoTo", index);
+        });
+    </script>
+{% endblock content %}

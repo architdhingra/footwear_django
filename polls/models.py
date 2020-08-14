@@ -103,6 +103,3 @@ class Order(models.Model):
     size = ArrayField(models.IntegerField(default=0))
     color = ArrayField(models.CharField(max_length=500, default=""))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.product.name
