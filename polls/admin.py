@@ -24,3 +24,4 @@ class ProductColorImageAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductSizeStock)
 admin.site.register(Order)
+admin.site.register(Contact)

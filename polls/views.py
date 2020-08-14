@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django import template
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -12,7 +12,7 @@ from django.views import View
 from django.views.generic import DetailView
 
 from polls.forms import CreateUserForm
-from polls.models import NewLogin, Product, Cart, ProductColorImage, ProductImage
+from polls.models import NewLogin, Product, Cart, ProductColorImage, ProductImage, Contact, Order
 
 
 def index(request):
@@ -22,6 +22,8 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
+        fname= request.POST["fname"]
+        lname = request.POST["lname"]
         uname = request.POST["email"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
@@ -31,7 +33,7 @@ def signup(request):
                 messages.info(request, "already exists")
                 return redirect('signup')
             else:
-                user = User.objects.create_user(username=uname, password=password)
+                user = User.objects.create_user(first_name=fname,last_name=lname, username=uname, password=password)
                 user.save()
                 messages.info(request, "Registered Successfully!")
                 return redirect('polls')
@@ -68,9 +70,6 @@ class poll(View):
     def get(self, *args, **kwargs):
         return render(self.request, "index.html", {})
 
-
-def profile(request):
-    return render(request, "profile.html")
 
 
 class newLogin(View):
@@ -128,14 +127,10 @@ class ShopSingle(DetailView):
     def post(self, request, slug, *args, **kwargs):
         self.object = self.get_object()
         context = super(ShopSingle, self).get_context_data(**kwargs)
-        print(self.request.POST['color'])
         context["color"] = ProductColorImage.objects.filter(pid=self.object)
         p = ProductColorImage.objects.filter(pid=self.object, color=self.request.POST['color'])
-        print(p)
         pi = ProductImage.objects.filter(product=p[0])
-        print(pi)
         context["images"] = pi
-        print(context)
         return self.render_to_response(context=context)
 
 class Checkout(View):
@@ -176,8 +171,6 @@ def blog(request):
     return render(request, "blog.html", {})
 
 
-def contact(request):
-    return render(request, "contact.html", {})
 
 
 def test(request):
@@ -220,3 +213,24 @@ def addToCart(request):
         return HttpResponse(200)
     except:
         return HttpResponse(400)
+
+def contact(request):
+    if request.method == "POST":
+        name= request.POST["name"]
+        email1 = request.POST["email"]
+        phone = request.POST["phone"]
+        message = request.POST["message"]
+        message = Contact.objects.create(name=name,email=email1, phone=phone, message=message)
+        message.save()
+        messages.info(request, "Your Query has been successfully submitted! We will connect with you shortly")
+        return redirect('polls')
+
+    else:
+        today = datetime.now().date()
+        return render(request, "contact.html")
+
+def profile_view(request):
+    if request.method == "GET":
+        results = Order.objects.filter(user=request.user)
+        print (results)
+        return render(request, 'profile.html', {'results':results})
