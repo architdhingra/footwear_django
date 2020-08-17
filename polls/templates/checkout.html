@@ -18,7 +18,8 @@
             $('.close1').on('click', function () {
                 {#console.log('clicked');#}
                 var id = $(this).closest("tr").attr('id');
-                var tp = {{ totalPrice }};
+                var tp = document.getElementById('totalPrice').innerText;
+                console.log("tp="+tp);
                 var inde = $(this).closest("tr").attr('tabid');
                 var currPrice = $(this).closest("tr").attr('price');
                 {#console.log(tp-currPrice);#}
@@ -28,6 +29,7 @@
                 $.ajax({
                     url: "http://127.0.0.1:8000/delete/" + id, async: true, success: function (result) {
                         console.log(result)
+                        console.log(currPrice+"::"+tp);
                         $("#totalPrice").text(tp - currPrice);
                         $("#totalCount").text(function (i, origText) {
                             return origText - 1;
@@ -68,10 +70,11 @@
                             {% for item in items %}
                                 <tr class="rem1" id="{{ item.id }}" tabid="{{ forloop.counter0 }}"
                                     price="{{ item.product.price }}">
-
-                                    <td class="invert-image"><a href="single.html"><img src="{{ item.product.pics.0 }}"
-                                                                                        alt=" " class="img-responsive"></a>
+                                {% with img=images|index:forloop.counter0 %}
+                                    <td class="invert-image"><a href="single.html"><img src="{{ img.image.url }}"
+                                                                                        alt="" class="img-responsive"></a>
                                     </td>
+                                    {% endwith %}
                                     <td class="invert">
                                         <div class="quantity">
                                             <div class="quantity-select">
@@ -101,7 +104,7 @@
                                 {% for item in items %}
                                     <li>{{ item.product.name }} <span>Rs. {{ item.product.price }} </span></li>
                                 {% endfor %}
-                                <li class="totalClass">Total <span id="totalPrice">Rs. {{ totalPrice }}</span></li>
+                                <li class="totalClass">Total <span id="totalPrice">{{ totalPrice }}</span><span>Rs. </span></li>
 
                             </ul>
 

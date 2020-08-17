@@ -22,7 +22,7 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
-        fname= request.POST["fname"]
+        fname = request.POST["fname"]
         lname = request.POST["lname"]
         uname = request.POST["email"]
         password = request.POST["password"]
@@ -33,7 +33,7 @@ def signup(request):
                 messages.info(request, "already exists")
                 return redirect('signup')
             else:
-                user = User.objects.create_user(first_name=fname,last_name=lname, username=uname, password=password)
+                user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password)
                 user.save()
                 messages.info(request, "Registered Successfully!")
                 return redirect('polls')
@@ -69,7 +69,6 @@ def logout_view(request):
 class poll(View):
     def get(self, *args, **kwargs):
         return render(self.request, "index.html", {})
-
 
 
 class newLogin(View):
@@ -118,10 +117,10 @@ class ShopSingle(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShopSingle, self).get_context_data(**kwargs)
-        context["color"] = ProductColorImage.objects.filter(pid=self.object)
         p = ProductColorImage.objects.filter(pid=self.object)
         pi = ProductImage.objects.filter(product=p[0])
         context["images"] = pi
+        context["color"] = p
         return context
 
     def post(self, request, slug, *args, **kwargs):
@@ -133,7 +132,9 @@ class ShopSingle(DetailView):
         context["images"] = pi
         return self.render_to_response(context=context)
 
+
 class Checkout(View):
+
     def post(self, *args, **kwargs):
         pid = (self.request.POST['pid'])
         size = (self.request.POST['size'])
@@ -148,19 +149,24 @@ class Checkout(View):
 
         items = Cart.getItems(self.request, self.request.user)
         totalPrice = 0
+        images = []
         for item in items:
             totalPrice += item.product.price
-        print(totalPrice)
-        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice})
+            p = ProductColorImage.objects.filter(pid=item.product, color=item.color)
+            pi = ProductImage.objects.filter(product=p[0])
+            images.append(pi[0])
+        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice, 'images': images})
 
     def get(self, *args, **kwargs):
+        images = []
         items = Cart.getItems(self.request, self.request.user)
-        print(items)
         totalPrice = 0
         for item in items:
             totalPrice += item.product.price
-        print(totalPrice)
-        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice})
+            p = ProductColorImage.objects.filter(pid=item.product, color=item.color)
+            pi = ProductImage.objects.filter(product=p[0])
+            images.append(pi[0])
+        return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice, 'images': images})
 
 
 def single(request):
@@ -171,25 +177,12 @@ def blog(request):
     return render(request, "blog.html", {})
 
 
-
-
 def test(request):
     return render(request, "test.html", {})
 
 
 def product(request):
     return render(request, "product.html", {})
-
-
-def checkout1(request):
-    return render(request, "checkout.html", {})
-
-
-def checkout(request, id):
-    cd = Cart.objects.filter(user=request.user, product=Product.getSingle(request, id=id))
-    items = Cart.getItems(request, request.user)
-    print(items)
-    return render(request, "checkout.html", {'items': items})
 
 
 def check(request):
@@ -214,13 +207,14 @@ def addToCart(request):
     except:
         return HttpResponse(400)
 
+
 def contact(request):
     if request.method == "POST":
-        name= request.POST["name"]
+        name = request.POST["name"]
         email1 = request.POST["email"]
         phone = request.POST["phone"]
         message = request.POST["message"]
-        message = Contact.objects.create(name=name,email=email1, phone=phone, message=message)
+        message = Contact.objects.create(name=name, email=email1, phone=phone, message=message)
         message.save()
         messages.info(request, "Your Query has been successfully submitted! We will connect with you shortly")
         return redirect('polls')
@@ -229,8 +223,20 @@ def contact(request):
         today = datetime.now().date()
         return render(request, "contact.html")
 
+
 def profile_view(request):
     if request.method == "GET":
-        results = Order.objects.filter(user=request.user)
-        print (results)
-        return render(request, 'profile.html', {'results':results})
+        orders = Order.objects.filter(user=request.user)
+        products = {}
+        images = []
+        img = {}
+        for i, order in enumerate(orders):
+            products[i] = order.product.all()
+            for j, product in enumerate(products[i]):
+                color = order.color[j]
+                p = ProductColorImage.objects.filter(pid=product, color=color)
+                pi = ProductImage.objects.filter(product=p[0])
+                images.append(pi[0].image.url)
+            img[i] = images
+            images = []
+        return render(request, 'profile.html', {'results': orders, 'products': products, 'images': img})

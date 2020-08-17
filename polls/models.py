@@ -29,7 +29,6 @@ class Product(models.Model):
     type = models.CharField(max_length=500, default="")
     material = models.CharField(max_length=50000, default="")
     details = models.CharField(max_length=50000, default="")
-    color = models.CharField(max_length=100, default="")
     slug = models.SlugField(max_length=40, default="", unique=True)
     discount = models.BigIntegerField(default=0)
 
@@ -96,13 +95,34 @@ class ProductImage(models.Model):
 
 
 class Order(models.Model):
+    status_choice = (
+        ('Delivered', 'Delivered'),
+        ('Out For Delivery', 'Out For Delivery'),
+        ('In Progress', 'In Progress'),
+    )
     orderId = models.AutoField(primary_key=True)
-    product = ArrayField(models.IntegerField(default=0))
+    product = models.ManyToManyField(Product)
     quantity = ArrayField(models.IntegerField(default=1))
     amount = models.FloatField(default=0.0)
     size = ArrayField(models.IntegerField(default=0))
     color = ArrayField(models.CharField(max_length=500, default=""))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=100, choices=status_choice, default="In Progress")
+    date = models.DateField(auto_now=True)
+
+    # Order Address Fields
+    address = models.CharField(max_length=50000, default="")
+    number = models.IntegerField(default=0)
+    name = models.CharField(max_length=500, default="")
+    landmark = models.CharField(max_length=500, default="")
+    city = models.CharField(max_length=500, default="")
+
+    #Tracking Fields
+    courierPartner = models.CharField(max_length=1000, default="")
+    trackingId = models.CharField(max_length=10000, default="")
+
+    def __str__(self):
+        return self.user.email
 
 
 class Contact(models.Model):
@@ -114,3 +134,4 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+

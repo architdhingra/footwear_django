@@ -48,4 +48,5 @@ urlpatterns = [
     path('polls/', poll.as_view(), name="polls"),
     path('delete/<id>', delete, name="delete"),
     path('addToCart/', addToCart, name="addToCart"),
+    path('check/', check, name="check"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

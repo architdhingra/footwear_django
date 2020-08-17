@@ -52,8 +52,9 @@ table.timetable_sub {
 	border: 1px solid #CDCDCD;
 }
 
+
 td.invert-image a img {
-	width: 30%;
+	width: 60px;
 	margin: 0 auto;
 }
 
