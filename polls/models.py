@@ -6,11 +6,6 @@ from djongo import models
 from django.contrib.auth.models import User, auth
 
 
-# class User(models.Model):
-#     uname = models.CharField(max_length=200)
-#     password = models.CharField(max_length=200)
-
-
 class NewLogin(models.Model):
     def get(self, *args, **kwargs):
         form = UserCreationForm()
@@ -117,7 +112,7 @@ class Order(models.Model):
     landmark = models.CharField(max_length=500, default="")
     city = models.CharField(max_length=500, default="")
 
-    #Tracking Fields
+    # Tracking Fields
     courierPartner = models.CharField(max_length=1000, default="")
     trackingId = models.CharField(max_length=10000, default="")
 
@@ -134,4 +129,3 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
-

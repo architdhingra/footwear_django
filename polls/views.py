@@ -12,7 +12,7 @@ from django.views import View
 from django.views.generic import DetailView
 
 from polls.forms import CreateUserForm
-from polls.models import NewLogin, Product, Cart, ProductColorImage, ProductImage, Contact, Order
+from polls.models import *
 
 
 def index(request):
@@ -27,17 +27,16 @@ def signup(request):
         uname = request.POST["email"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
-        contexts = {"aa": uname, "bb": password}
         if password2 == password:
             if User.objects.filter(username=uname).exists():
                 messages.info(request, "already exists")
                 return redirect('signup')
             else:
-                user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password)
+                user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password, email=uname)
                 user.save()
                 messages.info(request, "Registered Successfully!")
                 return redirect('polls')
-        return render(request, 'signup.html', contexts)
+        return render(request, 'signup.html')
 
     else:
         today = datetime.now().date()
