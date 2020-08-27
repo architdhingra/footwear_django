@@ -27,6 +27,9 @@
                                         <span class="login100-form-title p-b-53">
                                             Sign Up
                                         </span>
+                                        {% for message in messages %}
+                                            <p style="color:red;"><b> {{ message }}</b></p>
+                                        {% endfor %}
                                         <div class="p-t-13 p-b-9">
                                         <span class="txt1">
                                             First Name
@@ -99,14 +102,7 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
-
-
-                    {% for message in messages %}
-                        <p style="color:red;"><b> {{ message }}</b></p>
-                    {% endfor %}
                 </section>
             </div>
         </div>

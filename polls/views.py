@@ -1,4 +1,6 @@
 from datetime import datetime
+from itertools import product
+
 from django import template
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -29,7 +31,7 @@ def signup(request):
         password2 = request.POST["password2"]
         if password2 == password:
             if User.objects.filter(username=uname).exists():
-                messages.info(request, "already exists")
+                messages.info(request, "User Already Exists!")
                 return redirect('signup')
             else:
                 user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password, email=uname)
@@ -95,7 +97,6 @@ def about(request):
     return render(request, "about.html", {})
 
 
-@login_required()
 def shop(request, type):
     prod = Product.getProducts(request, type)
     return render(request, "shop.html", {'prod': prod})
@@ -114,17 +115,21 @@ class ShopSingle(DetailView):
         context = super(ShopSingle, self).get_context_data(**kwargs)
         p = ProductColorImage.objects.filter(pid=self.object)
         pi = ProductImage.objects.filter(product=p[0])
+        ps = ProductSizeStock.objects.filter(pid=self.object)
         context["images"] = pi
         context["color"] = p
+        context["sizes"] = ps
         return context
 
     def post(self, request, slug, *args, **kwargs):
         self.object = self.get_object()
         context = super(ShopSingle, self).get_context_data(**kwargs)
         context["color"] = ProductColorImage.objects.filter(pid=self.object)
+        ps = ProductSizeStock.objects.filter(pid=self.object)
         p = ProductColorImage.objects.filter(pid=self.object, color=self.request.POST['color'])
         pi = ProductImage.objects.filter(product=p[0])
         context["images"] = pi
+        context["sizes"] = ps
         return self.render_to_response(context=context)
 
 
@@ -151,6 +156,7 @@ class Checkout(View):
             pi = ProductImage.objects.filter(product=p[0])
             images.append(pi[0])
         return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice, 'images': images})
+
 
     def get(self, *args, **kwargs):
         images = []

@@ -27,7 +27,7 @@
 
                 $("#costname li").eq(inde).remove();
                 $.ajax({
-                    url: "http://127.0.0.1:8000/delete/" + id, async: true, success: function (result) {
+                    url: "http://www.dreamwalk.in/delete/" + id, async: true, success: function (result) {
                         console.log(result)
                         console.log(currPrice+"::"+tp);
                         $("#totalPrice").text(tp - currPrice);

@@ -1,11 +1,6 @@
 {% extends 'template.html' %}
 {% load static %}
-
-
 {% block extrahead %}
-
-
-
     <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
     <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
@@ -187,12 +182,11 @@
                 var size = id.options[id.selectedIndex].text;
                 var color = idx.options[idx.selectedIndex].text;
                 {#console.log(z);#}
-                $.post('http://127.0.0.1:8000/addToCart/', {pid: {{ object.id }}, size: size, color: color},
+                $.post('http://www.dreamwalk.in/addToCart/', {pid: {{ object.id }}, size: size, color: color},
                     function (returnedData) {
                         console.log(returnedData);
                         $("#addToCart").text("Added");
                         $("#addToCart").prop("disabled", true);
-
                     });
             });
 
@@ -205,12 +199,10 @@
     </script>
 {% endblock extrahead %}
 {% block content %}
-    {{ indo.1 }}
     <div class="main-content container">
         <div class="row">
             <div class="col-md-4">
                 <div class="synch-carousels">
-
                     <div class="main-slider-image child">
                         <div class="gallery2">
                             {% for i in images %}
@@ -244,10 +236,11 @@
                     <div class="color-config">
                         <span>Choose Color</span>
                         <form action="{% url 'shopsingle' object.slug %}" method="post">
-                        {% csrf_token %}
+                            {% csrf_token %}
                             <div class="color-choose">
                                 {% for i in color %}
-                                    <button class="xx" name="color" value="{{ i.color }}" onclick="changeImage('{{ i.color }}')">{{ i.color }}</button>
+                                    <button class="xx" name="color" value="{{ i.color }}"
+                                            onclick="changeImage('{{ i.color }}')">{{ i.color }}</button>
                                 {% endfor %}
                             </div>
                         </form>
@@ -271,8 +264,6 @@
                             <div>
                                 <p><span style="color: #ff2a00;"><b>Size Note:</b><b>-&nbsp;</b><b>This style fits as per the size chart.</b></span>
                                 </p>
-
-                                {{ object.size }}
                                 <h6><span
                                         style="text-decoration: underline;"><strong>Product Description:</strong></span>
                                 </h6>
@@ -372,12 +363,9 @@
                             </td>
                             <td>
                                 <select id="size" name="size">
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
+                                    {% for s in sizes %}
+                                    <option>{{ s.size }}</option>
+                                    {% endfor %}
 
                                 </select>
                             </td>
@@ -388,10 +376,9 @@
                             </td>
                             <td>
                                 <select id="color" name="color">
-                                    <option>Red</option>
-                                    <option>Blue</option>
-                                    <option>Green</option>
-                                    <option>Black</option>
+                                    {% for c in color %}
+                                    <option>{{ c.color }}</option>
+                                    {% endfor %}
                                 </select>
                             </td>
                         </tr>

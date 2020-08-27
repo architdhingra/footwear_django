@@ -1,313 +1,128 @@
+{% extends 'template.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    <title>DreamWalk E-Commerce</title>
-    <!-- Meta tag Keywords -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-    <meta name="keywords" content="DreamWalk Footwear" />
-    <script>
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- //Meta tag Keywords -->
-
-    <!-- Custom-Files -->
-
-    <!-- Bootstrap-Core-CSS -->
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css" media="all" />
-    <!-- Style-CSS -->
-    <!-- font-awesome-icons -->
-    <link href="../static/css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome-icons -->
-    <!-- /Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
-    <!-- //Fonts -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <style type="text/css">
-    </style>
-    {% block extrahead %}
-    {% endblock %}
-</head>
-
-<body>
-<!-- main-content -->
-<div class="main-banner inner" id="home">
-    <!-- header -->
-    <header class="header">
-        <div class="container-fluid px-lg-5">
-            <!-- nav -->
-            <nav class="py-4">
-                <div id="logo">
-                    <h1> <a href="{% url 'index' %}"><span class="fa" aria-hidden="true"></span>DreamWalk</a></h1>
-                </div>
-
-                <label for="drop" class="toggle">Menu</label>
-                <input type="checkbox" id="drop" />
-                <ul class="menu mt-2">
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'signup' %}">Welcome {{ user.get_username }}</a></li>
-                    {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    {% endif %}
-
-
-                    <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'blog' %}">Blog</a></li>
-                    <li>
-                        <!-- First Tier Drop Down -->
-                        <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                        <a href="#">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                        <input type="checkbox" id="drop-2" />
-                        <ul>
-                            <li><a href="{% url 'blog' %}">Blog</a></li>
-                            <li><a href="{% url 'shopsingle' 2 %}">Shop Now</a></li>
-                            <li><a href="{% url 'shop' 'heels' %}">Single Page</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- //nav -->
-        </div>
-
-
-    </header>
-    <!-- //header -->
-
-</div>
-<!--//main-content-->
 {% block content %}
-{% endblock %}
 <div class="main-content container">
     <div class="row">
         <div class="col-md-1">
             <br><br>
-
         </div>
-
-
         <div class="col-md-11">
             <header class="page-header">
-                <br><br>  <h2>
-<span>
-  RETURN POLICY
-</span>
-
-            </h2>
-            </header><br><br>
-
+                <br><br>
+                <h2>
+                    <span>
+                      RETURN POLICY
+                    </span>
+                </h2>
+            </header>
+            <br><br>
             <div style="text-align: center;"><u><strong></strong></u></div>
             <p style="font-size: 16px;">&nbsp;</p>
 
             <div class="yj6qo ajU"></div>
-            <p style="font-size: 16px;"><strong><span style="color: #ff2a00;">ALL ITEMS BOUGHT FROM THE CLEARANCE SALE SECTION ARE NOT ELIGIBLE FOR RETURN/ EXCHANGE/ REFUNDS!&nbsp;</span></strong></p>
-            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Easy Returns</strong></span></p>
-            <p style="color: #0c0c0c">Our return policy lasts 10 days from the date of purchase, No Questions Asked :-)</p><p style="color: #0c0c0c"><br>To complete your return/exchange, Please raise a return request on our portal along with the receipt or proof of purchase. After receiving the same, we will validate & schedule a reverse pickup from your shipping address & our courier pickup partner will contact you for picking the product back.</p>
+            <p style="font-size: 16px;"><strong><span style="color: #ff2a00;">ALL ITEMS BOUGHT FROM THE CLEARANCE SALE SECTION ARE NOT ELIGIBLE FOR RETURN/ EXCHANGE/ REFUNDS!&nbsp;</span></strong>
+            </p>
+            <p style="font-size: 16px;"><span
+                    style="text-decoration: underline;color:#3c3c3c;  "><strong>Easy Returns</strong></span></p>
+            <p style="color: #0c0c0c">Our return policy lasts 10 days from the date of purchase, No Questions Asked
+                :-)</p>
+            <p style="color: #0c0c0c"><br>To complete your return/exchange, Please raise a return request on our portal
+                along with the receipt or proof of purchase. After receiving the same, we will validate & schedule a
+                reverse pickup from your shipping address & our courier pickup partner will contact you for picking the
+                product back.</p>
 
-            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Exchange (if applicable)</strong></span></p>
-            <p style="color: #0c0c0c">If 10 days have gone by, though, we will not be able to offer you a return/refund but we still can exchange your product till 20 days from the date of purchase.</p>
+            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Exchange (if applicable)</strong></span>
+            </p>
+            <p style="color: #0c0c0c">If 10 days have gone by, though, we will not be able to offer you a return/refund
+                but we still can exchange your product till 20 days from the date of purchase.</p>
 
             <br><strong><u>Eligible for Return</u></strong></p>
             <ul>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span>Your item must be unused &amp; in the same condition in which you received it.</li>
+                    <span></span>Your item must be unused &amp; in the same condition in which you received it.
+                </li>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span>It should be in its original packaging accompanied by a proof of purchase.</li>
+                    <span></span>It should be in its original packaging accompanied by a proof of purchase.
+                </li>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span>Any item not in its original condition is damaged or missing parts for reasons not due to our error will not be exchanged</li>
+                    <span></span>Any item not in its original condition is damaged or missing parts for reasons not due
+                    to our error will not be exchanged
+                </li>
             </ul>
 
-            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Refunds (If Applicable)</strong></span></p>
-            <p style="color: #0c0c0c">Once your return is received, we will inspect the same.<br> <strong>If its approved,</strong> then your refund will be processed asap, and a credit amounting to your invoice amount, wil automatically be initiated to your original method payment. A notification will be sent to you confirming the same.</p>
-            <strong>In case of rejection,</strong> We will notify you via your registered email of mobile no. You can contact us back for any further communication.</p>
+            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Refunds (If Applicable)</strong></span>
+            </p>
+            <p style="color: #0c0c0c">Once your return is received, we will inspect the same.<br> <strong>If its
+                approved,</strong> then your refund will be processed asap, and a credit amounting to your invoice
+                amount, wil automatically be initiated to your original method payment. A notification will be sent to
+                you confirming the same.</p>
+            <strong>In case of rejection,</strong> We will notify you via your registered email of mobile no. You can
+            contact us back for any further communication.</p>
 
-            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Late or missing refunds (if applicable)</strong></span></p>
-            <p style="color: #0c0c0c"><em  style="color: #B12704">*</em> It depends on the banks or cards, the time they take for processing the refund once after getting confirmation from our end.</p>
-            <p style="color: #0c0c0c" > However, in case of non-receipt of the same post 15 days after the approval, Please follow the following steps:</p>
+            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Late or missing refunds (if applicable)</strong></span>
+            </p>
+            <p style="color: #0c0c0c"><em style="color: #B12704">*</em> It depends on the banks or cards, the time they
+                take for processing the refund once after getting confirmation from our end.</p>
+            <p style="color: #0c0c0c"> However, in case of non-receipt of the same post 15 days after the approval,
+                Please follow the following steps:</p>
 
             <ul>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span>Check your bank account again</li>
-                <li style="color: #0c0c0c ;font-size: 14px;>
-                <span></span>Contact your bank or Credit Card issuing authority, it may take some time before your refund is officially posted</li>
+                    <span></span>Check your bank account again
+                </li>
+                <li style="color: #0c0c0c ;font-size: 14px;">
+                    <span></span>Contact your bank or Credit Card issuing authority, it may take some time before your
+                    refund is officially posted
+                </li>
             </ul>
 
 
-    <p style="color: #0c0c0c">If you've done all of this and you still have not received your refund yet, please contact us at <strong>customercare@marcloire.com</strong></p>
+            <p style="color: #0c0c0c">If you've done all of this and you still have not received your refund yet, please
+                contact us at <strong>customercare@marcloire.com</strong></p>
 
-                <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Warranty</strong></span></p>
-                <p style="color: #0c0c0c"> We really care about our Customers & their product experience, therefore we offer a 3 months warranty from the date of purchase.</p>
-                <p style="color: #0c0c0c"> There are be 2 types of Warranty:</p>
+            <p style="font-size: 16px;"><span
+                    style="text-decoration: underline;color:#3c3c3c;  "><strong>Warranty</strong></span></p>
+            <p style="color: #0c0c0c"> We really care about our Customers & their product experience, therefore we offer
+                a 3 months warranty from the date of purchase.</p>
+            <p style="color: #0c0c0c"> There are be 2 types of Warranty:</p>
+            </ul>
             <ul>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span><strong>Manufacturing Warranty:</strong> this will be applicable in case of any manufacturing defects like stitching, pasting,material defect etc.</li>
+                    <span></span><strong>Manufacturing Warranty:</strong> this will be applicable in case of any
+                    manufacturing defects like stitching, pasting,material defect etc.
+                </li>
                 <li style="color: #0c0c0c ;font-size: 14px;">
-                    <span></span><strong>Experience Warranty:</strong> this will be applicable in case your experience with the product usage is not so good after using it for a certain time within 3 months.</li>
+                    <span></span><strong>Experience Warranty:</strong> this will be applicable in case your experience
+                    with the product usage is not so good after using it for a certain time within 3 months.
+                </li>
 
             </ul>
 
-                <p style="color: #0c0c0c">  <strong>In both these cases, we will offer an exchange of the same product or any other product that you choose from our catalog having the same invoice value as your original invoice.</strong></p>
+            <p style="color: #0c0c0c"><strong>In both these cases, we will offer an exchange of the same product or any
+                other product that you choose from our catalog having the same invoice value as your original
+                invoice.</strong></p>
 
-                <p style="color: #0c0c0c">You will have to follow the exchange process as mentioned above, however, in this case the reverse & forward shipping costs will be borne by you.</p>
+            <p style="color: #0c0c0c">You will have to follow the exchange process as mentioned above, however, in this
+                case the reverse & forward shipping costs will be borne by you.</p>
 
-                <p style="color: #0c0c0c">Depending on where you live, the time it may take for your exchanged product to reach you may vary.</p>
+            <p style="color: #0c0c0c">Depending on where you live, the time it may take for your exchanged product to
+                reach you may vary.</p>
 
-                <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Cancellations and Modifications</strong></span></p>
-                <p style="color: #0c0c0c"> You can cancel your orders before its shipped by clicking on CANCEL ITEM or contacting us, the full invoice amount will be refunded to your original payment method. Once the item is shipped it cannot be cancelled. </p>
+            <p style="font-size: 16px;"><span style="text-decoration: underline;color:#3c3c3c;  "><strong>Cancellations and Modifications</strong></span>
+            </p>
+            <p style="color: #0c0c0c"> You can cancel your orders before its shipped by clicking on CANCEL ITEM or
+                contacting us, the full invoice amount will be refunded to your original payment method. Once the item
+                is shipped it cannot be cancelled. </p>
 
-                <p style="color: #0c0c0c"><strong> Can I modify the shipping address of my order after it has been placed?</strong></p>
+            <p style="color: #0c0c0c"><strong> Can I modify the shipping address of my order after it has been
+                placed?</strong></p>
 
-                <p style="color: #0c0c0c">Yes, You can modify the shipping address of your order before we have processed (packed) it, by updating it under 'change address' option which is available under My order' section or by contacting us.</p>
+            <p style="color: #0c0c0c">Yes, You can modify the shipping address of your order before we have processed
+                (packed) it, by updating it under 'change address' option which is available under My order' section or
+                by contacting us.</p>
 
         </div>
     </div>
-        <br><br><br><br>
-        <!-- footer -->
-        <footer>
-            <div class="container">
-                <div class="row footer-top">
-                    <div class="col-lg-4 footer-grid_section_w3layouts">
-                        <h2 class="logo-2 mb-lg-4 mb-3">
-                            <a href="{% url 'index' %}"><span class="fa" aria-hidden="true"></span>DreamWalk</a>
-                        </h2>
-                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <h4 class="sub-con-fo ad-info my-4">Catch on Social</h4>
-                        <ul class="w3layouts_social_list list-unstyled">
-                            <li>
-                                <a href="#" class="w3pvt_facebook">
-                                    <span class="fa fa-facebook-f"></span>
-                                </a>
-                            </li>
-                            <li class="mx-2">
-                                <a href="#" class="w3pvt_twitter">
-                                    <span class="fa fa-twitter"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="w3pvt_dribble">
-                                    <span class="fa fa-dribbble"></span>
-                                </a>
-                            </li>
-                            <li class="ml-2">
-                                <a href="#" class="w3pvt_google">
-                                    <span class="fa fa-google-plus"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-8 footer-right">
-                        <div class="w3layouts-news-letter">
-                            <h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Newsletter</h3>
-
-                            <p>By subscribing to our mailing list you will always get latest news and updates from us.</p>
-                            <form action="#" method="post" class="w3layouts-newsletter">
-                                <input type="email" name="Email" placeholder="Enter your email..." required="">
-                                <button class="btn1"><span class="fa fa-paper-plane-o" aria-hidden="true"></span></button>
-
-                            </form>
-                        </div>
-                        <div class="row mt-lg-4 bottom-w3layouts-sec-nav mx-0">
-                            <div class="col-md-4 footer-grid_section_w3layouts">
-                                <h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Information</h3>
-                                <ul class="list-unstyled w3layouts-icons">
-                                    <li>
-                                        <a href="{% url 'signup' %}">Sign Up</a>
-                                    </li>
-                                    <li  class="mt-3">
-                                        <a href="{% url 'index' %}">Home</a>
-                                    </li>
-                                    <li class="mt-3">
-                                        <a href="{% url 'about' %}">About Us</a>
-                                    </li>
-                                    <li class="mt-3">
-                                        <a href="#">Gallery</a>
-                                    </li>
-                                    <li class="mt-3">
-                                        <a href="#">Services</a>
-                                    </li>
-                                    <li class="mt-3">
-                                        <a href="{% url 'contact' %}">Contact Us</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 footer-grid_section_w3layouts">
-                                <!-- social icons -->
-                                <div class="agileinfo_social_icons">
-                                    <h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Customer Service</h3>
-                                    <ul class="list-unstyled w3layouts-icons">
-
-                                        <li>
-                                            <a href="#">About Us</a>
-                                        </li>
-                                        <li class="mt-3">
-                                            <a href="#">Delivery & Returns</a>
-                                        </li>
-                                        <li class="mt-3">
-                                            <a href="#">Warranty</a>
-                                        </li>
-                                        <li class="mt-3">
-                                            <a href="#">Terms & Condition</a>
-                                        </li>
-                                        <li class="mt-3">
-                                            <a href="#">Privacy Plolicy</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- social icons -->
-                            </div>
-                            <div class="col-md-4 footer-grid_section_w3layouts my-md-0 my-5">
-                                <h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Contact Info</h3>
-                                <div class="contact-info">
-                                    <div class="footer-address-inf">
-                                        <h4 class="ad-info mb-2">Phone</h4>
-                                        <p>+121 098 8907 9987</p>
-                                    </div>
-                                    <div class="footer-address-inf my-4">
-                                        <h4 class="ad-info mb-2">Email </h4>
-                                        <p><a href="mailto:info@example.com">info@example.com</a></p>
-                                    </div>
-                                    <div class="footer-address-inf">
-                                        <h4 class="ad-info mb-2">Location</h4>
-                                        <p>Honey Avenue, New York City</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="cpy-right text-left row">
-                            <p class="col-md-10">© 2020 DreamWalk. All rights reserved
-                            </p>
-                            <!-- move top icon -->
-                            <a href="#home" class="move-top text-right col-md-2"><span class="fa fa-long-arrow-up" aria-hidden="true"></span></a>
-                            <!-- //move top icon -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
 </div>
-</footer>
-<!-- //footer -->
-
-</body>
-
-</html>
-
-
+{% endblock %}
