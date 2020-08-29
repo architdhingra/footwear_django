@@ -49,4 +49,5 @@ urlpatterns = [
     path('delete/<id>', delete, name="delete"),
     path('addToCart/', addToCart, name="addToCart"),
     path('check/', check, name="check"),
+    path('payment/', payment, name="payment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

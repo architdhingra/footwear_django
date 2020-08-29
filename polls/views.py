@@ -1,11 +1,6 @@
 from datetime import datetime
-from itertools import product
-
-from django import template
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -241,3 +236,5 @@ def profile_view(request):
             img[i] = images
             images = []
         return render(request, 'profile.html', {'results': orders, 'products': products, 'images': img})
+
+
