@@ -16,6 +16,7 @@ psycopg2 = "*"
 pillow = "*"
 paytmchecksum = "*"
 crypto = "*"
+razorpay = "*"
 
 [requires]
 python_version = "3.8"

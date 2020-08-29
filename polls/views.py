@@ -174,6 +174,8 @@ def blog(request):
 
 
 def test(request):
+    URL = 'https://checkout.razorpay.com/v1/checkout.js'
+
     return render(request, "test.html", {})
 
 

@@ -19,7 +19,7 @@
                 {#console.log('clicked');#}
                 var id = $(this).closest("tr").attr('id');
                 var tp = document.getElementById('totalPrice').innerText;
-                console.log("tp="+tp);
+                console.log("tp=" + tp);
                 var inde = $(this).closest("tr").attr('tabid');
                 var currPrice = $(this).closest("tr").attr('price');
                 {#console.log(tp-currPrice);#}
@@ -28,8 +28,9 @@
                 $("#costname li").eq(inde).remove();
                 $.ajax({
                     url: "http://www.dreamwalk.in/delete/" + id, async: true, success: function (result) {
-                        console.log(result)
-                        console.log(currPrice+"::"+tp);
+                        console.log(result);
+                        tim = tp-currPrice;
+                        console.log(currPrice + "::" + tp);
                         $("#totalPrice").text(tp - currPrice);
                         $("#totalCount").text(function (i, origText) {
                             return origText - 1;
@@ -70,10 +71,11 @@
                             {% for item in items %}
                                 <tr class="rem1" id="{{ item.id }}" tabid="{{ forloop.counter0 }}"
                                     price="{{ item.product.price }}">
-                                {% with img=images|index:forloop.counter0 %}
-                                    <td class="invert-image"><a href="single.html"><img src="{{ img.image.url }}"
-                                                                                        alt="" class="img-responsive"></a>
-                                    </td>
+                                    {% with img=images|index:forloop.counter0 %}
+                                        <td class="invert-image"><a href="single.html"><img src="{{ img.image.url }}"
+                                                                                            alt=""
+                                                                                            class="img-responsive"></a>
+                                        </td>
                                     {% endwith %}
                                     <td class="invert">
                                         <div class="quantity">
@@ -104,7 +106,8 @@
                                 {% for item in items %}
                                     <li>{{ item.product.name }} <span>Rs. {{ item.product.price }} </span></li>
                                 {% endfor %}
-                                <li class="totalClass">Total <span id="totalPrice">{{ totalPrice }}</span><span>Rs. </span></li>
+                                <li class="totalClass">Total <span
+                                        id="totalPrice">{{ totalPrice }}</span><span>Rs. </span></li>
 
                             </ul>
 
@@ -112,6 +115,9 @@
                         <div class="col-md-8 address_form">
                             <h4 class="font-weight-bold">Add Details</h4>
                             <form action="{% url 'payment' %}" method="post" class="creditly-card-form agileinfo_form">
+                                {% csrf_token %}
+
+
                                 <section class="creditly-wrapper wrapper">
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
@@ -147,7 +153,19 @@
                                                 <input class="form-control" type="text" placeholder="Town/City">
                                             </div>
                                             <div class="checkout-right-basket">
-                                                <button href="payment.html">Make a Payment </button>
+                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                                        data-key="rzp_test_oKQ9jz6Gyo5PdO"
+                                                        data-amount=vim
+                                                        data-currency="INR"
+                                                        data-order_id="order_FWZa3gvZKpJABR"
+                                                        data-buttontext="Make a Payment"
+                                                        data-name="Acme Corp"
+                                                        data-description="Test transaction"
+                                                        data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
+                                                        data-prefill.name="ad"
+                                                        data-prefill.email="ad@ad.com"
+                                                        data-prefill.contact="9810757666"
+                                                        data-theme.color="#F37254">console.log(vim)</script>
                                             </div>
                                         </div>
                                     </div>
