@@ -25,7 +25,7 @@ SECRET_KEY = '5&b*_j+af$ic%j^v27vn69tq(_h+8=bm0^#idakiy*sh_2^00h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dapp-dev2.ap-south-1.elasticbeanstalk.com', 'http://www.dreamwalk.in']
 
 # Application definition
 
