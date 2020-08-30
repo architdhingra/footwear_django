@@ -10,6 +10,11 @@ from django.views.generic import DetailView
 
 from polls.forms import CreateUserForm
 from polls.models import *
+import requests
+import json
+import razorpay
+
+client = razorpay.Client(auth=("rzp_test_oKQ9jz6Gyo5PdO", "yg3w0rMlvRA8OTUN8pLIKtF4"))
 
 
 def index(request):
@@ -240,3 +245,60 @@ def profile_view(request):
         return render(request, 'profile.html', {'results': orders, 'products': products, 'images': img})
 
 
+def payment_confirmation(request):
+    context = {}
+
+    items = Cart.getItems(request, request.user)
+    totalPrice = 0
+    products, qty, size, color = [], [], [], []
+    for item in items:
+        totalPrice += item.product.price
+        products.append(item.product)
+        qty.append(item.quantity)
+        size.append(item.size)
+        color.append(item.color)
+
+    o = Order.objects.create(amount=totalPrice, quantity=qty, size=size, color=color, user=request.user, address=request.POST['address'], name=request.POST['name'], number=request.POST['number'], landmark=request.POST['landmark'], city=request.POST['city'])
+    o.save()
+    o.product.add(*products)
+    order_currency = 'INR'
+    order_receipt = 'order_rcptid_' + str(o.orderId)
+    notes = {
+        'Shipping address': request.POST['address']}
+    # CREATING ORDER
+    response = client.order.create(dict(amount=totalPrice*100, currency=order_currency, receipt=order_receipt, notes=notes, payment_capture='0'))
+    order_id = response['id']
+    order_status = response['status']
+
+    if order_status == 'created':
+        context['product_id'] = order_id
+        context['price'] = 'order_amount'
+        context['name'] = 'name'
+        context['phone'] = 'phone'
+        context['email'] = 'email'
+
+        # data that'll be send to the razorpay for
+        context['order_id'] = order_id
+        print('created order')
+        return render(request, 'payment_confirmation.html', context)
+
+    return HttpResponse('<h1>Error in  create order function</h1>')
+
+
+def payment_status(request):
+
+    response = request.POST
+    print(response)
+    params_dict = {
+        'razorpay_payment_id' : response['razorpay_payment_id'],
+        'razorpay_order_id' : response['razorpay_order_id'],
+        'razorpay_signature' : response['razorpay_signature']
+    }
+
+
+    # VERIFYING SIGNATURE
+    try:
+        status = client.utility.verify_payment_signature(params_dict)
+        return render(request, 'payment.html', {'status': 'Payment Successful'})
+    except:
+        return render(request, 'payment.html', {'status': 'Payment Failure!!!'})

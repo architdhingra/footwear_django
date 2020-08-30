@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+{% block content %}
+
+    {{ product_id }}
+    <form action="{% url 'payment_status' %}" method="post">
+    {% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_oKQ9jz6Gyo5PdO"
+                data-amount="100"
+                data-currency="INR"
+                data-order_id="{{ order_id }}"
+                data-buttontext="Make a Payment"
+                data-name="Acme Corp"
+                data-description="Test transaction"
+                data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
+                data-prefill.name="ad"
+                data-prefill.email="ad@ad.com"
+                data-prefill.contact="9810757666"
+                data-theme.color="#F37254"></script>
+
+    </form>
+{% endblock %}

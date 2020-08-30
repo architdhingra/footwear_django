@@ -19,7 +19,6 @@ from django.urls import path
 from django.views import View
 import polls
 from dApp import settings
-from payment.views import *
 from polls.views import *
 from django.conf.urls.static import static
 from dApp import settings
@@ -50,5 +49,6 @@ urlpatterns = [
     path('delete/<id>', delete, name="delete"),
     path('addToCart/', addToCart, name="addToCart"),
     path('check/', check, name="check"),
-    path('payment/', payment, name="payment"),
+    path('payment_confirmation/', payment_confirmation, name="payment_confirmation"),
+    path('payment_status/', payment_status, name="payment_status"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

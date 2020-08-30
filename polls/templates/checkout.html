@@ -24,12 +24,11 @@
                 var currPrice = $(this).closest("tr").attr('price');
                 {#console.log(tp-currPrice);#}
                 $(this).closest("tr").remove();
-
+                var url = window.location.origin + '/delete/';
                 $("#costname li").eq(inde).remove();
                 $.ajax({
-                    url: "http://www.dreamwalk.in/delete/" + id, async: true, success: function (result) {
+                    url: url + id, async: true, success: function (result) {
                         console.log(result);
-                        tim = tp-currPrice;
                         console.log(currPrice + "::" + tp);
                         $("#totalPrice").text(tp - currPrice);
                         $("#totalCount").text(function (i, origText) {
@@ -114,10 +113,9 @@
                         </div>
                         <div class="col-md-8 address_form">
                             <h4 class="font-weight-bold">Add Details</h4>
-                            <form action="{% url 'payment' %}" method="post" class="creditly-card-form agileinfo_form">
+                            <form action="{% url 'payment_confirmation' %}" method="post"
+                                  class="creditly-card-form agileinfo_form">
                                 {% csrf_token %}
-
-
                                 <section class="creditly-wrapper wrapper">
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
@@ -131,41 +129,29 @@
                                                     <div class="controls">
                                                         <label class="control-label">Mobile number:</label>
                                                         <input class="form-control" type="text"
-                                                               placeholder="Mobile number">
+                                                               placeholder="Mobile number" name="number">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">
                                                     <div class="controls">
                                                         <label class="control-label">Address: </label>
-                                                        <input class="form-control" type="text" placeholder="Address">
+                                                        <input class="form-control" type="text" placeholder="Address" name="address">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">
                                                     <div class="controls">
                                                         <label class="control-label">Landmark: </label>
-                                                        <input class="form-control" type="text" placeholder="Landmark">
+                                                        <input class="form-control" type="text" placeholder="Landmark" name="landmark">
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="controls">
                                                 <label class="control-label">Town/City: </label>
-                                                <input class="form-control" type="text" placeholder="Town/City">
+                                                <input class="form-control" type="text" placeholder="Town/City" name="city">
                                             </div>
                                             <div class="checkout-right-basket">
-                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                                        data-key="rzp_test_oKQ9jz6Gyo5PdO"
-                                                        data-amount=vim
-                                                        data-currency="INR"
-                                                        data-order_id="order_FWZa3gvZKpJABR"
-                                                        data-buttontext="Make a Payment"
-                                                        data-name="Acme Corp"
-                                                        data-description="Test transaction"
-                                                        data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
-                                                        data-prefill.name="ad"
-                                                        data-prefill.email="ad@ad.com"
-                                                        data-prefill.contact="9810757666"
-                                                        data-theme.color="#F37254">console.log(vim)</script>
+                                                <button>Make a Payment</button>
                                             </div>
                                         </div>
                                     </div>

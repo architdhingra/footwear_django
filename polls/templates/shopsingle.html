@@ -173,16 +173,15 @@
 
     </style>
     <script>
-
         $(document).ready(function () {
             $('#addToCart').on('click', function () {
-                console.log('clicked');
+                console.log(window.location.origin);
                 var id = document.getElementById('size');
                 var idx = document.getElementById('color');
                 var size = id.options[id.selectedIndex].text;
                 var color = idx.options[idx.selectedIndex].text;
-                {#console.log(z);#}
-                $.post('http://www.dreamwalk.in/addToCart/', {pid: {{ object.id }}, size: size, color: color},
+                var url = window.location.origin + '/addToCart/';
+                $.post(url, {pid: {{ object.id }}, size: size, color: color},
                     function (returnedData) {
                         console.log(returnedData);
                         $("#addToCart").text("Added");
