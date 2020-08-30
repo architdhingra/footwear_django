@@ -17,6 +17,7 @@ pillow = "*"
 paytmchecksum = "*"
 crypto = "*"
 razorpay = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

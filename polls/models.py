@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from djongo import models
 from django.contrib.auth.models import User, auth
+from django_countries.fields import CountryField
 
 
 class NewLogin(models.Model):
@@ -26,6 +27,7 @@ class Product(models.Model):
     details = models.CharField(max_length=50000, default="")
     slug = models.SlugField(max_length=40, default="", unique=True)
     discount = models.BigIntegerField(default=0)
+    description = models.TextField(default="")
 
     class Meta:
         db_table = "Product"
@@ -111,6 +113,8 @@ class Order(models.Model):
     name = models.CharField(max_length=500, default="")
     landmark = models.CharField(max_length=500, default="")
     city = models.CharField(max_length=500, default="")
+    country = models.CharField(max_length=500, default="")
+    postal_code = models.CharField(max_length=500, default="")
 
     # Tracking Fields
     courierPartner = models.CharField(max_length=1000, default="")

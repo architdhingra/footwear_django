@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Payment Status = {{ status }}
-</body>
-</html>
+{% extends 'template.html' %}
+{% block content %}
+    <p> Payment for order {{ payment_id }} is {{ status }}</p>
+    <p> Enjoy Shopping!!!</p>
+
+    <p> Track Your Order <a href="{% url 'profile' %}" > Here </a></p>
+{% endblock %}

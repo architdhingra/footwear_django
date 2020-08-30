@@ -17,9 +17,14 @@
 
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
+                        {% if message %}
+                            <p style="color:red;"><b> {{ message }}</b></p>
+                        {% endif %}
                         <div class="limiter">
                             <div class="container-login100">
+
                                 <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33 border border-dark">
+
                                     <form class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-53">
 						Sign In
@@ -73,9 +78,7 @@
                     </form>
 
 
-                    {% for message in messages %}
-                        <p style="color:red;"><b> {{ message }}</b></p>
-                    {% endfor %}
+
                 </section>
             </div>
         </div>

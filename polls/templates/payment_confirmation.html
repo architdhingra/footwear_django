@@ -1,22 +1,196 @@
 {% extends 'template.html' %}
-{% block content %}
 
-    {{ product_id }}
-    <form action="{% url 'payment_status' %}" method="post">
+{% block content %}
+<div class = "row" >
+<div class="col-md-4" >
+
+</div>
+
+
+    <div class="col-md-6" style="margin-top: 60px;" >
+        <h3> Order Confirmation</h3>
+        <table class="table table-dark table-hover">
+            <tr>
+                <td align="top">
+                    <table style="border: #0c0c0c ; border-width: 2px">
+                        <tr>
+                            <td class="FieldLabel">
+                                Customer:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly">
+                                    {{ name }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Contact:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly">
+                                    {{ phone }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Order Date:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly">
+                                    {{ order_date }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+
+
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Order ID:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly">
+                                    {{ product_id }}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table style="float: right"
+                        class="RightAlignedInputs">
+                        <tr>
+                            <td class="FieldLabel">
+                                Address:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                    {{ address }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                City:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                    {{ city }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Postal Code:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                    {{ postal }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Ship Country:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                    {{ country }}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom">
+                    <table>
+                        <tr>
+{#                            <td class="FieldLabel">#}
+{#                                Ship Name:#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <div class="FieldPlaceholder DataOnly">#}
+{#                                    {ShipName}</div>#}
+{#                            </td>#}
+                        </tr>
+                        <tr>
+{#                            <td class="FieldLabel">#}
+{#                                Ship Via:#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <div class="FieldPlaceholder DataOnly">#}
+{#                                    {ShipVia}</div>#}
+{#                            </td>#}
+                        </tr>
+                    </table>
+                </td>
+                <td align="right">
+                    <table style="margin-right: 4px;"
+                        class="RightAlignedInputs">
+                        <tr>
+                            <td class="FieldLabel">
+                                Subtotal:
+                            </td>
+                            <td align="right">
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                    Rs. {{ totalPrice }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Shipping Charges:
+                            </td>
+                            <td align="right">
+                                <div class="FieldPlaceholder DataOnly "
+                                    style="float: right">
+                                    0</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FieldLabel">
+                                Total:
+                            </td>
+                            <td>
+                                <div class="FieldPlaceholder DataOnly"
+                                    style="float: right">
+                                   Rs. {{ totalPrice }}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <form action="{% url 'payment_status' %}" method="post">
     {% csrf_token %}
         <script src="https://checkout.razorpay.com/v1/checkout.js"
                 data-key="rzp_test_oKQ9jz6Gyo5PdO"
-                data-amount="100"
+                data-amount="{{ totalPrice }}"
                 data-currency="INR"
                 data-order_id="{{ order_id }}"
-                data-buttontext="Make a Payment"
-                data-name="Acme Corp"
+                data-buttontext="Make Payment"
+                data-name="DreamWalk"
                 data-description="Test transaction"
                 data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
-                data-prefill.name="ad"
-                data-prefill.email="ad@ad.com"
-                data-prefill.contact="9810757666"
+                data-prefill.name="{{ name }}"
+                data-prefill.email="{{ email }}"
+                data-prefill.contact="{{ phone }}"
                 data-theme.color="#F37254"></script>
 
     </form>
+    </div>
+<div class="col-md-2" >
+
+</div>
+
+</div>
+
 {% endblock %}

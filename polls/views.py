@@ -32,12 +32,12 @@ def signup(request):
         if password2 == password:
             if User.objects.filter(username=uname).exists():
                 messages.info(request, "User Already Exists!")
-                return redirect('signup')
+                return render(request, "signup.html", {'message': 'User Already Exists!'})
             else:
                 user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password, email=uname)
                 user.save()
                 messages.info(request, "Registered Successfully!")
-                return redirect('polls')
+                return render(request, "login.html", {'message': 'Registered Successfully!'})
         return render(request, 'signup.html')
 
     else:
@@ -56,7 +56,7 @@ def loginx(request):
             login(request, user)
             return redirect('polls')
         else:
-            return render(request, "login.html")
+            return render(request, "login.html",{'message':'Invalid Credentials!'})
 
     else:
         return render(request, "login.html")
@@ -94,7 +94,7 @@ def password_reset_done(request):
 
 
 def about(request):
-    return render(request, "about.html", {})
+    return render(request, "index.html", {})
 
 
 def shop(request, type):
@@ -220,7 +220,8 @@ def contact(request):
         message = Contact.objects.create(name=name, email=email1, phone=phone, message=message)
         message.save()
         messages.info(request, "Your Query has been successfully submitted! We will connect with you shortly")
-        return redirect('polls')
+        # return redirect('polls')
+        return render(request, 'contact.html', {'message': 'Your Query has been successfully submitted! We will connect with you shortly'})
 
     else:
         today = datetime.now().date()
@@ -258,7 +259,7 @@ def payment_confirmation(request):
         size.append(item.size)
         color.append(item.color)
 
-    o = Order.objects.create(amount=totalPrice, quantity=qty, size=size, color=color, user=request.user, address=request.POST['address'], name=request.POST['name'], number=request.POST['number'], landmark=request.POST['landmark'], city=request.POST['city'])
+    o = Order.objects.create(amount=totalPrice, quantity=qty, size=size, color=color, user=request.user, address=request.POST['address'], name=request.POST['name'], number=request.POST['number'], landmark=request.POST['landmark'], city=request.POST['city'],country=request.POST['country'],postal_code=request.POST['postal'])
     o.save()
     o.product.add(*products)
     order_currency = 'INR'
@@ -272,13 +273,20 @@ def payment_confirmation(request):
 
     if order_status == 'created':
         context['product_id'] = order_id
-        context['price'] = 'order_amount'
-        context['name'] = 'name'
-        context['phone'] = 'phone'
-        context['email'] = 'email'
+        context['price'] = totalPrice
+        context['name'] = request.user.first_name
+        context['phone'] = o.number
+        context['email'] = request.user.email
 
         # data that'll be send to the razorpay for
         context['order_id'] = order_id
+        context['order_date'] = o.date
+        context['address'] = o.address
+        context['city'] = o.city
+        context['totalPrice'] = totalPrice
+        context['country'] = o.country
+        context['postal'] = o.postal_code
+
         print('created order')
         return render(request, 'payment_confirmation.html', context)
 
@@ -299,6 +307,6 @@ def payment_status(request):
     # VERIFYING SIGNATURE
     try:
         status = client.utility.verify_payment_signature(params_dict)
-        return render(request, 'payment.html', {'status': 'Payment Successful'})
+        return render(request, 'payment.html', {'status': 'Successful','payment_id':response['razorpay_payment_id']})
     except:
-        return render(request, 'payment.html', {'status': 'Payment Failure!!!'})
+        return render(request, 'payment.html', {'status': 'UnSuccessful','payment_id':response['razorpay_payment_id']})
