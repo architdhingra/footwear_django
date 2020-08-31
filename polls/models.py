@@ -51,7 +51,6 @@ class Cart(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
-    quantity = models.IntegerField(default=1)
     color = models.CharField(default="", max_length=100)
     size = models.IntegerField(default=0)
 
@@ -97,15 +96,18 @@ class Order(models.Model):
         ('Out For Delivery', 'Out For Delivery'),
         ('In Progress', 'In Progress'),
     )
-    orderId = models.AutoField(primary_key=True)
-    product = models.ManyToManyField(Product, null=True)
-    quantity = ArrayField(models.IntegerField(), null=True)
+    orderStatusOptions = (
+        ('Paid', 'Paid'),
+        ('Unpaid', 'Unpaid')
+    )
+    orderId = models.CharField(max_length=200, default="", primary_key=True)
     amount = models.FloatField(null=True)
     size = ArrayField(models.IntegerField(), null=True)
     color = ArrayField(models.CharField(max_length=500, default=""), null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=100, choices=status_choice, default="In Progress")
     date = models.DateField(auto_now=True)
+    orderStatus = models.CharField(max_length=100, choices=orderStatusOptions, default="Unpaid")
 
     # Order Address Fields
     address = models.CharField(max_length=50000, default="")
@@ -113,7 +115,7 @@ class Order(models.Model):
     name = models.CharField(max_length=500, default="")
     landmark = models.CharField(max_length=500, default="")
     city = models.CharField(max_length=500, default="")
-    country = models.CharField(max_length=500, default="")
+    country = models.CharField(max_length=500, default="India")
     postal_code = models.CharField(max_length=500, default="")
 
     # Tracking Fields
@@ -121,8 +123,15 @@ class Order(models.Model):
     trackingId = models.CharField(max_length=10000, default="")
 
     def __str__(self):
-        return self.user.email
+        return self.orderId
 
+
+class OrderProducts(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.order.orderId
 
 class Contact(models.Model):
     id = models.AutoField(primary_key=True)

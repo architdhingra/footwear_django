@@ -11,7 +11,7 @@
             margin-top: 126px;
         }
 
-        .card-2{
+        .card-2 {
             word-wrap: normal !important;
         }
     </style>
@@ -37,7 +37,8 @@
                             <p>
                                 <i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.email }}
                             </p>
-                            <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.phone }}</p>
+                            <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.phone }}
+                            </p>
 
                         {% endif %}
 
@@ -94,11 +95,8 @@
                                                                         <div class="col-auto my-auto ">
                                                                             <h6 class="mb-0"> {{ product.name }}</h6>
                                                                         </div>
-                                                                        <div class="col my-auto "><small> </small>
-                                                                        </div>
-                                                                        <div class="col my-auto "><small>Size: {{ order.size|index:forloop.counter0 }}</small>
-                                                                        </div>
-                                                                        <div class="col my-auto "><small>Qty: {{ order.quantity|index:forloop.counter0 }}</small>
+                                                                        <div class="col my-auto ">
+                                                                            <small>Size: {{ order.size|index:forloop.counter0 }}</small>
                                                                         </div>
                                                                         <div class="col my-auto ">Price:
                                                                             <h6 class="mb-0">

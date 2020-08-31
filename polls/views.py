@@ -34,7 +34,8 @@ def signup(request):
                 messages.info(request, "User Already Exists!")
                 return render(request, "signup.html", {'message': 'User Already Exists!'})
             else:
-                user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password, email=uname)
+                user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password,
+                                                email=uname)
                 user.save()
                 messages.info(request, "Registered Successfully!")
                 return render(request, "login.html", {'message': 'Registered Successfully!'})
@@ -56,7 +57,7 @@ def loginx(request):
             login(request, user)
             return redirect('polls')
         else:
-            return render(request, "login.html",{'message':'Invalid Credentials!'})
+            return render(request, "login.html", {'message': 'Invalid Credentials!'})
 
     else:
         return render(request, "login.html")
@@ -99,7 +100,12 @@ def about(request):
 
 def shop(request, type):
     prod = Product.getProducts(request, type)
-    return render(request, "shop.html", {'prod': prod})
+    images = []
+    for j, product in enumerate(prod):
+        p = ProductColorImage.objects.filter(pid=product)
+        pi = ProductImage.objects.filter(product=p[0])
+        images.append(pi[0].image.url)
+    return render(request, "shop.html", {'prod': prod, 'images': images})
 
 
 def returns(request):
@@ -139,7 +145,7 @@ class Checkout(View):
         pid = (self.request.POST['pid'])
         size = (self.request.POST['size'])
         color = (self.request.POST['color'])
-        c = Cart.objects.create(user=self.request.user, product=Product.getSingle(self.request, id=pid), quantity=1,
+        c = Cart.objects.create(user=self.request.user, product=Product.getSingle(self.request, id=pid),
                                 color=color,
                                 size=size)
         try:
@@ -156,7 +162,6 @@ class Checkout(View):
             pi = ProductImage.objects.filter(product=p[0])
             images.append(pi[0])
         return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice, 'images': images})
-
 
     def get(self, *args, **kwargs):
         images = []
@@ -202,7 +207,7 @@ def addToCart(request):
     pid = (request.POST['pid'])
     size = (request.POST['size'])
     color = (request.POST['color'])
-    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=pid), quantity=1, color=color,
+    c = Cart.objects.create(user=request.user, product=Product.getSingle(request, id=pid), color=color,
                             size=size)
     try:
         c.save()
@@ -221,7 +226,8 @@ def contact(request):
         message.save()
         messages.info(request, "Your Query has been successfully submitted! We will connect with you shortly")
         # return redirect('polls')
-        return render(request, 'contact.html', {'message': 'Your Query has been successfully submitted! We will connect with you shortly'})
+        return render(request, 'contact.html',
+                      {'message': 'Your Query has been successfully submitted! We will connect with you shortly'})
 
     else:
         today = datetime.now().date()
@@ -230,19 +236,25 @@ def contact(request):
 
 def profile_view(request):
     if request.method == "GET":
-        orders = Order.objects.filter(user=request.user)
+        orders = Order.objects.filter(user=request.user, orderStatus='Paid')
+        prods = []
         products = {}
         images = []
         img = {}
         for i, order in enumerate(orders):
-            products[i] = order.product.all()
-            for j, product in enumerate(products[i]):
+            pz = OrderProducts.objects.filter(order=order)
+
+            for j, productz in enumerate(pz):
+                prods.append(productz.product)
                 color = order.color[j]
-                p = ProductColorImage.objects.filter(pid=product, color=color)
+                p = ProductColorImage.objects.filter(pid=productz.product, color=color)
                 pi = ProductImage.objects.filter(product=p[0])
                 images.append(pi[0].image.url)
             img[i] = images
+            products[i] = prods
+            prods = []
             images = []
+        print(products)
         return render(request, 'profile.html', {'results': orders, 'products': products, 'images': img})
 
 
@@ -251,23 +263,29 @@ def payment_confirmation(request):
 
     items = Cart.getItems(request, request.user)
     totalPrice = 0
-    products, qty, size, color = [], [], [], []
+    products, size, color = [], [], []
     for item in items:
         totalPrice += item.product.price
         products.append(item.product)
-        qty.append(item.quantity)
         size.append(item.size)
         color.append(item.color)
 
-    o = Order.objects.create(amount=totalPrice, quantity=qty, size=size, color=color, user=request.user, address=request.POST['address'], name=request.POST['name'], number=request.POST['number'], landmark=request.POST['landmark'], city=request.POST['city'],country=request.POST['country'],postal_code=request.POST['postal'])
-    o.save()
-    o.product.add(*products)
     order_currency = 'INR'
-    order_receipt = 'order_rcptid_' + str(o.orderId)
     notes = {
         'Shipping address': request.POST['address']}
     # CREATING ORDER
-    response = client.order.create(dict(amount=totalPrice*100, currency=order_currency, receipt=order_receipt, notes=notes, payment_capture='0'))
+    response = client.order.create(
+        dict(amount=totalPrice * 100, currency=order_currency, notes=notes, payment_capture='0'))
+
+    o = Order.objects.create(orderId=response['id'], amount=totalPrice, size=size, color=color,
+                             user=request.user,
+                             address=request.POST['address'], name=request.POST['name'], number=request.POST['number'],
+                             landmark=request.POST['landmark'], city=request.POST['city'], country='India',
+                             postal_code=request.POST['postal'])
+    for p in products:
+        op = OrderProducts.objects.create(order_id=o.orderId, product=p)
+        op.save()
+    o.save()
     order_id = response['id']
     order_status = response['status']
 
@@ -294,19 +312,22 @@ def payment_confirmation(request):
 
 
 def payment_status(request):
-
     response = request.POST
     print(response)
+    o = Order.objects.get(orderId=response['razorpay_order_id'])
+    print(o)
+
     params_dict = {
-        'razorpay_payment_id' : response['razorpay_payment_id'],
-        'razorpay_order_id' : response['razorpay_order_id'],
-        'razorpay_signature' : response['razorpay_signature']
+        'razorpay_payment_id': response['razorpay_payment_id'],
+        'razorpay_order_id': response['razorpay_order_id'],
+        'razorpay_signature': response['razorpay_signature']
     }
-
-
     # VERIFYING SIGNATURE
     try:
         status = client.utility.verify_payment_signature(params_dict)
-        return render(request, 'payment.html', {'status': 'Successful','payment_id':response['razorpay_payment_id']})
+        o.orderStatus = 'Paid'
+        o.save()
+        return render(request, 'payment.html', {'status': 'Successful', 'payment_id': response['razorpay_order_id']})
     except:
-        return render(request, 'payment.html', {'status': 'UnSuccessful','payment_id':response['razorpay_payment_id']})
+        return render(request, 'payment.html',
+                      {'status': 'UnSuccessful', 'payment_id': response['razorpay_payment_id']})
