@@ -4,7 +4,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from djongo import models
 from django.contrib.auth.models import User, auth
-from django_countries.fields import CountryField
 
 
 class NewLogin(models.Model):
