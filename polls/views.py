@@ -18,8 +18,15 @@ client = razorpay.Client(auth=("rzp_test_oKQ9jz6Gyo5PdO", "yg3w0rMlvRA8OTUN8pLIK
 
 
 def index(request):
-    ing = NewLogin.index(request)
-    return render(request, "index.html", ing)
+    prod = PopularProduct.objects.all()
+    products = []
+    images = []
+    for j, product in enumerate(prod):
+        products.append(product.product)
+        p = ProductColorImage.objects.filter(pid=product.product)
+        pi = ProductImage.objects.filter(product=p[0])
+        images.append(pi[0].image.url)
+    return render(request, "index.html", {'prod': products, 'images': images})
 
 
 def signup(request):
@@ -29,21 +36,21 @@ def signup(request):
         uname = request.POST["email"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
+        storage = messages.get_messages(request)
+        storage.used = True
         if password2 == password:
             if User.objects.filter(username=uname).exists():
                 messages.info(request, "User Already Exists!")
-                return render(request, "signup.html", {'message': 'User Already Exists!'})
+                return render(request, "signup.html")
             else:
                 user = User.objects.create_user(first_name=fname, last_name=lname, username=uname, password=password,
                                                 email=uname)
                 user.save()
                 messages.info(request, "Registered Successfully!")
-                return render(request, "login.html", {'message': 'Registered Successfully!'})
+                return render(request, "login.html",)
         return render(request, 'signup.html')
 
     else:
-        today = datetime.now().date()
-        contexts = {"aa": 11, "bb": 22}
         return render(request, "signup.html")
 
 
@@ -52,12 +59,14 @@ def loginx(request):
         uname = request.POST["email"]
         password = request.POST["password"]
         user = authenticate(username=uname, password=password)
-
+        storage = messages.get_messages(request)
+        storage.used = True
         if user is not None:
             login(request, user)
-            return redirect('polls')
+            return redirect('index')
         else:
-            return render(request, "login.html", {'message': 'Invalid Credentials!'})
+            messages.info(request, "Invalid Credentials!")
+            return render(request, "login.html")
 
     else:
         return render(request, "login.html")
@@ -66,11 +75,6 @@ def loginx(request):
 def logout_view(request):
     Product.logout_model(request)
     return render(request, "login.html")
-
-
-class poll(View):
-    def get(self, *args, **kwargs):
-        return render(self.request, "index.html", {})
 
 
 class newLogin(View):
@@ -82,7 +86,7 @@ class newLogin(View):
         form = CreateUserForm(self.request.POST)
         if form.is_valid():
             form.save()
-            return redirect('polls')
+            return redirect('index')
         return render(self.request, "newLogin.html", {'form': form})
 
 
@@ -175,10 +179,6 @@ class Checkout(View):
         return render(self.request, "checkout.html", {'items': items, 'totalPrice': totalPrice, 'images': images})
 
 
-def single(request):
-    return render(request, "single.html", {})
-
-
 def blog(request):
     return render(request, "blog.html", {})
 
@@ -224,13 +224,12 @@ def contact(request):
         message = request.POST["message"]
         message = Contact.objects.create(name=name, email=email1, phone=phone, message=message)
         message.save()
+        storage = messages.get_messages(request)
+        storage.used = True
         messages.info(request, "Your Query has been successfully submitted! We will connect with you shortly")
-        # return redirect('polls')
-        return render(request, 'contact.html',
-                      {'message': 'Your Query has been successfully submitted! We will connect with you shortly'})
+        return render(request, 'contact.html')
 
     else:
-        today = datetime.now().date()
         return render(request, "contact.html")
 
 

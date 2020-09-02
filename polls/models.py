@@ -11,9 +11,6 @@ class NewLogin(models.Model):
         form = UserCreationForm()
         return form
 
-    def index(self):
-        contexts = {"aa": 11, "bb": 22}
-        return contexts
 
 
 class Product(models.Model):
@@ -132,6 +129,7 @@ class OrderProducts(models.Model):
     def __str__(self):
         return self.order.orderId
 
+
 class Contact(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(default="", max_length=100)
@@ -141,3 +139,10 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PopularProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name

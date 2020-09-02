@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5&b*_j+af$ic%j^v27vn69tq(_h+8=bm0^#idakiy*sh_2^00h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['dapp-dev2.ap-south-1.elasticbeanstalk.com', 'www.dreamwalk.in', 'dreamwalk.in', 'localhost', '127.0.0.1']
 
@@ -163,4 +163,4 @@ EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER='dreamwalk.info@gmail.com'
-EMAIL_HOST_PASSWORD=''
+EMAIL_HOST_PASSWORD='nikitaaneja1005'

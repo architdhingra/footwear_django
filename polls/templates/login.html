@@ -17,9 +17,9 @@
 
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
-                        {% if message %}
-                            <p style="color:red;"><b> {{ message }}</b></p>
-                        {% endif %}
+                        {% for m in messages %}
+                            <p style="color:red;"><b> {{ m }}</b></p>
+                        {% endfor %}
                         <div class="limiter">
                             <div class="container-login100">
 
