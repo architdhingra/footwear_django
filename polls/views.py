@@ -262,14 +262,17 @@ def payment_confirmation(request):
 
     items = Cart.getItems(request, request.user)
     totalPrice = 0
-    products, size, color = [], [], []
+    products, size, color, images = [], [], [], []
     for item in items:
         totalPrice += item.product.price
         products.append(item.product)
         size.append(item.size)
         color.append(item.color)
-
+        p = ProductColorImage.objects.filter(pid=item.product)
+        pi = ProductImage.objects.filter(product=p[0])
+        images.append(pi[0].image.url)
     order_currency = 'INR'
+    print(images)
     notes = {
         'Shipping address': request.POST['address']}
     # CREATING ORDER
@@ -289,14 +292,16 @@ def payment_confirmation(request):
     order_status = response['status']
 
     if order_status == 'created':
+        context['products'] = products
         context['product_id'] = order_id
         context['price'] = totalPrice
         context['name'] = request.user.first_name
         context['phone'] = o.number
         context['email'] = request.user.email
-        print (op.id)
-        print (op.product.name)
+        context['size'] = size
+        context['color'] = color
         context['product'] = products
+        context['images'] = images
 
         # data that'll be send to the razorpay for
         context['order_id'] = order_id
