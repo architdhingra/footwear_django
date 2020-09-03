@@ -1,6 +1,0 @@
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-dApp/settings.py
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml

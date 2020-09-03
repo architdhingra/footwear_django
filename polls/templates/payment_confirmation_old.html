@@ -170,7 +170,7 @@
             </tr>
         </table>
         <form action="{% url 'payment_status' %}" method="post">
-    {% csrf_token %}
+        {% csrf_token %}
         <script src="https://checkout.razorpay.com/v1/checkout.js"
                 data-key="rzp_test_oKQ9jz6Gyo5PdO"
                 data-amount="{{ totalPrice }}"

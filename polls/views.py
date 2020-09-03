@@ -1,4 +1,6 @@
 from datetime import datetime
+
+import django
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db.models import F
@@ -259,7 +261,7 @@ def profile_view(request):
 
 def payment_confirmation(request):
     context = {}
-
+    print('PRINT:', django.middleware.csrf.get_token(request))
     items = Cart.getItems(request, request.user)
     totalPrice = 0
     products, size, color, images = [], [], [], []
@@ -273,11 +275,9 @@ def payment_confirmation(request):
         images.append(pi[0].image.url)
     order_currency = 'INR'
     print(images)
-    notes = {
-        'Shipping address': request.POST['address']}
     # CREATING ORDER
     response = client.order.create(
-        dict(amount=totalPrice * 100, currency=order_currency, notes=notes, payment_capture='0'))
+        dict(amount=totalPrice * 100, currency=order_currency, payment_capture='0'))
 
     o = Order.objects.create(orderId=response['id'], amount=totalPrice, size=size, color=color,
                              user=request.user,
@@ -312,14 +312,16 @@ def payment_confirmation(request):
         context['country'] = o.country
         context['postal'] = o.postal_code
 
-        print('created order')
+        print('created order', order_id)
         return render(request, 'payment_confirmation.html', context)
 
     return HttpResponse('<h1>Error in  create order function</h1>')
 
 
 def payment_status(request):
+
     response = request.POST
+    print(response['razorpay_order_id'])
     print(response)
     o = Order.objects.get(orderId=response['razorpay_order_id'])
     print(o)
