@@ -294,6 +294,9 @@ def payment_confirmation(request):
         context['name'] = request.user.first_name
         context['phone'] = o.number
         context['email'] = request.user.email
+        print (op.id)
+        print (op.product.name)
+        context['product'] = products
 
         # data that'll be send to the razorpay for
         context['order_id'] = order_id
