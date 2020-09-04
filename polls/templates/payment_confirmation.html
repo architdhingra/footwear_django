@@ -20,55 +20,52 @@
         <div class="container py-md-3">
             <div class="row">
                 <div class="offset-md-2 col-md-8 card-body mt-4 border border-bottom bg-light">
-                    <div class="row justify-content-center mb-3">
-                        <div class="col-auto">
-                            <h1 class="mb-0">Confirm Your Order</h1>
-                        </div>
-                        <div class="color1 p-4">
-                            <p class="text-dark text-center">
-                                Hi {{ name }}, We have received your Order ID - {{ order_id }} <br>
-                                and need you to make the payment to confirm your order.<br>
-                                We'll email you an update when we've shipped it.
-                            </p>
-                            <div class="row justify-content-center">
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <button id="rzp-button1" class="btn btn-dark btn-lg">Pay
-                                        Now
-                                    </button>
-                                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-                                    <script>
-                                        var options = {
-                                            "key": "rzp_test_oKQ9jz6Gyo5PdO", // Enter the Key ID generated from the Dashboard
-                                            {#"amount": {{ totalPrice }}, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise#}
-                                            "currency": "INR",
-                                            "name": "dreamwalk",
-                                            "description": "Test Transaction",
-                                            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU",
-                                            "order_id": '{{ order_id }}',
-                                            "callback_url": "{% url 'payment_status' %}",
-                                            "prefill": {
-                                                "name": '{{ name }}',
-                                                "email": '{{ email }}',
-                                                "contact": '{{ phone }}',
-                                                "csrfmiddlewaretoken": '{{ csrftoken }}'
-                                            },
-                                            "theme": {
-                                                "color": "#F37254"
-                                            }
-                                        };
-                                        var rzp1 = new Razorpay(options);
-                                        document.getElementById('rzp-button1').onclick = function (e) {
-                                            console.log('here')
-                                            rzp1.open();
-                                            e.preventDefault();
-                                        }
-                                    </script>
-
-                                </form>
+                    {% if status %}
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-auto">
+                                <h1 class="mb-0">Order {{ status }}</h1>
+                            </div>
+                            <div class="color1 p-4">
+                                <p class="text-dark text-center">
+                                    Hi {{ name }}, Your order with Order ID - {{ order_id }} is {{ status }}
+                                </p>
                             </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="row justify-content-center mb-3">
+
+                            <div class="col-auto">
+                                <h1 class="mb-0">Confirm Your Order</h1>
+                            </div>
+                            <div class="color1 p-4">
+                                <p class="text-dark text-center">
+                                    Hi {{ name }}, We have received your Order ID - {{ order_id }} <br>
+                                    and need you to make the payment to confirm your order.<br>
+                                    We'll email you an update when we've shipped it.
+                                </p>
+                                <div class="row justify-content-center">
+                                    <form action="{% url 'payment_status' %}" method="post">
+                                        {% csrf_token %}
+                                        <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                                data-key="rzp_test_oKQ9jz6Gyo5PdO"
+                                                data-amount="{{ totalPrice }}"
+                                                data-currency="INR"
+                                                data-order_id="{{ order_id }}"
+                                                data-buttontext="Make Payment"
+                                                data-name="DreamWalk"
+                                                data-description="Test transaction"
+                                                data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
+                                                data-prefill.name="{{ name }}"
+                                                data-prefill.email="{{ email }}"
+                                                data-prefill.contact="{{ phone }}"
+                                                data-theme.color="#F37254"></script>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                     {% for p in products %}
                         <div class="row m-4">
                             <div class="col">

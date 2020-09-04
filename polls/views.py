@@ -278,8 +278,8 @@ def payment_confirmation(request):
     # CREATING ORDER
     response = client.order.create(
         dict(amount=totalPrice * 100, currency=order_currency, payment_capture='0'))
-
-    o = Order.objects.create(orderId=response['id'], amount=totalPrice, size=size, color=color,
+    order_id = response['id']
+    o = Order.objects.create(orderId=order_id, amount=totalPrice, size=size, color=color,
                              user=request.user,
                              address=request.POST['address'], name=request.POST['name'], number=request.POST['number'],
                              landmark=request.POST['landmark'], city=request.POST['city'], country='India',
@@ -288,7 +288,7 @@ def payment_confirmation(request):
         op = OrderProducts.objects.create(order_id=o.orderId, product=p)
         op.save()
     o.save()
-    order_id = response['id']
+
     order_status = response['status']
 
     if order_status == 'created':
@@ -311,7 +311,6 @@ def payment_confirmation(request):
         context['totalPrice'] = totalPrice
         context['country'] = o.country
         context['postal'] = o.postal_code
-
         print('created order', order_id)
         return render(request, 'payment_confirmation.html', context)
 
@@ -320,8 +319,20 @@ def payment_confirmation(request):
 
 def payment_status(request):
 
+    items = Cart.getItems(request, request.user)
+    totalPrice = 0
+    products, size, color, images = [], [], [], []
+    for item in items:
+        totalPrice += item.product.price
+        products.append(item.product)
+        size.append(item.size)
+        color.append(item.color)
+        p = ProductColorImage.objects.filter(pid=item.product)
+        pi = ProductImage.objects.filter(product=p[0])
+        images.append(pi[0].image.url)
+
+
     response = request.POST
-    print(response['razorpay_order_id'])
     print(response)
     o = Order.objects.get(orderId=response['razorpay_order_id'])
     print(o)
@@ -336,7 +347,32 @@ def payment_status(request):
         status = client.utility.verify_payment_signature(params_dict)
         o.orderStatus = 'Paid'
         o.save()
-        return render(request, 'payment.html', {'status': 'Successful', 'payment_id': response['razorpay_order_id']})
+        context = {'status': 'Successful', 'payment_id': response['razorpay_order_id']}
+        context['products'] = products
+        context['product_id'] = response['razorpay_order_id']
+        context['price'] = totalPrice
+        context['name'] = request.user.first_name
+        context['phone'] = o.number
+        context['email'] = request.user.email
+        context['size'] = size
+        context['color'] = color
+        context['product'] = products
+        context['images'] = images
+
+        # data that'll be send to the razorpay for
+        context['order_id'] = response['razorpay_order_id']
+        context['order_date'] = o.date
+        context['address'] = o.address
+        context['city'] = o.city
+        context['totalPrice'] = totalPrice
+        context['country'] = o.country
+        context['postal'] = o.postal_code
+        items.delete()
+
+        return render(request, 'payment_confirmation.html', context)
+        # return render(request, 'payment.html', {'status': 'Successful', 'payment_id': response['razorpay_order_id']})
     except:
-        return render(request, 'payment.html',
-                      {'status': 'UnSuccessful', 'payment_id': response['razorpay_payment_id']})
+        context = {'status': 'Successful', 'payment_id': response['razorpay_order_id']}
+        return render(request, 'payment_confirmation.html', context)
+        # return render(request, 'payment.html',
+        #               {'status': 'UnSuccessful', 'payment_id': response['razorpay_payment_id']})

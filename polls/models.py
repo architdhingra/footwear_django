@@ -12,7 +12,6 @@ class NewLogin(models.Model):
         return form
 
 
-
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=5000, default="")
