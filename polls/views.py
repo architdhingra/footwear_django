@@ -101,7 +101,7 @@ def password_reset_done(request):
 
 
 def about(request):
-    return render(request, "index.html", {})
+    return render(request, "about.html", {})
 
 
 def shop(request, type):
