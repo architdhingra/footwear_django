@@ -19,6 +19,7 @@ from django.urls import path
 from django.views import View
 import polls
 from dApp import settings
+from django.views.generic import TemplateView
 from polls.views import *
 from django.conf.urls.static import static
 from dApp import settings
